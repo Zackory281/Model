@@ -15,6 +15,14 @@
 		F2CF80622180EE6B005194EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2CF80612180EE6B005194EB /* Assets.xcassets */; };
 		F2CF80652180EE6B005194EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2CF80632180EE6B005194EB /* Main.storyboard */; };
 		F2CF80712180EE6B005194EB /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80702180EE6B005194EB /* ModelTests.swift */; };
+		F2CF807D2180EF67005194EB /* PathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807C2180EF67005194EB /* PathNode.swift */; };
+		F2CF807E2180EF67005194EB /* PathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807C2180EF67005194EB /* PathNode.swift */; };
+		F2CF808021812053005194EB /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807F21812053005194EB /* Map.swift */; };
+		F2CF808121812053005194EB /* Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807F21812053005194EB /* Map.swift */; };
+		F2CF808321812493005194EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF808221812493005194EB /* Utils.swift */; };
+		F2CF808421812493005194EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF808221812493005194EB /* Utils.swift */; };
+		F2CF80862181311F005194EB /* ShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80852181311F005194EB /* ShapeNode.swift */; };
+		F2CF80872181311F005194EB /* ShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80852181311F005194EB /* ShapeNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +49,10 @@
 		F2CF806C2180EE6B005194EB /* ModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2CF80702180EE6B005194EB /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		F2CF80722180EE6B005194EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F2CF807C2180EF67005194EB /* PathNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathNode.swift; sourceTree = "<group>"; };
+		F2CF807F21812053005194EB /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
+		F2CF808221812493005194EB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		F2CF80852181311F005194EB /* ShapeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +94,7 @@
 		F2CF80562180EE69005194EB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F2CF807B2180EEC9005194EB /* model */,
 				F2CF80572180EE69005194EB /* AppDelegate.swift */,
 				F2CF80592180EE69005194EB /* GameScene.sks */,
 				F2CF805B2180EE69005194EB /* Actions.sks */,
@@ -102,6 +115,17 @@
 				F2CF80722180EE6B005194EB /* Info.plist */,
 			);
 			path = ModelTests;
+			sourceTree = "<group>";
+		};
+		F2CF807B2180EEC9005194EB /* model */ = {
+			isa = PBXGroup;
+			children = (
+				F2CF807C2180EF67005194EB /* PathNode.swift */,
+				F2CF807F21812053005194EB /* Map.swift */,
+				F2CF808221812493005194EB /* Utils.swift */,
+				F2CF80852181311F005194EB /* ShapeNode.swift */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,9 +230,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2CF808021812053005194EB /* Map.swift in Sources */,
+				F2CF807D2180EF67005194EB /* PathNode.swift in Sources */,
 				F2CF80602180EE69005194EB /* ViewController.swift in Sources */,
 				F2CF805E2180EE69005194EB /* GameScene.swift in Sources */,
 				F2CF80582180EE69005194EB /* AppDelegate.swift in Sources */,
+				F2CF808321812493005194EB /* Utils.swift in Sources */,
+				F2CF80862181311F005194EB /* ShapeNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -216,7 +244,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2CF80872181311F005194EB /* ShapeNode.swift in Sources */,
+				F2CF807E2180EF67005194EB /* PathNode.swift in Sources */,
+				F2CF808121812053005194EB /* Map.swift in Sources */,
 				F2CF80712180EE6B005194EB /* ModelTests.swift in Sources */,
+				F2CF808421812493005194EB /* Utils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

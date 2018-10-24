@@ -24,6 +24,18 @@ class ModelTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+		let map:Map = Map()
+		let shapeNode = ShapeNode(pathNode: nil)
+		map.addTailNodes(tailNode: generateNodes(points: [0,0, 1,0, 1,1, 1,2, 1,3, ]))
+		map.addTailNodes(tailNode: generateNodes(points: [3,3, 3,4, 3,5, 4,5, 5,5,]))
+		map.addShapeNodeToTail(shapeNode: shapeNode)
+		print(map.toString())
+		shapeNode.advance()
+		shapeNode.advance()
+		shapeNode.advance()
+		shapeNode.advance()
+		shapeNode.advance()
+		print(map.toString())
     }
     
     func testPerformanceExample() {
