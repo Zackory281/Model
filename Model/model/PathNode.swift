@@ -8,7 +8,7 @@
 
 import Foundation
 
-class PathNode {
+class PathNode : NSObject{
 	
 	private var _nodes:[PathNode?]
 	private let _value:UInt16

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F22D59E821828F9B0004B078 /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E721828F9B0004B078 /* NodeManager.swift */; };
 		F2CF80582180EE69005194EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80572180EE69005194EB /* AppDelegate.swift */; };
 		F2CF805A2180EE69005194EB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2CF80592180EE69005194EB /* GameScene.sks */; };
 		F2CF805C2180EE69005194EB /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2CF805B2180EE69005194EB /* Actions.sks */; };
@@ -36,6 +37,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F22D59E721828F9B0004B078 /* NodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
 		F2CF80542180EE69005194EB /* Model.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Model.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2CF80572180EE69005194EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2CF80592180EE69005194EB /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -124,6 +126,7 @@
 				F2CF807F21812053005194EB /* Map.swift */,
 				F2CF808221812493005194EB /* Utils.swift */,
 				F2CF80852181311F005194EB /* ShapeNode.swift */,
+				F22D59E721828F9B0004B078 /* NodeManager.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				F2CF80602180EE69005194EB /* ViewController.swift in Sources */,
 				F2CF805E2180EE69005194EB /* GameScene.swift in Sources */,
 				F2CF80582180EE69005194EB /* AppDelegate.swift in Sources */,
+				F22D59E821828F9B0004B078 /* NodeManager.swift in Sources */,
 				F2CF808321812493005194EB /* Utils.swift in Sources */,
 				F2CF80862181311F005194EB /* ShapeNode.swift in Sources */,
 			);
