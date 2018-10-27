@@ -8,8 +8,12 @@
 
 import Foundation
 
-typealias Points = [UInt16]
+typealias Points = [Int16]
 
+struct Point {
+	var _x:Int16
+	var _y:Int16
+}
 func generateNodes(points:Points) -> PathNode {
 	var head = PathNode(value: 3, occupied: false, pos: [points[0], points[1]], nodes: [])
 	var i = 2

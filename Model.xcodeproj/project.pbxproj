@@ -24,6 +24,7 @@
 		F2CF808421812493005194EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF808221812493005194EB /* Utils.swift */; };
 		F2CF80862181311F005194EB /* ShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80852181311F005194EB /* ShapeNode.swift */; };
 		F2CF80872181311F005194EB /* ShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80852181311F005194EB /* ShapeNode.swift */; };
+		F2D04B162183C5DD00305EB7 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D04B152183C5DD00305EB7 /* Node.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		F2CF807F21812053005194EB /* Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Map.swift; sourceTree = "<group>"; };
 		F2CF808221812493005194EB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		F2CF80852181311F005194EB /* ShapeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNode.swift; sourceTree = "<group>"; };
+		F2D04B152183C5DD00305EB7 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 				F2CF808221812493005194EB /* Utils.swift */,
 				F2CF80852181311F005194EB /* ShapeNode.swift */,
 				F22D59E721828F9B0004B078 /* NodeManager.swift */,
+				F2D04B152183C5DD00305EB7 /* Node.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -236,6 +239,7 @@
 				F2CF808021812053005194EB /* Map.swift in Sources */,
 				F2CF807D2180EF67005194EB /* PathNode.swift in Sources */,
 				F2CF80602180EE69005194EB /* ViewController.swift in Sources */,
+				F2D04B162183C5DD00305EB7 /* Node.swift in Sources */,
 				F2CF805E2180EE69005194EB /* GameScene.swift in Sources */,
 				F2CF80582180EE69005194EB /* AppDelegate.swift in Sources */,
 				F22D59E821828F9B0004B078 /* NodeManager.swift in Sources */,

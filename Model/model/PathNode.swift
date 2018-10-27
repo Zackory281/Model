@@ -8,28 +8,24 @@
 
 import Foundation
 
-class PathNode : NSObject{
-	
+class PathNode : Node {
+
 	private var _nodes:[PathNode?]
 	private let _value:UInt16
 	private lazy var _next:PathNode? = getNextNode();
 	private var _occupied:Bool
-	private let _meta:[UInt16]
+	private let _meta:[Int16]
 	private var _shapeNode:ShapeNode?
-	
-	init(value:UInt16, occupied:Bool = false, pos:[UInt16], up:PathNode?=nil, right:PathNode?=nil, down:PathNode?=nil, left:PathNode?=nil) {
+
+	init(value:UInt16, occupied:Bool = false, pos:[Int16], up:PathNode?=nil, right:PathNode?=nil, down:PathNode?=nil, left:PathNode?=nil) {
 		_nodes = [up, right, down, left]
 		_value = value
 		_occupied = occupied
 		_meta = pos
 	}
 	
-	init(value:UInt16, occupied:Bool = false, shapeNode:ShapeNode?=nil, pos:[UInt16], nodes:[PathNode?]=[]) {
-		_nodes = nodes
-		_value = value
-		_occupied = occupied
-		_meta = pos
-		_shapeNode = shapeNode
+	convenience init(value:UInt16, occupied:Bool = false, shapeNode:ShapeNode?=nil, pos:[Int16], nodes:[PathNode?]=[]) {
+		self.ini
 	}
 	
 	func hasNext() -> Bool{
