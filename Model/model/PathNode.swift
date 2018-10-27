@@ -8,25 +8,30 @@
 
 import Foundation
 
-class PathNode : Node {
+class PathNode {
 
-	private var _nodes:[PathNode?]
+	private var _next:PathNode?
 	private let _value:UInt16
-	private lazy var _next:PathNode? = getNextNode();
-	private var _occupied:Bool
-	private let _meta:[Int16]
-	private var _shapeNode:ShapeNode?
+	private var _dir:Direction?
+	private weak var _meta:Any?
+	private var _occupacity:Occupacity
+	private weak var _shapeNode:ShapeNode?
+	private let _x, _y:Int16
 
-	init(value:UInt16, occupied:Bool = false, pos:[Int16], up:PathNode?=nil, right:PathNode?=nil, down:PathNode?=nil, left:PathNode?=nil) {
-		_nodes = [up, right, down, left]
+	init(_ x:Int16, _ y:Int16, next:PathNode? = nil, value:UInt16 = -1, dir:Direction?, occupacity:Occupacity, shapeNode:ShapeNode? = nil, meta:Any? = nil) {
+		_x = x;
+		_y = y;
+		_next = next
 		_value = value
-		_occupied = occupied
-		_meta = pos
+		_dir = dir
+		_occupacity = occupacity
+		_shapeNode = shapeNode
+		_meta = meta
 	}
 	
-	convenience init(value:UInt16, occupied:Bool = false, shapeNode:ShapeNode?=nil, pos:[Int16], nodes:[PathNode?]=[]) {
-		self.ini
-	}
+//	convenience init(value:UInt16, occupied:Bool = false, shapeNode:ShapeNode?=nil, pos:[Int16], nodes:[PathNode?]=[]) {
+//		self.ini
+//	}
 	
 	func hasNext() -> Bool{
 		if let _ = _next {
@@ -70,4 +75,17 @@ class PathNode : Node {
 		}
 		return nil
 	}
+}
+
+enum Occupacity {
+	case OCCUPIED
+	case FREE
+	case HALF_OCCUPIED
+}
+
+enum Direction {
+	case UP
+	case RIGHT
+	case DOWN
+	case LEFT
 }

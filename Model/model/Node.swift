@@ -10,7 +10,7 @@ import Foundation
 
 class Node: NSObject {
 	
-	protected var _x, _y:Int16
+	var _x, _y:Int16
 	var _meta:NSObject?
 	
 	init(_ x:Int16, _ y:Int16, meta:NSObject? = nil) {
@@ -23,7 +23,7 @@ class Node: NSObject {
 		return false
 	}
 	
-	func next() -> Node {
+	func next() -> type(of:self) {
 		return self
 	}
 	
