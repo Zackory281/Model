@@ -23,8 +23,4 @@ class Node: NSObject {
 		return false
 	}
 	
-	func next() -> type(of:self) {
-		return self
-	}
-	
 }

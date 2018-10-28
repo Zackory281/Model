@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F21CE4E5218571E9000D8CD5 /* NodeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21CE4E4218571E9000D8CD5 /* NodeScene.swift */; };
 		F22D59E821828F9B0004B078 /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E721828F9B0004B078 /* NodeManager.swift */; };
 		F2CF80582180EE69005194EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80572180EE69005194EB /* AppDelegate.swift */; };
 		F2CF805A2180EE69005194EB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2CF80592180EE69005194EB /* GameScene.sks */; };
@@ -38,6 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F21CE4E4218571E9000D8CD5 /* NodeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeScene.swift; sourceTree = "<group>"; };
 		F22D59E721828F9B0004B078 /* NodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
 		F2CF80542180EE69005194EB /* Model.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Model.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2CF80572180EE69005194EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +79,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F21CE4E3218571D3000D8CD5 /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				F21CE4E4218571E9000D8CD5 /* NodeScene.swift */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
 		F2CF804B2180EE69005194EB = {
 			isa = PBXGroup;
 			children = (
@@ -98,6 +108,7 @@
 		F2CF80562180EE69005194EB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				F21CE4E3218571D3000D8CD5 /* ui */,
 				F2CF807B2180EEC9005194EB /* model */,
 				F2CF80572180EE69005194EB /* AppDelegate.swift */,
 				F2CF80592180EE69005194EB /* GameScene.sks */,
@@ -238,6 +249,7 @@
 			files = (
 				F2CF808021812053005194EB /* Map.swift in Sources */,
 				F2CF807D2180EF67005194EB /* PathNode.swift in Sources */,
+				F21CE4E5218571E9000D8CD5 /* NodeScene.swift in Sources */,
 				F2CF80602180EE69005194EB /* ViewController.swift in Sources */,
 				F2D04B162183C5DD00305EB7 /* Node.swift in Sources */,
 				F2CF805E2180EE69005194EB /* GameScene.swift in Sources */,

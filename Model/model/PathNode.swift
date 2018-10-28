@@ -7,20 +7,22 @@
 //
 
 import Foundation
+import GameplayKit
 
-class PathNode {
+class PathNode : NSObject {
 
-	private var _next:PathNode?
+	private let _x, _y:Int16
+	private var _next, _prev:PathNode?
 	private let _value:UInt16
 	private var _dir:Direction?
-	private weak var _meta:Any?
+	private weak var _meta:AnyObject?
 	private var _occupacity:Occupacity
 	private weak var _shapeNode:ShapeNode?
-	private let _x, _y:Int16
 
-	init(_ x:Int16, _ y:Int16, next:PathNode? = nil, value:UInt16 = -1, dir:Direction?, occupacity:Occupacity, shapeNode:ShapeNode? = nil, meta:Any? = nil) {
+	init(_ x:Int16, _ y:Int16, prev:PathNode? = nil, next:PathNode? = nil, value:UInt16 = 0, dir:Direction? = nil, occupacity:Occupacity = .FREE, shapeNode:ShapeNode? = nil, meta:AnyObject? = nil) {
 		_x = x;
 		_y = y;
+		_prev = prev
 		_next = next
 		_value = value
 		_dir = dir
@@ -29,52 +31,31 @@ class PathNode {
 		_meta = meta
 	}
 	
-//	convenience init(value:UInt16, occupied:Bool = false, shapeNode:ShapeNode?=nil, pos:[Int16], nodes:[PathNode?]=[]) {
-//		self.ini
-//	}
-	
-	func hasNext() -> Bool{
-		if let _ = _next {
-			return true;
-		}
-		return false
+	convenience init(_ x:Int16, _ y:Int16, prev:PathNode?, next:PathNode?, value:UInt16, dir:Direction?) {
+		self.init(x, y, prev: prev, next: next, value: value, dir: dir, occupacity:.FREE, shapeNode:nil, meta:nil)
 	}
 	
-	func next() -> PathNode {
-		return _next!
-	}
+	func getPrevDirection() -> Direction? { return _dir }
 	
-	func isFree() -> Bool {
-		if let _ = _shapeNode {
-			return false
-		}
-		return true
-	}
+	func setPrev(_ node:PathNode) { _prev = node }
 	
-	func liftShapeNode() {
-		_shapeNode = nil
-	}
+	func setNext(_ node:PathNode) { _next = node }
 	
-	func setShapeNode(node:ShapeNode) {
-		_shapeNode = node
-	}
+	func hasPrev() -> Bool { if let _ = _prev { return true }; return false }
 	
-	func getPoint() -> [Int] {
-		return [Int(_meta[0]), Int(_meta[1])]
-	}
+	func hasNext() -> Bool{ if let _ = _next { return true }; return false }
 	
-	func getNodes() -> [PathNode?] {
-		return _nodes
-	}
+	func next() -> PathNode { return _next! }
 	
-	private func getNextNode() -> PathNode? {
-		for node in _nodes {
-			if let n = node, n.isFree() {
-				return n
-			}
-		}
-		return nil
-	}
+	func isFree() -> Bool { if let _ = _shapeNode { return false }; return true }
+	
+	func liftShapeNode() { _shapeNode = nil	}
+	
+	func setShapeNode(node:ShapeNode) { _shapeNode = node }
+	
+	func getPoint() -> [Int] { return [Int(_x), Int(_y)] }
+	
+	func getFloatVector() -> float2 { return float2(Float(_x), Float(_y)) }
 }
 
 enum Occupacity {
@@ -88,4 +69,17 @@ enum Direction {
 	case RIGHT
 	case DOWN
 	case LEFT
+	
+	func opposite() -> Direction {
+		switch (self) {
+		case Direction.UP:
+			return Direction.DOWN
+		case .RIGHT:
+			return .LEFT
+		case .DOWN:
+			return .UP
+		case .LEFT:
+			return .RIGHT
+		}
+	}
 }
