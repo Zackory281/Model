@@ -9,7 +9,7 @@
 import Foundation
 import GameplayKit
 
-class PathNode : NSObject {
+class PathNode : NSObject, Node {
 
 	private let _x, _y:Int16
 	private var _next, _prev:PathNode?

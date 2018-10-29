@@ -12,9 +12,11 @@ import GameplayKit
 class Map {
 	
 	private var _tailNodes:[PathNode]
+	private var _nodeTree:NodeTree<PathNode>
 	
 	init() {
 		_tailNodes = []
+		_nodeTree = NodeTree()
 	}
 	
 	func addTailNodes(tailNode:PathNode) {

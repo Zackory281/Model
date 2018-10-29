@@ -19,7 +19,8 @@ class ViewController: NSViewController {
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
-		let scene = NodeScene()
+		let scene = NodeScene.init(size: CGSize(width: 800, height: 600))
+		scene.scaleMode = .aspectFill
 		let model = NodesModel(scene: scene)
 		scene.delegate = model
 		// Present the scene

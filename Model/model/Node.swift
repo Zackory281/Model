@@ -7,20 +7,8 @@
 //
 
 import Foundation
+import GameplayKit
 
-class Node: NSObject {
-	
-	var _x, _y:Int16
-	var _meta:NSObject?
-	
-	init(_ x:Int16, _ y:Int16, meta:NSObject? = nil) {
-		_x = x
-		_y = y
-		_meta = meta
-	}
-	
-	func hasNext() -> Bool {
-		return false
-	}
-	
-}
+//protocol Node : NSObject {
+//	func getFloatVector() -> float2
+//}
