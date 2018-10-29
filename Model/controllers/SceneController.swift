@@ -39,6 +39,10 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 		}
 	}
 	
+	func update(_ currentTime: TimeInterval, for scene: SKScene) {
+		_nodesModelController?.tick()
+	}
+	
 	weak var _nodesModelController:NodesModelController?
 	
 	init(scene:SKScene) {

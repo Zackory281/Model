@@ -8,7 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		F21CE4E5218571E9000D8CD5 /* NodeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21CE4E4218571E9000D8CD5 /* NodeScene.swift */; };
-		F22D59E821828F9B0004B078 /* NodeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E721828F9B0004B078 /* NodeManager.swift */; };
+		F21CE5172187C4CE000D8CD5 /* NodeTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21CE5162187C4CE000D8CD5 /* NodeTree.swift */; };
+		F22D59E821828F9B0004B078 /* ShapeNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E721828F9B0004B078 /* ShapeNodeController.swift */; };
 		F22D59EA2186B4BC0004B078 /* InputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E92186B4BB0004B078 /* InputController.swift */; };
 		F22D59ED2186BEB20004B078 /* NodesModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59EC2186BEB20004B078 /* NodesModelController.swift */; };
 		F22D59F02186C3610004B078 /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59EF2186C3610004B078 /* SceneController.swift */; };
@@ -23,8 +24,8 @@
 		F2CF80712180EE6B005194EB /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80702180EE6B005194EB /* ModelTests.swift */; };
 		F2CF807D2180EF67005194EB /* PathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807C2180EF67005194EB /* PathNode.swift */; };
 		F2CF807E2180EF67005194EB /* PathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807C2180EF67005194EB /* PathNode.swift */; };
-		F2CF808021812053005194EB /* NodeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807F21812053005194EB /* NodeMap.swift */; };
-		F2CF808121812053005194EB /* NodeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807F21812053005194EB /* NodeMap.swift */; };
+		F2CF808021812053005194EB /* PathNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807F21812053005194EB /* PathNodeController.swift */; };
+		F2CF808121812053005194EB /* PathNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807F21812053005194EB /* PathNodeController.swift */; };
 		F2CF808321812493005194EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF808221812493005194EB /* Utils.swift */; };
 		F2CF808421812493005194EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF808221812493005194EB /* Utils.swift */; };
 		F2CF80862181311F005194EB /* ShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80852181311F005194EB /* ShapeNode.swift */; };
@@ -44,7 +45,8 @@
 
 /* Begin PBXFileReference section */
 		F21CE4E4218571E9000D8CD5 /* NodeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeScene.swift; sourceTree = "<group>"; };
-		F22D59E721828F9B0004B078 /* NodeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeManager.swift; sourceTree = "<group>"; };
+		F21CE5162187C4CE000D8CD5 /* NodeTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeTree.swift; sourceTree = "<group>"; };
+		F22D59E721828F9B0004B078 /* ShapeNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNodeController.swift; sourceTree = "<group>"; };
 		F22D59E92186B4BB0004B078 /* InputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputController.swift; sourceTree = "<group>"; };
 		F22D59EC2186BEB20004B078 /* NodesModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesModelController.swift; sourceTree = "<group>"; };
 		F22D59EF2186C3610004B078 /* SceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneController.swift; sourceTree = "<group>"; };
@@ -63,7 +65,7 @@
 		F2CF80702180EE6B005194EB /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		F2CF80722180EE6B005194EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F2CF807C2180EF67005194EB /* PathNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathNode.swift; sourceTree = "<group>"; };
-		F2CF807F21812053005194EB /* NodeMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeMap.swift; sourceTree = "<group>"; };
+		F2CF807F21812053005194EB /* PathNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathNodeController.swift; sourceTree = "<group>"; };
 		F2CF808221812493005194EB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		F2CF80852181311F005194EB /* ShapeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNode.swift; sourceTree = "<group>"; };
 		F2D04B152183C5DD00305EB7 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
@@ -163,12 +165,13 @@
 			isa = PBXGroup;
 			children = (
 				F2CF807C2180EF67005194EB /* PathNode.swift */,
-				F2CF807F21812053005194EB /* NodeMap.swift */,
+				F2CF807F21812053005194EB /* PathNodeController.swift */,
 				F2CF808221812493005194EB /* Utils.swift */,
 				F2CF80852181311F005194EB /* ShapeNode.swift */,
-				F22D59E721828F9B0004B078 /* NodeManager.swift */,
+				F22D59E721828F9B0004B078 /* ShapeNodeController.swift */,
 				F2D04B152183C5DD00305EB7 /* Node.swift */,
 				F22D59F12186DE240004B078 /* NodesModel.swift */,
+				F21CE5162187C4CE000D8CD5 /* NodeTree.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -275,7 +278,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F2CF808021812053005194EB /* NodeMap.swift in Sources */,
+				F2CF808021812053005194EB /* PathNodeController.swift in Sources */,
+				F21CE5172187C4CE000D8CD5 /* NodeTree.swift in Sources */,
 				F2CF807D2180EF67005194EB /* PathNode.swift in Sources */,
 				F22D59F02186C3610004B078 /* SceneController.swift in Sources */,
 				F21CE4E5218571E9000D8CD5 /* NodeScene.swift in Sources */,
@@ -283,7 +287,7 @@
 				F2D04B162183C5DD00305EB7 /* Node.swift in Sources */,
 				F2CF805E2180EE69005194EB /* GameScene.swift in Sources */,
 				F2CF80582180EE69005194EB /* AppDelegate.swift in Sources */,
-				F22D59E821828F9B0004B078 /* NodeManager.swift in Sources */,
+				F22D59E821828F9B0004B078 /* ShapeNodeController.swift in Sources */,
 				F2CF808321812493005194EB /* Utils.swift in Sources */,
 				F22D59ED2186BEB20004B078 /* NodesModelController.swift in Sources */,
 				F22D59EA2186B4BC0004B078 /* InputController.swift in Sources */,
@@ -298,7 +302,7 @@
 			files = (
 				F2CF80872181311F005194EB /* ShapeNode.swift in Sources */,
 				F2CF807E2180EF67005194EB /* PathNode.swift in Sources */,
-				F2CF808121812053005194EB /* NodeMap.swift in Sources */,
+				F2CF808121812053005194EB /* PathNodeController.swift in Sources */,
 				F2CF80712180EE6B005194EB /* ModelTests.swift in Sources */,
 				F2CF808421812493005194EB /* Utils.swift in Sources */,
 			);

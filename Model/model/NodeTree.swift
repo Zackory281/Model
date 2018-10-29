@@ -1,15 +1,19 @@
 //
-//  NodeManager.swift
+//  NodeTree.swift
 //  Model
 //
-//  Created by Zackory Cramer on 10/25/18.
+//  Created by Zackory Cramer on 10/29/18.
 //  Copyright © 2018 Zackori Cui. All rights reserved.
 //
 
 import Foundation
 import GameplayKit
 
-class NodeTree<T : NSObject & Node> {
+class NT {
+	
+}
+
+class NodesTree<T: NSObject & Node> {
 	
 	private var pathNodeTree:GKQuadtree<T>
 	

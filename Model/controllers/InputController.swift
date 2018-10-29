@@ -10,10 +10,10 @@ import Foundation
 
 class InputController {
 	
-	var _nodesModel:NodesModel?
+	weak var _nodesModel:NodesModel?
 	
 	func taped(_ x:Int, _ y:Int) {
 		print("tapped!")
-		_nodesModel?.addPathNodeAt(x / PATH_WIDTH, y / PATH_WIDTH)
+		//_nodesModel?.addPathNodeAt(x / PATH_WIDTH, y / PATH_WIDTH)
 	}
 }

@@ -9,18 +9,25 @@
 import Foundation
 import GameplayKit
 
-class NodeMap {
+class PathNodeController {
 	
 	private var _tailNodes:[PathNode]
-	private var _nodeTree:NodeTree<PathNode>
+	private var _nodeTree:NodesTree<PathNode>?
+	weak var pathNodeActionDelegate: PathNodeActionDelegate?
 	
 	init() {
+		_nodeTree = NodesTree<PathNode>()
 		_tailNodes = []
-		_nodeTree = NodeTree()
+		//_nodeTree = NodeTree<PathNode>()
 	}
 	
 	func addNodeOnStep() {
 		
+	}
+	
+	func addPathNodeAt(_ x:Int16, _ y:Int16) {
+		//_nodeTree.addPathNode(pathNode: PathNode.init(x, y))
+		pathNodeActionDelegate?.addPathNodesAt(points: [x, y])
 	}
 	
 	func addTailNodes(tailNode:PathNode) {
@@ -59,4 +66,8 @@ class NodeMap {
 		}
 		return str
 	}
+}
+
+protocol PathNodeActionDelegate :NSObjectProtocol {
+	func addPathNodesAt(points :Points)
 }

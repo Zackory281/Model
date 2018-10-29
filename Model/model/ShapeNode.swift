@@ -8,12 +8,14 @@
 
 import Foundation
 
-class ShapeNode {
+class ShapeNode : NSObject {
 	
 	private weak var _pathNode:PathNode?
+	private var _headShapeNode:HeadNode?
 	
-	init(pathNode:PathNode?) {
+	init(pathNode:PathNode?, headNode:HeadNode?) {
 		_pathNode = pathNode
+		_headShapeNode = headNode
 	}
 	
 	func setPathNode(pathNode:PathNode) {
@@ -32,5 +34,17 @@ class ShapeNode {
 			}
 		}
 		return false
+	}
+}
+
+class HeadNode {
+	
+	var _headNode:ShapeNode
+	
+	init(head :ShapeNode) {
+		_headNode = head
+	}
+	func getHeadShapeNode() -> ShapeNode {
+		return _headNode
 	}
 }
