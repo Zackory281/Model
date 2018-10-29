@@ -11,10 +11,21 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
-    
+	
+	var nodesModelController:NodesModelController!
+	
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
+		let controller = NSApplication.shared.mainWindow!.contentViewController as! NodesFieldViewController
+		let scene = NodeScene.init(size: CGSize(width: 800, height: 600))
+		let model = NodesModel()
+		let sceneController = SceneController(scene: scene)
+		let nodesModelController = NodesModelController(nodesModel: model, guiDelegate: sceneController)
+		
+		sceneController._nodesModelController = nodesModelController
+		scene.inputDelegate = sceneController
+		
+		controller._modelController = nodesModelController
+		controller.putOnScene(scene: scene)
     }
     
     func applicationWillTerminate(_ aNotification: Notification) {

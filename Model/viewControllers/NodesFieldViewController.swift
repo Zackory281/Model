@@ -10,19 +10,21 @@ import Cocoa
 import SpriteKit
 import GameplayKit
 
-class ViewController: NSViewController {
+class NodesFieldViewController: NSViewController {
 
     @IBOutlet var skView: SKView!
+	
+	var _modelController:NodesModelController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
-		let scene = NodeScene.init(size: CGSize(width: 800, height: 600))
+    }
+	
+	func putOnScene(scene:SKScene) {
 		scene.scaleMode = .aspectFill
-		let model = NodesModel(scene: scene)
-		scene.delegate = model
 		// Present the scene
 		if let view = self.skView {
 			view.presentScene(scene)
@@ -32,6 +34,6 @@ class ViewController: NSViewController {
 			view.showsFPS = true
 			view.showsNodeCount = true
 		}
-    }
+	}
 }
 

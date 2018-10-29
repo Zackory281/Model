@@ -9,6 +9,8 @@
 import Foundation
 import GameplayKit
 
-//protocol Node : NSObject {
-//	func getFloatVector() -> float2
-//}
+protocol Node {
+	
+	func getFloatVector() -> float2
+	
+}

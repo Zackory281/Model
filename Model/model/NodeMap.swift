@@ -9,7 +9,7 @@
 import Foundation
 import GameplayKit
 
-class Map {
+class NodeMap {
 	
 	private var _tailNodes:[PathNode]
 	private var _nodeTree:NodeTree<PathNode>
@@ -17,6 +17,10 @@ class Map {
 	init() {
 		_tailNodes = []
 		_nodeTree = NodeTree()
+	}
+	
+	func addNodeOnStep() {
+		
 	}
 	
 	func addTailNodes(tailNode:PathNode) {

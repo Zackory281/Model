@@ -9,36 +9,36 @@
 import Foundation
 import SpriteKit
 
-class NodesModel : NSObject, SKSceneDelegate {
-	
-	private var _pathNodes:Set<SKNode>
-	private var _scene:SKScene
-	
-	init(scene:SKScene) {
-		_pathNodes = Set<SKNode>()
-		_scene = scene
-		_scene.backgroundColor = NSColor.black
-		super.init()
-		addPathNodeAt(4, 4)
-		addPathNodeAt(3, 3)
-	}
-	
-	func addPathNodeAt(_ x:Int, _ y:Int) {
-		let pathNode = getPathNodeAt(x, y)
-		_scene.addChild(pathNode)
-		_pathNodes.insert(pathNode)
-	}
-	
-	required init?(coder aDecoder: NSCoder) {
-		fatalError("init(coder:) has not been implemented")
-	}
-}
-
 let PATH_WIDTH:Int = 30
 let PATH_HALF_WIDTH:Int = PATH_WIDTH / 2
 
 class NodeScene : SKScene {
 	
+	var inputDelegate:SceneInputDelegate?
+	
+	override func mouseDragged(with event: NSEvent) {
+		guard let inputDelegate = inputDelegate else { return }
+		let location = event.location(in: self)
+		inputDelegate.mouseDragged(Int(location.x), Int(location.y))
+	}
+	
+	override func mouseDown(with event: NSEvent) {
+		guard let inputDelegate = inputDelegate else { return }
+		let location = event.location(in: self)
+		inputDelegate.mouseDown(Int(location.x), Int(location.y))
+	}
+	
+	override func mouseUp(with event: NSEvent) {
+		guard let inputDelegate = inputDelegate else { return }
+		let location = event.location(in: self)
+		inputDelegate.mouseUp(Int(location.x), Int(location.y))
+	}
+}
+
+protocol SceneInputDelegate {
+	func mouseDown(_ x : Int, _ y : Int)
+	func mouseUp(_ x : Int, _ y : Int)
+	func mouseDragged(_ x : Int, _ y : Int)
 }
 
 func getPathNodeAt(_ x:Int, _ y:Int) -> SKShapeNode{
