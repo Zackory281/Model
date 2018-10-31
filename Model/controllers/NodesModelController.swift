@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import GameplayKit
 
 class NodesModelController :NSObject, NodesModelActionDelegate{
 	
@@ -19,7 +18,8 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 		guard let _guiDelegate = _guiDelegate else { return }
 		for node in nodes {
 			let p = node.getPoint()
-			_guiDelegate.addPathNode((node as! NSObject).hash, Int(p[0]), Int(p[1]), orientation: node.getOrientations())
+			let s = NodeIterface(x: Float(p[0]), y: Float(p[1]), orientations: node.getOrientations(), hash: (node as! NSObject).hash, nodeType: node.getType())
+			_guiDelegate.addPathNode(s)
 		}
 	}
 	
@@ -46,6 +46,19 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 
 protocol GUIDelegate: NSObjectProtocol {
 	
-	func addPathNode(_ hash:Int, _ x: Int, _ y:Int, orientation: [Direction])
+	func addPathNode(_ nodeInterface: NodeIterface)
 	func dislayTickNumber(_ tick: Int, _ success: Bool)
+}
+
+struct NodeIterface {
+	let x: Float
+	let y: Float
+	let orientations: [Direction]
+	let hash: Int
+	let nodeType: NodeType
+}
+
+enum NodeType {
+	case Path
+	case Shape
 }

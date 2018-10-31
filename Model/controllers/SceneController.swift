@@ -20,13 +20,13 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 	private var _nodes = Dictionary<Int, UIPathNode>()
 	
 	// MARK: GUIDelegate stub
-	func addPathNode(_ hash: Int, _ x: Int, _ y: Int, orientation: [Direction]) {
-		guard _nodes[hash] == nil else {
+	func addPathNode(_ nodeIterface: NodeIterface) {
+		guard _nodes[nodeIterface.hash] == nil else {
 			print("adding an existing item")
 			return
 		}
-		let uiNode = UIPathNode.init(x + 1, y + 1, orientations: orientation)
-		_nodes[hash] = uiNode
+		let uiNode = UIPathNode.init(nodeIterface.x + 1, nodeIterface.y + 1, orientations: nodeIterface.orientations)
+		_nodes[nodeIterface.hash] = uiNode
 		_scene.addChild(uiNode)
 	}
 	

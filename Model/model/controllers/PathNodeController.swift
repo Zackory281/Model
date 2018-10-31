@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import GameplayKit
 
 class PathNodeController {
 	
@@ -25,7 +24,7 @@ class PathNodeController {
 		// TODO: fix me!
 		let node = PathNode(x, y)
 		guard addNodeIntoTree(node: node) else { print("insertion of node into tree failed"); return}
-		_nodeTree.addPathNode(pathNode: node)
+		_nodeTree.addNode(node: node)
 		_pathNodeActionDelegate?.uiAddPathNodes(nodes: [node])
 	}
 	
@@ -35,12 +34,14 @@ class PathNodeController {
 	
 	func addHeadNode(_ head: PathNode) {
 		guard addNodeIntoHeadSet(node: head) else { print("insertion into head set failed"); return}
-		guard addNodeIntoTree(node: head) else { print("insertion into tree failed"); return}
 		var head: PathNode? = head
 		var points: Points = []
 		var nodes: [Node] = []
 		repeat{
-			_nodeTree.addPathNode(pathNode: head!)
+			guard addNodeIntoTree(node: head!) else {
+				print("insertion of seg node into tree failed");
+				break
+			}
 			points.append(contentsOf: head!.getPoint())
 			nodes.append(head!)
 			head = head?.prev()
@@ -62,7 +63,7 @@ class PathNodeController {
 	
 	private func addNodeIntoTree(node: PathNode) -> Bool{
 		guard !_nodeTree.exists(node: node) else { return false;}
-		_nodeTree.addPathNode(pathNode: node)
+		_nodeTree.addNode(node: node)
 		return true
 	}
 	

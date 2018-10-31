@@ -57,7 +57,7 @@ class PathNode : NSObject, Node {
 	
 	func getPoint() -> [Int16] { return [_x, _y] }
 	
-	func getFloatVector() -> float2 { return float2(Float(_x), Float(_y)) }
+	func getType() -> NodeType { return .Path}
 	
 	func getOrientations() -> [Direction] {
 		var dir:[Direction] = []

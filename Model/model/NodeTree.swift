@@ -14,14 +14,16 @@ class NodeTree<T: NSObject & Node> {
 	private var pathNodeTree:GKQuadtree<T>
 	
 	init(width: Int16, height: Int16) {
-		pathNodeTree = GKQuadtree<T>.init(boundingQuad: GKQuad(quadMin: float2(Float(0 - width / 2), Float(0 - height / 2)), quadMax: float2(Float(width / 2), Float(height / 2))), minimumCellSize: 1)
+		pathNodeTree = GKQuadtree<T>.init(boundingQuad: GKQuad(quadMin: float2(Float(0 - width / 2), Float(0 - height / 2)), quadMax: float2(Float(width / 2), Float(height / 2))), minimumCellSize: 0.7)
 	}
 	
 	func exists(node: T) -> Bool {
-		return !pathNodeTree.elements(at: node.getFloatVector()).isEmpty
+		let p = node.getPoint()
+		return !pathNodeTree.elements(at: float2(Float(p[0]), Float(p[1]))).isEmpty
 	}
-	func addPathNode(pathNode:T) {
-		pathNodeTree.add(pathNode, at: pathNode.getFloatVector())
+	func addNode(node:T) {
+		let p = node.getPoint()
+		pathNodeTree.add(node, at: float2(Float(p[0]), Float(p[1])))
 	}
 	
 	func getNodesIn(_ cx:Int16, _ cy:Int16, _ cw:Int16, _ ch:Int16) -> [T] {

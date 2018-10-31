@@ -11,11 +11,11 @@ import SpriteKit
 
 class UIPathNode: SKShapeNode {
 	
-	init(_ x:Int, _ y:Int, orientations:[Direction]) {
+	init(_ x:Float, _ y:Float, orientations:[Direction]) {
 		super.init()
 		self.path = getPathForOrentation(ori: orientations)
 		//(path as! CGMutablePath).addPath(path!)
-		position = CGPoint(x: x * PATH_WIDTH - PATH_HALF_WIDTH, y: y * PATH_WIDTH - PATH_HALF_WIDTH)
+		position = CGPoint(x: CGFloat(x) * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: CGFloat(y) * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)
 		fillColor = NSColor.white
 		lineWidth = 0
 	}
@@ -26,6 +26,7 @@ class UIPathNode: SKShapeNode {
 }
 
 let w = PATH_HALF_WIDTH_CGF * 0.8
+let PATH_WIDTH_CGF = CGFloat(PATH_WIDTH)
 let DIR_TO_PATH: [Direction: CGPath] = [
 	.UP: SKShapeNode(rect: CGRect(x: -w, y: -w, width: w * 2, height: w + PATH_HALF_WIDTH_CGF)).path!,
 	.RIGHT: SKShapeNode(rect: CGRect(x: -w, y: -w, width: w + PATH_HALF_WIDTH_CGF + 10, height: w * 2)).path!,

@@ -8,12 +8,16 @@
 
 import Foundation
 
-class ShapeNode : NSObject {
+class ShapeNode : NSObject, Node {
 	
 	private weak var _pathNode:PathNode?
 	private var _headShapeNode:HeadNode?
+	private var _x, _y: Int16
+	private var _orientations: [Direction]
 	
-	init(pathNode:PathNode?, headNode:HeadNode?) {
+	init(_ x: Int16, _ y: Int16, orientations: [Direction], pathNode:PathNode?, headNode:HeadNode?) {
+		(_x, _y) = (x, y)
+		_orientations = orientations
 		_pathNode = pathNode
 		_headShapeNode = headNode
 	}
@@ -35,6 +39,16 @@ class ShapeNode : NSObject {
 		}
 		return false
 	}
+	
+	func getPoint() -> [Int16] {
+		return [_x, _y]
+	}
+	
+	func getOrientations() -> [Direction] {
+		return _orientations
+	}
+	
+	func getType() -> NodeType { return .Shape}
 }
 
 class HeadNode {
