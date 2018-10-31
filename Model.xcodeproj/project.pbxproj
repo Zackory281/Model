@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F20E9D1E21896FE8002C36CC /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D04B152183C5DD00305EB7 /* Node.swift */; };
+		F20E9D2021897040002C36CC /* LogicObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20E9D1F21897040002C36CC /* LogicObjects.swift */; };
+		F20E9D2221897E8B002C36CC /* UIPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20E9D2121897E8B002C36CC /* UIPathNode.swift */; };
 		F21CE4E5218571E9000D8CD5 /* NodeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21CE4E4218571E9000D8CD5 /* NodeScene.swift */; };
 		F21CE5172187C4CE000D8CD5 /* NodeTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21CE5162187C4CE000D8CD5 /* NodeTree.swift */; };
 		F22D59E821828F9B0004B078 /* ShapeNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E721828F9B0004B078 /* ShapeNodeController.swift */; };
@@ -44,6 +47,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F20E9D1F21897040002C36CC /* LogicObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicObjects.swift; sourceTree = "<group>"; };
+		F20E9D2121897E8B002C36CC /* UIPathNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPathNode.swift; sourceTree = "<group>"; };
 		F21CE4E4218571E9000D8CD5 /* NodeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeScene.swift; sourceTree = "<group>"; };
 		F21CE5162187C4CE000D8CD5 /* NodeTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeTree.swift; sourceTree = "<group>"; };
 		F22D59E721828F9B0004B078 /* ShapeNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNodeController.swift; sourceTree = "<group>"; };
@@ -89,10 +94,39 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F20E9D1B21896FA8002C36CC /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F2CF807F21812053005194EB /* PathNodeController.swift */,
+				F22D59E721828F9B0004B078 /* ShapeNodeController.swift */,
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		F20E9D1C21896FB7002C36CC /* intelligence */ = {
+			isa = PBXGroup;
+			children = (
+				F22D59F12186DE240004B078 /* NodesModel.swift */,
+				F20E9D1F21897040002C36CC /* LogicObjects.swift */,
+			);
+			path = intelligence;
+			sourceTree = "<group>";
+		};
+		F20E9D1D21896FCE002C36CC /* nodes */ = {
+			isa = PBXGroup;
+			children = (
+				F2D04B152183C5DD00305EB7 /* Node.swift */,
+				F2CF807C2180EF67005194EB /* PathNode.swift */,
+				F2CF80852181311F005194EB /* ShapeNode.swift */,
+			);
+			path = nodes;
+			sourceTree = "<group>";
+		};
 		F21CE4E3218571D3000D8CD5 /* ui */ = {
 			isa = PBXGroup;
 			children = (
 				F21CE4E4218571E9000D8CD5 /* NodeScene.swift */,
+				F20E9D2121897E8B002C36CC /* UIPathNode.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -164,13 +198,10 @@
 		F2CF807B2180EEC9005194EB /* model */ = {
 			isa = PBXGroup;
 			children = (
-				F2CF807C2180EF67005194EB /* PathNode.swift */,
-				F2CF807F21812053005194EB /* PathNodeController.swift */,
+				F20E9D1D21896FCE002C36CC /* nodes */,
+				F20E9D1C21896FB7002C36CC /* intelligence */,
+				F20E9D1B21896FA8002C36CC /* controllers */,
 				F2CF808221812493005194EB /* Utils.swift */,
-				F2CF80852181311F005194EB /* ShapeNode.swift */,
-				F22D59E721828F9B0004B078 /* ShapeNodeController.swift */,
-				F2D04B152183C5DD00305EB7 /* Node.swift */,
-				F22D59F12186DE240004B078 /* NodesModel.swift */,
 				F21CE5162187C4CE000D8CD5 /* NodeTree.swift */,
 			);
 			path = model;
@@ -283,8 +314,10 @@
 				F2CF807D2180EF67005194EB /* PathNode.swift in Sources */,
 				F22D59F02186C3610004B078 /* SceneController.swift in Sources */,
 				F21CE4E5218571E9000D8CD5 /* NodeScene.swift in Sources */,
+				F20E9D2021897040002C36CC /* LogicObjects.swift in Sources */,
 				F2CF80602180EE69005194EB /* NodesFieldViewController.swift in Sources */,
 				F2D04B162183C5DD00305EB7 /* Node.swift in Sources */,
+				F20E9D2221897E8B002C36CC /* UIPathNode.swift in Sources */,
 				F2CF805E2180EE69005194EB /* GameScene.swift in Sources */,
 				F2CF80582180EE69005194EB /* AppDelegate.swift in Sources */,
 				F22D59E821828F9B0004B078 /* ShapeNodeController.swift in Sources */,
@@ -303,6 +336,7 @@
 				F2CF80872181311F005194EB /* ShapeNode.swift in Sources */,
 				F2CF807E2180EF67005194EB /* PathNode.swift in Sources */,
 				F2CF808121812053005194EB /* PathNodeController.swift in Sources */,
+				F20E9D1E21896FE8002C36CC /* Node.swift in Sources */,
 				F2CF80712180EE6B005194EB /* ModelTests.swift in Sources */,
 				F2CF808421812493005194EB /* Utils.swift in Sources */,
 			);

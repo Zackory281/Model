@@ -12,5 +12,7 @@ import GameplayKit
 protocol Node {
 	
 	func getFloatVector() -> float2
+	func getPoint() -> [Int16]
+	func getOrientations() -> [Direction]
 	
 }

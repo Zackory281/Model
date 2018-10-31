@@ -11,18 +11,36 @@ import SpriteKit
 
 class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelegate {
 	
-	private let _scene:SKScene
+	private let _scene:NodeScene
 	
 	private var px, py: Int!
 	private var psx, psy: Int!
 	private var withinSquare: Bool!
 	
-	func addPathNode(_ x: Int, _ y: Int) {
-		_scene.addChild(getPathNodeAt(x, y))
+	private var _nodes = Dictionary<Int, UIPathNode>()
+	
+	// MARK: GUIDelegate stub
+	func addPathNode(_ hash: Int, _ x: Int, _ y: Int, orientation: [Direction]) {
+		guard _nodes[hash] == nil else {
+			print("adding an existing item")
+			return
+		}
+		let uiNode = UIPathNode.init(x + 1, y + 1, orientations: orientation)
+		_nodes[hash] = uiNode
+		_scene.addChild(uiNode)
+	}
+	
+	func dislayTickNumber(_ tick: Int, _ success: Bool) {
+		_scene.changeTick(tick, success)
+	}
+	
+	func keyClicked(_ c: String) {
+		guard let nodesModelController = _nodesModelController, let f = KEY_CODES[c] else { return }
+		f(nodesModelController)()
 	}
 	
 	func mouseDragged(_ x: Int, _ y: Int) {
-		if withinSquare && (psx, psy) != (x / PATH_WIDTH + 1, y / PATH_WIDTH + 1) {
+		if withinSquare && (psx, psy) != (x / PATH_WIDTH, y / PATH_WIDTH) {
 			withinSquare = false
 		}
 	}
@@ -30,7 +48,7 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 	func mouseDown(_ x: Int, _ y: Int) {
 		withinSquare = true
 		(px, py) = (x, y)
-		(psx, psy) = (x / PATH_WIDTH + 1, y / PATH_WIDTH + 1)
+		(psx, psy) = (x / PATH_WIDTH, y / PATH_WIDTH)
 	}
 	
 	func mouseUp(_ x: Int, _ y: Int) {
@@ -45,7 +63,7 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 	
 	weak var _nodesModelController:NodesModelController?
 	
-	init(scene:SKScene) {
+	init(scene:NodeScene) {
 		self._scene = scene
 	}
 	
@@ -53,3 +71,8 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 		return _scene
 	}
 }
+
+let KEY_CODES:Dictionary<String, (NodesModelController) -> () -> ()> = [
+	"t" : NodesModelController.tick,
+	"l" : NodesModelController.preloadModel,
+]

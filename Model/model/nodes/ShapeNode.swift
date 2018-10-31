@@ -25,8 +25,8 @@ class ShapeNode : NSObject {
 	func advance() -> Bool {
 		guard let pathNode = _pathNode else { return false}
 		if pathNode.hasNext() {
-			let next = pathNode.next()
-			if pathNode.next().isFree() {
+			let next = pathNode.next()!
+			if pathNode.next()!.isFree() {
 				pathNode.liftShapeNode()
 				next.setShapeNode(node: self)
 				_pathNode = next

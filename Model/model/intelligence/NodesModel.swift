@@ -15,24 +15,27 @@ class NodesModel : NSObject, ShapeNodeActionDelegate, PathNodeActionDelegate {
 	private var _shapeNodeController :ShapeNodeController
 	
 	weak var  _modelActionDelegate: NodesModelActionDelegate?
+	weak var _guiDelegate: GUIDelegate?
 	
-	override init() {
+	convenience override init() {
+		self.init(guiDelegate: nil)
+	}
+	
+	init(guiDelegate: GUIDelegate?) {
 		_tick = 0
-		_pathNodeController = PathNodeController()
+		_guiDelegate = guiDelegate
+		_pathNodeController = PathNodeController(width: MAP_WIDTH, height: MAP_HEIGHT)
 		_shapeNodeController = ShapeNodeController()
 		super.init()
 		_shapeNodeController._nodeActionDelegate = self
-		_pathNodeController.pathNodeActionDelegate = self
+		_pathNodeController._pathNodeActionDelegate = self
 	}
 	
 	// Mark: PathNodeActionDelegate stubs
-	func addPathNodesAt(points: Points) {
-		guard let modelActionDelegate = _modelActionDelegate else { return }
-		perPoint(points: points) { (x, y) in
-			modelActionDelegate.addPathNodeAt(Int(x), Int(y))
-		}
+	func uiAddPathNodes(nodes: [Node]) {
+		_modelActionDelegate?.uiAddPathNodes(nodes)
+		//perPoint(points: point, meta: <#T##[T]#>, function: <#T##(Int16, Int16, T) -> ()#>)
 	}
-	
 	
 	// Mark: ShapeNodeActionDelegate stubs
 	func moveNodes(points :Points, directions :[Direction]) {
@@ -47,8 +50,23 @@ class NodesModel : NSObject, ShapeNodeActionDelegate, PathNodeActionDelegate {
 		_pathNodeController.addPathNodeAt(x, y)
 	}
 	
-	func tick() {
+	func addPathNodesFromTail(points: Points) {
+		let head = generateNodesHead(points: points)!
+		_pathNodeController.addHeadNode(head)
+	}
+	
+	func loadModel() {
+		_pathNodeController.addHeadNode(generateNodesHead(points: [0,0, 0,1, 0,2, 1,2, 2,2, 2,3, 3,3, 4,3, 5,3, 6,3, 7,3])!)
+	}
+	
+	func tick() -> Bool {
+		_tick += 1
 		_shapeNodeController.tick()
+		return false
+	}
+	
+	func getTick() -> Int16 {
+		return _tick
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -56,8 +74,10 @@ class NodesModel : NSObject, ShapeNodeActionDelegate, PathNodeActionDelegate {
 	}
 }
 
+let MAP_WIDTH: Int16 = 200, MAP_HEIGHT: Int16 = 200
+
 protocol NodesModelActionDelegate: NSObjectProtocol {
-	func addPathNodeAt(_ x: Int, _ y: Int)
+	func uiAddPathNodes(_ nodes: [Node])
 }
 
 protocol ShapeNodeActionDelegate: NSObjectProtocol {

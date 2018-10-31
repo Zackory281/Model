@@ -22,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		let nodesModelController = NodesModelController(nodesModel: model, guiDelegate: sceneController)
 		
 		sceneController._nodesModelController = nodesModelController
-		scene.inputDelegate = sceneController
+		scene._inputDelegate = sceneController
 		
 		controller._modelController = nodesModelController
 		controller.putOnScene(scene: scene)

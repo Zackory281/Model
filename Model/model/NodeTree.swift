@@ -9,18 +9,17 @@
 import Foundation
 import GameplayKit
 
-class NT {
-	
-}
-
-class NodesTree<T: NSObject & Node> {
+class NodeTree<T: NSObject & Node> {
 	
 	private var pathNodeTree:GKQuadtree<T>
 	
-	init() {
-		pathNodeTree = GKQuadtree<T>()
+	init(width: Int16, height: Int16) {
+		pathNodeTree = GKQuadtree<T>.init(boundingQuad: GKQuad(quadMin: float2(Float(0 - width / 2), Float(0 - height / 2)), quadMax: float2(Float(width / 2), Float(height / 2))), minimumCellSize: 1)
 	}
 	
+	func exists(node: T) -> Bool {
+		return !pathNodeTree.elements(at: node.getFloatVector()).isEmpty
+	}
 	func addPathNode(pathNode:T) {
 		pathNodeTree.add(pathNode, at: pathNode.getFloatVector())
 	}

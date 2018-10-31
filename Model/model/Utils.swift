@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SpriteKit
 
 typealias Points = [Int16]
 
@@ -14,19 +15,17 @@ struct Point {
 	var _x:Int16
 	var _y:Int16
 }
-func generateNodes(points:Points) -> PathNode? {
+func generateNodesHead(points:Points) -> PathNode? {
 	var head:PathNode?
-	var tail:PathNode?
 	perPointSerial(points: points, {(x: Int16, y: Int16, dir: Direction?) in
 		if let headT = head {
-			headT.setNext(PathNode(x, y, prev:nil, next:nil, dir:dir))
+			headT.setNext(PathNode(x, y, prev:headT, next:nil, dir:dir))
 			head = headT.next()
 			return
 		}
 		head = PathNode(x, y, prev:nil, next:nil, dir:dir)
-		tail = head
 	})
-	return tail
+	return head
 }
 
 func perPointSerial(points:Points, _ function:(_ x:Int16, _ y:Int16, _ dir:Direction?) -> ()) {
@@ -73,3 +72,13 @@ let DIR_TO_STR:[Direction:String] = [
 	.DOWN:"DOWN",
 	.LEFT:"LEFT",
 ]
+
+extension NSColor {
+	
+	static func *(_ lhs: NSColor, _ rhs: CGFloat) -> NSColor {
+		return NSColor(red: lhs.redComponent + (1 - lhs.redComponent) * rhs,
+					   green: lhs.greenComponent + (1 - lhs.greenComponent) * rhs,
+					   blue: lhs.blueComponent + (1 - lhs.blueComponent) * rhs,
+					   alpha: lhs.alphaComponent + (1 - lhs.alphaComponent) * rhs)
+	}
+}

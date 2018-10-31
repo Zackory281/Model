@@ -45,7 +45,9 @@ class PathNode : NSObject, Node {
 	
 	func hasNext() -> Bool{ if let _ = _next { return true }; return false }
 	
-	func next() -> PathNode { return _next! }
+	func next() -> PathNode? { return _next }
+	
+	func prev() -> PathNode? { return _prev }
 	
 	func isFree() -> Bool { if let _ = _shapeNode { return false }; return true }
 	
@@ -53,9 +55,16 @@ class PathNode : NSObject, Node {
 	
 	func setShapeNode(node:ShapeNode) { _shapeNode = node }
 	
-	func getPoint() -> [Int] { return [Int(_x), Int(_y)] }
+	func getPoint() -> [Int16] { return [_x, _y] }
 	
 	func getFloatVector() -> float2 { return float2(Float(_x), Float(_y)) }
+	
+	func getOrientations() -> [Direction] {
+		if _dir != nil {
+			return [_dir!]
+		}
+		return []
+	}
 }
 
 enum Occupacity {

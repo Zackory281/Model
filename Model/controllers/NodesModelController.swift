@@ -15,16 +15,12 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 	private weak var _guiDelegate:GUIDelegate?
 	
 	// Mark: NodesModelActionDelegate stubs
-	func addPathNodeAt(_ x: Int, _ y: Int) {
-		_guiDelegate?.addPathNode(x, y)
-	}
-	
-	
-	init(nodesModel:NodesModel, guiDelegate:GUIDelegate) {
-		_nodesModel = nodesModel
-		_guiDelegate = guiDelegate
-		super.init()
-		_nodesModel._modelActionDelegate = self
+	func uiAddPathNodes(_ nodes: [Node]) {
+		guard let _guiDelegate = _guiDelegate else { return }
+		for node in nodes {
+			let p = node.getPoint()
+			_guiDelegate.addPathNode((node as! NSObject).hash, Int(p[0]), Int(p[1]), orientation: node.getOrientations())
+		}
 	}
 	
 	func clickToggleNode(_ x: Int, _ y: Int) -> Void {
@@ -32,11 +28,24 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 	}
 	
 	func tick() {
-		_nodesModel.tick()
+		let success = _nodesModel.tick()
+		_guiDelegate?.dislayTickNumber(Int(_nodesModel.getTick()), success)
+	}
+	
+	func preloadModel() {
+		_nodesModel.loadModel()
+	}
+	
+	init(nodesModel:NodesModel, guiDelegate:GUIDelegate) {
+		_nodesModel = nodesModel
+		_guiDelegate = guiDelegate
+		super.init()
+		_nodesModel._modelActionDelegate = self
 	}
 }
 
 protocol GUIDelegate: NSObjectProtocol {
 	
-	func addPathNode(_ x: Int, _ y:Int)
+	func addPathNode(_ hash:Int, _ x: Int, _ y:Int, orientation: [Direction])
+	func dislayTickNumber(_ tick: Int, _ success: Bool)
 }
