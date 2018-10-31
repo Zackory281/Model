@@ -13,10 +13,7 @@ class UIPathNode: SKShapeNode {
 	
 	init(_ x:Int, _ y:Int, orientations:[Direction]) {
 		super.init()
-		self.path = getPathNodeAt(x, y, orientations: orientations).path
-		for dir in orientations {
-			path = DIR_TO_PATH[dir]!
-		}
+		self.path = getPathForOrentation(ori: orientations)
 		//(path as! CGMutablePath).addPath(path!)
 		position = CGPoint(x: x * PATH_WIDTH - PATH_HALF_WIDTH, y: y * PATH_WIDTH - PATH_HALF_WIDTH)
 		fillColor = NSColor.white
@@ -35,6 +32,31 @@ let DIR_TO_PATH: [Direction: CGPath] = [
 	.LEFT: SKShapeNode(rect: CGRect(x: -w - PATH_HALF_WIDTH_CGF, y: -w, width: w * 2, height: w * 2)).path!,
 	.DOWN: SKShapeNode(rect: CGRect(x: -w, y: -w - PATH_HALF_WIDTH_CGF, width: w * 2, height: w * 2)).path!,
 ]
+func getPathForOrentation(ori: [Direction]) -> CGPath {
+	let path = CGMutablePath()
+	path.move(to: NSPoint(x: -w, y: w))
+	if ori.contains(.UP) {
+		path.addLine(to: CGPoint(x: -w, y: PATH_HALF_WIDTH_CGF))
+		path.addLine(to: CGPoint(x: w, y: PATH_HALF_WIDTH_CGF))
+	}
+	path.addLine(to: CGPoint(x: w, y: w))
+	if ori.contains(.RIGHT) {
+		path.addLine(to: CGPoint(x: PATH_HALF_WIDTH_CGF, y: w))
+		path.addLine(to: CGPoint(x: PATH_HALF_WIDTH_CGF, y: -w))
+	}
+	path.addLine(to: CGPoint(x: w, y: -w))
+	if ori.contains(.DOWN) {
+		path.addLine(to: CGPoint(x: w, y: -PATH_HALF_WIDTH_CGF))
+		path.addLine(to: CGPoint(x: -w, y: -PATH_HALF_WIDTH_CGF))
+	}
+	path.addLine(to: CGPoint(x: -w, y: -w))
+	if ori.contains(.LEFT) {
+		path.addLine(to: CGPoint(x: -PATH_HALF_WIDTH_CGF, y: -w))
+		path.addLine(to: CGPoint(x: -PATH_HALF_WIDTH_CGF, y: w))
+	}
+	path.closeSubpath()
+	return path
+}
 func getPathNodeAt(_ x:Int, _ y:Int, orientations: [Direction]) -> SKShapeNode {
 	let w = PATH_HALF_WIDTH_CGF * 0.8
 	var bytes: [CGPoint] = [CGPoint(x: -w, y: w), CGPoint(x: w, y: w),

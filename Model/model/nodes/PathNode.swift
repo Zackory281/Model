@@ -60,10 +60,14 @@ class PathNode : NSObject, Node {
 	func getFloatVector() -> float2 { return float2(Float(_x), Float(_y)) }
 	
 	func getOrientations() -> [Direction] {
+		var dir:[Direction] = []
 		if _dir != nil {
-			return [_dir!]
+			dir.append(_dir!)
 		}
-		return []
+		if let prev = _next,let d = prev._dir{
+			dir.append(d.opposite())
+		}
+		return dir
 	}
 }
 

@@ -35,7 +35,7 @@ func perPointSerial(points:Points, _ function:(_ x:Int16, _ y:Int16, _ dir:Direc
 		py = points[1]
 	}
 	for i in stride(from: 0, to: points.count - 1, by: 2) {
-		function(points[i], points[i + 1], DIR_TO_DIR[points[i + 1] - py + 1 + (points[i] - px + 1) * 10])
+		function(points[i], points[i + 1], DIR_TO_DIR[points[i + 1] - py + 1 + (points[i] - px + 1) * 10]?.opposite())
 		(px, py) = (points[i], points[i + 1])
 	}
 }
