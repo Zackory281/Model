@@ -8,10 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		F20E9D1E21896FE8002C36CC /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D04B152183C5DD00305EB7 /* Node.swift */; };
-		F20E9D2021897040002C36CC /* LogicObjects.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20E9D1F21897040002C36CC /* LogicObjects.swift */; };
 		F20E9D2221897E8B002C36CC /* UIPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20E9D2121897E8B002C36CC /* UIPathNode.swift */; };
 		F21CE4E5218571E9000D8CD5 /* NodeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21CE4E4218571E9000D8CD5 /* NodeScene.swift */; };
 		F21CE5172187C4CE000D8CD5 /* NodeTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21CE5162187C4CE000D8CD5 /* NodeTree.swift */; };
+		F22673AB218ECACE006A02A5 /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A1218ECACD006A02A5 /* Evaluator.swift */; };
+		F22673AC218ECACE006A02A5 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A2218ECACD006A02A5 /* Stack.swift */; };
+		F22673AD218ECACE006A02A5 /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A3218ECACD006A02A5 /* Predicate.swift */; };
+		F22673AE218ECACE006A02A5 /* PremiseTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A4218ECACD006A02A5 /* PremiseTable.swift */; };
+		F22673AF218ECACE006A02A5 /* PremiseExpander.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A5218ECACD006A02A5 /* PremiseExpander.swift */; };
+		F22673B0218ECACE006A02A5 /* LogicSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A6218ECACD006A02A5 /* LogicSystem.swift */; };
+		F22673B1218ECACE006A02A5 /* TreeGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A7218ECACD006A02A5 /* TreeGraph.swift */; };
+		F22673B2218ECACE006A02A5 /* Facts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A8218ECACD006A02A5 /* Facts.swift */; };
+		F22673B3218ECACE006A02A5 /* LogicInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A9218ECACD006A02A5 /* LogicInterface.swift */; };
+		F22673B4218ECACE006A02A5 /* Vocab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673AA218ECACD006A02A5 /* Vocab.swift */; };
 		F22D59E821828F9B0004B078 /* ShapeNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E721828F9B0004B078 /* ShapeNodeController.swift */; };
 		F22D59EA2186B4BC0004B078 /* InputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E92186B4BB0004B078 /* InputController.swift */; };
 		F22D59ED2186BEB20004B078 /* NodesModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59EC2186BEB20004B078 /* NodesModelController.swift */; };
@@ -47,10 +56,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		F20E9D1F21897040002C36CC /* LogicObjects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicObjects.swift; sourceTree = "<group>"; };
 		F20E9D2121897E8B002C36CC /* UIPathNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPathNode.swift; sourceTree = "<group>"; };
 		F21CE4E4218571E9000D8CD5 /* NodeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeScene.swift; sourceTree = "<group>"; };
 		F21CE5162187C4CE000D8CD5 /* NodeTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeTree.swift; sourceTree = "<group>"; };
+		F22673A1218ECACD006A02A5 /* Evaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluator.swift; sourceTree = "<group>"; };
+		F22673A2218ECACD006A02A5 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		F22673A3218ECACD006A02A5 /* Predicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Predicate.swift; sourceTree = "<group>"; };
+		F22673A4218ECACD006A02A5 /* PremiseTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremiseTable.swift; sourceTree = "<group>"; };
+		F22673A5218ECACD006A02A5 /* PremiseExpander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremiseExpander.swift; sourceTree = "<group>"; };
+		F22673A6218ECACD006A02A5 /* LogicSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicSystem.swift; sourceTree = "<group>"; };
+		F22673A7218ECACD006A02A5 /* TreeGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeGraph.swift; sourceTree = "<group>"; };
+		F22673A8218ECACD006A02A5 /* Facts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Facts.swift; sourceTree = "<group>"; };
+		F22673A9218ECACD006A02A5 /* LogicInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicInterface.swift; sourceTree = "<group>"; };
+		F22673AA218ECACD006A02A5 /* Vocab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vocab.swift; sourceTree = "<group>"; };
 		F22D59E721828F9B0004B078 /* ShapeNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNodeController.swift; sourceTree = "<group>"; };
 		F22D59E92186B4BB0004B078 /* InputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputController.swift; sourceTree = "<group>"; };
 		F22D59EC2186BEB20004B078 /* NodesModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesModelController.swift; sourceTree = "<group>"; };
@@ -106,8 +124,8 @@
 		F20E9D1C21896FB7002C36CC /* intelligence */ = {
 			isa = PBXGroup;
 			children = (
+				F22673A0218ECACD006A02A5 /* logic model */,
 				F22D59F12186DE240004B078 /* NodesModel.swift */,
-				F20E9D1F21897040002C36CC /* LogicObjects.swift */,
 			);
 			path = intelligence;
 			sourceTree = "<group>";
@@ -129,6 +147,24 @@
 				F20E9D2121897E8B002C36CC /* UIPathNode.swift */,
 			);
 			path = ui;
+			sourceTree = "<group>";
+		};
+		F22673A0218ECACD006A02A5 /* logic model */ = {
+			isa = PBXGroup;
+			children = (
+				F22673A1218ECACD006A02A5 /* Evaluator.swift */,
+				F22673A2218ECACD006A02A5 /* Stack.swift */,
+				F22673A3218ECACD006A02A5 /* Predicate.swift */,
+				F22673A4218ECACD006A02A5 /* PremiseTable.swift */,
+				F22673A5218ECACD006A02A5 /* PremiseExpander.swift */,
+				F22673A6218ECACD006A02A5 /* LogicSystem.swift */,
+				F22673A7218ECACD006A02A5 /* TreeGraph.swift */,
+				F22673A8218ECACD006A02A5 /* Facts.swift */,
+				F22673A9218ECACD006A02A5 /* LogicInterface.swift */,
+				F22673AA218ECACD006A02A5 /* Vocab.swift */,
+			);
+			name = "logic model";
+			path = "../../../../../Logic/Logic/logic model";
 			sourceTree = "<group>";
 		};
 		F22D59EB2186BEA50004B078 /* controllers */ = {
@@ -313,14 +349,23 @@
 				F21CE5172187C4CE000D8CD5 /* NodeTree.swift in Sources */,
 				F2CF807D2180EF67005194EB /* PathNode.swift in Sources */,
 				F22D59F02186C3610004B078 /* SceneController.swift in Sources */,
+				F22673B1218ECACE006A02A5 /* TreeGraph.swift in Sources */,
 				F21CE4E5218571E9000D8CD5 /* NodeScene.swift in Sources */,
-				F20E9D2021897040002C36CC /* LogicObjects.swift in Sources */,
 				F2CF80602180EE69005194EB /* NodesFieldViewController.swift in Sources */,
+				F22673B2218ECACE006A02A5 /* Facts.swift in Sources */,
+				F22673AB218ECACE006A02A5 /* Evaluator.swift in Sources */,
 				F2D04B162183C5DD00305EB7 /* Node.swift in Sources */,
 				F20E9D2221897E8B002C36CC /* UIPathNode.swift in Sources */,
+				F22673B0218ECACE006A02A5 /* LogicSystem.swift in Sources */,
+				F22673B3218ECACE006A02A5 /* LogicInterface.swift in Sources */,
+				F22673AD218ECACE006A02A5 /* Predicate.swift in Sources */,
+				F22673AE218ECACE006A02A5 /* PremiseTable.swift in Sources */,
 				F2CF805E2180EE69005194EB /* GameScene.swift in Sources */,
+				F22673AC218ECACE006A02A5 /* Stack.swift in Sources */,
 				F2CF80582180EE69005194EB /* AppDelegate.swift in Sources */,
 				F22D59E821828F9B0004B078 /* ShapeNodeController.swift in Sources */,
+				F22673B4218ECACE006A02A5 /* Vocab.swift in Sources */,
+				F22673AF218ECACE006A02A5 /* PremiseExpander.swift in Sources */,
 				F2CF808321812493005194EB /* Utils.swift in Sources */,
 				F22D59ED2186BEB20004B078 /* NodesModelController.swift in Sources */,
 				F22D59EA2186B4BC0004B078 /* InputController.swift in Sources */,

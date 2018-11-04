@@ -19,7 +19,7 @@ class PathNodeController {
 		
 	}
 	
-	func addPathNodeAt(_ x:Int16, _ y:Int16) {
+	func addPathNodeAt(_ x:IntC, _ y:IntC) {
 		//_nodeTree.addPathNode(pathNode: PathNode.init(x, y))
 		// TODO: fix me!
 		let node = PathNode(x, y)
@@ -54,7 +54,7 @@ class PathNodeController {
 		_tailNodes[0].setShapeNode(node: shapeNode)
 	}
 	
-	init(width: Int16, height: Int16) {
+	init(width: IntC, height: IntC) {
 		_nodeTree = NodeTree<PathNode>.init(width: width, height: height)
 		_tailNodes = []
 		_headNodes = Set<PathNode>()

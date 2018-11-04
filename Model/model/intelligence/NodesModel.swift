@@ -8,11 +8,12 @@
 
 import Foundation
 
-class NodesModel : NSObject, ShapeNodeActionDelegate, PathNodeActionDelegate {
+class NodesModel : NSObject, ShapeNodeActionDelegate, PathNodeActionDelegate, AssertionDelegate {
 	
-	private var _tick :Int16
+	private var _tick :IntC
 	private var _pathNodeController :PathNodeController
 	private var _shapeNodeController :ShapeNodeController
+	private lazy var _logic: LogicSystem = { return LogicSystem(self) }()
 	
 	weak var  _modelActionDelegate: NodesModelActionDelegate?
 	weak var _guiDelegate: GUIDelegate?
@@ -34,19 +35,18 @@ class NodesModel : NSObject, ShapeNodeActionDelegate, PathNodeActionDelegate {
 	// Mark: PathNodeActionDelegate stubs
 	func uiAddPathNodes(nodes: [Node]) {
 		_modelActionDelegate?.uiAddPathNodes(nodes)
-		//perPoint(points: point, meta: <#T##[T]#>, function: <#T##(Int16, Int16, T) -> ()#>)
 	}
 	
 	// Mark: ShapeNodeActionDelegate stubs
 	func moveNodes(points :Points, directions :[Direction]) {
-		perPoint(points: points, meta: directions, function: {(x:Int16, y:Int16, dir:Direction) in
+		perPoint(points: points, meta: directions, function: {(x:IntC, y:IntC, dir:Direction) in
 			print("x: \(x)")
 		})
 	}
 	
 	// Mark: NodesModel stubs
-	func addPathNodeAt(_ x:Int16, _ y:Int16) {
-		//let pathNode = PathNode(Int16(x), Int16(y))
+	func addPathNodeAt(_ x:IntC, _ y:IntC) {
+		//let pathNode = PathNode(IntC(x), IntC(y))
 		_pathNodeController.addPathNodeAt(x, y)
 	}
 	
@@ -62,10 +62,11 @@ class NodesModel : NSObject, ShapeNodeActionDelegate, PathNodeActionDelegate {
 	func tick() -> Bool {
 		_tick += 1
 		_shapeNodeController.tick()
+		
 		return false
 	}
 	
-	func getTick() -> Int16 {
+	func getTick() -> IntC {
 		return _tick
 	}
 	
@@ -74,7 +75,7 @@ class NodesModel : NSObject, ShapeNodeActionDelegate, PathNodeActionDelegate {
 	}
 }
 
-let MAP_WIDTH: Int16 = 200, MAP_HEIGHT: Int16 = 200
+let MAP_WIDTH: IntC = 200, MAP_HEIGHT: IntC = 200
 
 protocol NodesModelActionDelegate: NSObjectProtocol {
 	func uiAddPathNodes(_ nodes: [Node])
@@ -82,4 +83,15 @@ protocol NodesModelActionDelegate: NSObjectProtocol {
 
 protocol ShapeNodeActionDelegate: NSObjectProtocol {
 	func moveNodes(points :Points, directions :[Direction])
+}
+
+extension NodesModel {
+	
+	func isEmptySquare(_ x: Int, _ y: Int) -> Bool {
+		return !hasObjectAt(x, y)
+	}
+	
+	func hasObjectAt(_ x: Int, _ y: Int) -> Bool {
+		return _shapeNodeController.hasShapeNodeAt(IntC(x), y: IntC(y))
+	}
 }

@@ -24,7 +24,7 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 	}
 	
 	func clickToggleNode(_ x: Int, _ y: Int) -> Void {
-		_nodesModel.addPathNodeAt(Int16(x), Int16(y))
+		_nodesModel.addPathNodeAt(IntC(x), IntC(y))
 	}
 	
 	func tick() {

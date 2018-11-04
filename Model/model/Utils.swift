@@ -9,15 +9,16 @@
 import Foundation
 import SpriteKit
 
-typealias Points = [Int16]
+typealias Points = [IntC]
+typealias IntC = IntC
 
 struct Point {
-	var _x:Int16
-	var _y:Int16
+	var _x:IntC
+	var _y:IntC
 }
 func generateNodesHead(points:Points) -> PathNode? {
 	var head:PathNode?
-	perPointSerial(points: points, {(x: Int16, y: Int16, dir: Direction?) in
+	perPointSerial(points: points, {(x: IntC, y: IntC, dir: Direction?) in
 		if let headT = head {
 			headT.setNext(PathNode(x, y, prev:headT, next:nil, dir:dir))
 			head = headT.next()
@@ -28,8 +29,8 @@ func generateNodesHead(points:Points) -> PathNode? {
 	return head
 }
 
-func perPointSerial(points:Points, _ function:(_ x:Int16, _ y:Int16, _ dir:Direction?) -> ()) {
-	var px, py:Int16!
+func perPointSerial(points:Points, _ function:(_ x:IntC, _ y:IntC, _ dir:Direction?) -> ()) {
+	var px, py:IntC!
 	if points.count >= 2 {
 		px = points[0]
 		py = points[1]
@@ -40,13 +41,13 @@ func perPointSerial(points:Points, _ function:(_ x:Int16, _ y:Int16, _ dir:Direc
 	}
 }
 
-func perPoint<T>(points:Points, meta:[T], function:(_ x:Int16, _ y:Int16, _ meta:T) -> ()) {
+func perPoint<T>(points:Points, meta:[T], function:(_ x:IntC, _ y:IntC, _ meta:T) -> ()) {
 	for i in stride(from: 0, to: points.count - 1, by: 2) {
 		function(points[i], points[i + 1], meta[i / 2])
 	}
 }
 
-func perPoint(points:Points, function:(_ x:Int16, _ y:Int16) -> ()) {
+func perPoint(points:Points, function:(_ x:IntC, _ y:IntC) -> ()) {
 	for i in stride(from: 0, to: points.count - 1, by: 2) {
 		function(points[i], points[i + 1])
 	}
@@ -59,7 +60,7 @@ let DIR_TO_IND:[UInt8:Int] = [
 	01:3,
 ]
 
-let DIR_TO_DIR:[Int16:Direction] = [
+let DIR_TO_DIR:[IntC:Direction] = [
 	12:.UP,
 	21:.RIGHT,
 	10:.DOWN,

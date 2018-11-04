@@ -11,15 +11,15 @@ import GameplayKit
 
 class PathNode : NSObject, Node {
 
-	private let _x, _y:Int16
+	private let _x, _y:IntC
 	private var _next, _prev:PathNode?
-	private let _value:UInt16
+	private let _value:UIntC
 	private var _dir:Direction?
 	private weak var _meta:AnyObject?
 	private var _occupacity:Occupacity
 	private weak var _shapeNode:ShapeNode?
 
-	init(_ x:Int16, _ y:Int16, prev:PathNode? = nil, next:PathNode? = nil, value:UInt16 = 0, dir:Direction? = nil, occupacity:Occupacity = .FREE, shapeNode:ShapeNode? = nil, meta:AnyObject? = nil) {
+	init(_ x:IntC, _ y:IntC, prev:PathNode? = nil, next:PathNode? = nil, value:UIntC = 0, dir:Direction? = nil, occupacity:Occupacity = .FREE, shapeNode:ShapeNode? = nil, meta:AnyObject? = nil) {
 		_x = x;
 		_y = y;
 		_prev = prev
@@ -31,7 +31,7 @@ class PathNode : NSObject, Node {
 		_meta = meta
 	}
 	
-	convenience init(_ x:Int16, _ y:Int16, prev:PathNode?, next:PathNode?, value:UInt16, dir:Direction?) {
+	convenience init(_ x:IntC, _ y:IntC, prev:PathNode?, next:PathNode?, value:UIntC, dir:Direction?) {
 		self.init(x, y, prev: prev, next: next, value: value, dir: dir, occupacity:.FREE, shapeNode:nil, meta:nil)
 	}
 	
@@ -55,7 +55,7 @@ class PathNode : NSObject, Node {
 	
 	func setShapeNode(node:ShapeNode) { _shapeNode = node }
 	
-	func getPoint() -> [Int16] { return [_x, _y] }
+	func getPoint() -> [IntC] { return [_x, _y] }
 	
 	func getType() -> NodeType { return .Path}
 	
