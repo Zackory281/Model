@@ -14,7 +14,7 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 	private weak var _guiDelegate:GUIDelegate?
 	
 	// Mark: NodesModelActionDelegate stubs
-	func uiAddPathNodes(_ nodes: [Node]) {
+	func uiAddNodes(_ nodes: [Node]) {
 		guard let _guiDelegate = _guiDelegate else { return }
 		for node in nodes {
 			let p = node.getPoint()
@@ -23,8 +23,8 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 		}
 	}
 	
-	func clickToggleNode(_ x: Int, _ y: Int) -> Void {
-		_nodesModel.addPathNodeAt(IntC(x), IntC(y))
+	func clickToggleNode(_ x: Int, _ y: Int, type: NodeType) -> Void {
+		_nodesModel.addNodeAt(IntC(x), IntC(y), type)
 	}
 	
 	func tick() {

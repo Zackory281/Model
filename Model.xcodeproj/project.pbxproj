@@ -21,6 +21,9 @@
 		F22673B2218ECACE006A02A5 /* Facts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A8218ECACD006A02A5 /* Facts.swift */; };
 		F22673B3218ECACE006A02A5 /* LogicInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A9218ECACD006A02A5 /* LogicInterface.swift */; };
 		F22673B4218ECACE006A02A5 /* Vocab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673AA218ECACD006A02A5 /* Vocab.swift */; };
+		F22673B6218F90C5006A02A5 /* NodesUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673B5218F90C5006A02A5 /* NodesUIManager.swift */; };
+		F22673BA218FA0A0006A02A5 /* NodesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673B9218FA0A0006A02A5 /* NodesManager.swift */; };
+		F22673BC218FA2EC006A02A5 /* LogicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673BB218FA2EC006A02A5 /* LogicManager.swift */; };
 		F22D59E821828F9B0004B078 /* ShapeNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E721828F9B0004B078 /* ShapeNodeController.swift */; };
 		F22D59EA2186B4BC0004B078 /* InputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E92186B4BB0004B078 /* InputController.swift */; };
 		F22D59ED2186BEB20004B078 /* NodesModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59EC2186BEB20004B078 /* NodesModelController.swift */; };
@@ -69,6 +72,9 @@
 		F22673A8218ECACD006A02A5 /* Facts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Facts.swift; sourceTree = "<group>"; };
 		F22673A9218ECACD006A02A5 /* LogicInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicInterface.swift; sourceTree = "<group>"; };
 		F22673AA218ECACD006A02A5 /* Vocab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vocab.swift; sourceTree = "<group>"; };
+		F22673B5218F90C5006A02A5 /* NodesUIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesUIManager.swift; sourceTree = "<group>"; };
+		F22673B9218FA0A0006A02A5 /* NodesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesManager.swift; sourceTree = "<group>"; };
+		F22673BB218FA2EC006A02A5 /* LogicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicManager.swift; sourceTree = "<group>"; };
 		F22D59E721828F9B0004B078 /* ShapeNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNodeController.swift; sourceTree = "<group>"; };
 		F22D59E92186B4BB0004B078 /* InputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputController.swift; sourceTree = "<group>"; };
 		F22D59EC2186BEB20004B078 /* NodesModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesModelController.swift; sourceTree = "<group>"; };
@@ -124,6 +130,7 @@
 		F20E9D1C21896FB7002C36CC /* intelligence */ = {
 			isa = PBXGroup;
 			children = (
+				F22673BD218FE76F006A02A5 /* revolvers */,
 				F22673A0218ECACD006A02A5 /* logic model */,
 				F22D59F12186DE240004B078 /* NodesModel.swift */,
 			);
@@ -165,6 +172,16 @@
 			);
 			name = "logic model";
 			path = "../../../../../Logic/Logic/logic model";
+			sourceTree = "<group>";
+		};
+		F22673BD218FE76F006A02A5 /* revolvers */ = {
+			isa = PBXGroup;
+			children = (
+				F22673B9218FA0A0006A02A5 /* NodesManager.swift */,
+				F22673B5218F90C5006A02A5 /* NodesUIManager.swift */,
+				F22673BB218FA2EC006A02A5 /* LogicManager.swift */,
+			);
+			path = revolvers;
 			sourceTree = "<group>";
 		};
 		F22D59EB2186BEA50004B078 /* controllers */ = {
@@ -348,7 +365,9 @@
 				F2CF808021812053005194EB /* PathNodeController.swift in Sources */,
 				F21CE5172187C4CE000D8CD5 /* NodeTree.swift in Sources */,
 				F2CF807D2180EF67005194EB /* PathNode.swift in Sources */,
+				F22673BC218FA2EC006A02A5 /* LogicManager.swift in Sources */,
 				F22D59F02186C3610004B078 /* SceneController.swift in Sources */,
+				F22673B6218F90C5006A02A5 /* NodesUIManager.swift in Sources */,
 				F22673B1218ECACE006A02A5 /* TreeGraph.swift in Sources */,
 				F21CE4E5218571E9000D8CD5 /* NodeScene.swift in Sources */,
 				F2CF80602180EE69005194EB /* NodesFieldViewController.swift in Sources */,
@@ -369,6 +388,7 @@
 				F2CF808321812493005194EB /* Utils.swift in Sources */,
 				F22D59ED2186BEB20004B078 /* NodesModelController.swift in Sources */,
 				F22D59EA2186B4BC0004B078 /* InputController.swift in Sources */,
+				F22673BA218FA0A0006A02A5 /* NodesManager.swift in Sources */,
 				F2CF80862181311F005194EB /* ShapeNode.swift in Sources */,
 				F22D59F22186DE240004B078 /* NodesModel.swift in Sources */,
 			);

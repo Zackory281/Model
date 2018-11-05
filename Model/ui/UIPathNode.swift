@@ -18,6 +18,26 @@ class UIPathNode: SKShapeNode {
 		position = CGPoint(x: CGFloat(x) * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: CGFloat(y) * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)
 		fillColor = NSColor.white
 		lineWidth = 0
+		let label = SKLabelNode(text: orientations.description)
+		label.fontSize = 12
+		label.position = CGPoint(x: 200, y: 0)
+		//self.addChild(label)
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+}
+
+class UIShapeNode: SKShapeNode {
+	
+	init(_ x:Float, _ y:Float, orientations:[Direction]) {
+		super.init()
+		self.path = shapeNodePath
+		position = CGPoint(x: CGFloat(x) * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: CGFloat(y) * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)
+		fillColor = NSColor.white
+		strokeColor = NSColor.gray
+		lineWidth = 1
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -26,6 +46,7 @@ class UIPathNode: SKShapeNode {
 }
 
 let w = PATH_HALF_WIDTH_CGF * 0.8
+let ww = PATH_HALF_WIDTH_CGF * 0.6
 let PATH_WIDTH_CGF = CGFloat(PATH_WIDTH)
 let DIR_TO_PATH: [Direction: CGPath] = [
 	.UP: SKShapeNode(rect: CGRect(x: -w, y: -w, width: w * 2, height: w + PATH_HALF_WIDTH_CGF)).path!,
@@ -33,6 +54,17 @@ let DIR_TO_PATH: [Direction: CGPath] = [
 	.LEFT: SKShapeNode(rect: CGRect(x: -w - PATH_HALF_WIDTH_CGF, y: -w, width: w * 2, height: w * 2)).path!,
 	.DOWN: SKShapeNode(rect: CGRect(x: -w, y: -w - PATH_HALF_WIDTH_CGF, width: w * 2, height: w * 2)).path!,
 ]
+
+var shapeNodePath: CGPath = {
+	let path = CGMutablePath()
+	path.move(to: NSPoint(x: -ww, y: ww))
+	path.addLine(to: CGPoint(x: ww, y: ww))
+	path.addLine(to: CGPoint(x: ww, y: -ww))
+	path.addLine(to: CGPoint(x: -ww, y: -ww))
+	path.closeSubpath()
+	return path
+}()
+
 func getPathForOrentation(ori: [Direction]) -> CGPath {
 	let path = CGMutablePath()
 	path.move(to: NSPoint(x: -w, y: w))

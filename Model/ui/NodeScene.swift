@@ -26,6 +26,10 @@ class NodeScene : SKScene {
 		})
 	}
 	
+	func keyIsDown(_ code:UInt16) -> Bool {
+		return _downKeys.contains(code)
+	}
+	
 	override func sceneDidLoad() {
 		_tickLabel.fontSize = 40
 		_tickLabel.color = .white

@@ -10,10 +10,10 @@ import Foundation
 
 class ShapeNodeController {
 	
-	private var _shapeNodes :Set<ShapeNode>
+	var _shapeNodes :Set<ShapeNode>
 	private var _shapeHeadNodes :Set<ShapeNode>
 	private var _shapeNodeTree: NodeTree<ShapeNode>
-	weak var _nodeActionDelegate:ShapeNodeActionDelegate?
+	weak var _nodeActionDelegate:OutputDelegate?
 	
 	init() {
 		_shapeNodes = Set<ShapeNode>()
@@ -21,16 +21,17 @@ class ShapeNodeController {
 		_shapeNodeTree = NodeTree<ShapeNode>(width: 100, height: 100)
 	}
 	
-	func addHeadNode(head :ShapeNode) {
-		_shapeHeadNodes.insert(head)
-		_shapeNodeTree.addNode(node: head)
+	func addShapeNode(_ node: ShapeNode) {
+		_shapeNodes.insert(node)
+		_shapeNodeTree.addNode(node: node)
+		_nodeActionDelegate?.uiAddNodes(nodes: [node])
 	}
 	
-	func getQueries() -> [CustomQuery] {
-		var qs:[CustomQuery] = []
-		for n in _shapeNodes {
-			qs.append(.CanMove(n., <#T##Int#>, <#T##Direction#>))
-		}
+	func addHeadNode(head :ShapeNode) {
+		_shapeHeadNodes.insert(head)
+		_shapeNodes.insert(head)
+		_shapeNodeTree.addNode(node: head)
+		_nodeActionDelegate?.uiAddNodes(nodes: [head])
 	}
 	
 	func hasShapeNodeAt(_ x: IntC, y: IntC) -> Bool {
@@ -42,4 +43,5 @@ class ShapeNodeController {
 			let _ = head.advance()
 		}
 	}
+	
 }

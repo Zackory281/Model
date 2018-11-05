@@ -10,12 +10,9 @@ import Foundation
 import SpriteKit
 
 typealias Points = [IntC]
-typealias IntC = IntC
+typealias Point = (IntC, IntC)
+typealias IntC = Int16
 
-struct Point {
-	var _x:IntC
-	var _y:IntC
-}
 func generateNodesHead(points:Points) -> PathNode? {
 	var head:PathNode?
 	perPointSerial(points: points, {(x: IntC, y: IntC, dir: Direction?) in
@@ -82,4 +79,12 @@ extension NSColor {
 					   blue: lhs.blueComponent + (1 - lhs.blueComponent) * rhs,
 					   alpha: lhs.alphaComponent + (1 - lhs.alphaComponent) * rhs)
 	}
+}
+
+func RES(_ bool: Bool, _ grade: Int8) -> LogicDerivation {
+	return .Result(Result(bool, grade))
+}
+
+func PRE(_ q: CustomQuery) -> LogicDerivation {
+	return .Premise(Premise(q))
 }

@@ -11,15 +11,16 @@ import GameplayKit
 
 class PathNode : NSObject, Node {
 
+	override var description: String { return "PathNode at \(_x), \(_y)" }
 	private let _x, _y:IntC
 	private var _next, _prev:PathNode?
-	private let _value:UIntC
+	private let _value:UInt16
 	private var _dir:Direction?
 	private weak var _meta:AnyObject?
 	private var _occupacity:Occupacity
 	private weak var _shapeNode:ShapeNode?
 
-	init(_ x:IntC, _ y:IntC, prev:PathNode? = nil, next:PathNode? = nil, value:UIntC = 0, dir:Direction? = nil, occupacity:Occupacity = .FREE, shapeNode:ShapeNode? = nil, meta:AnyObject? = nil) {
+	init(_ x:IntC, _ y:IntC, prev:PathNode? = nil, next:PathNode? = nil, value:UInt16 = 0, dir:Direction? = nil, occupacity:Occupacity = .FREE, shapeNode:ShapeNode? = nil, meta:AnyObject? = nil) {
 		_x = x;
 		_y = y;
 		_prev = prev
@@ -31,11 +32,9 @@ class PathNode : NSObject, Node {
 		_meta = meta
 	}
 	
-	convenience init(_ x:IntC, _ y:IntC, prev:PathNode?, next:PathNode?, value:UIntC, dir:Direction?) {
+	convenience init(_ x:IntC, _ y:IntC, prev:PathNode?, next:PathNode?, value:UInt16, dir:Direction?) {
 		self.init(x, y, prev: prev, next: next, value: value, dir: dir, occupacity:.FREE, shapeNode:nil, meta:nil)
 	}
-	
-	func getPrevDirection() -> Direction? { return _dir }
 	
 	func setPrev(_ node:PathNode) { _prev = node }
 	
@@ -59,6 +58,10 @@ class PathNode : NSObject, Node {
 	
 	func getType() -> NodeType { return .Path}
 	
+	func getShapeNode() -> ShapeNode? { return _shapeNode }
+	
+	func getDirection() -> Direction? { return _dir ?? getOrientations()[0] }
+	
 	func getOrientations() -> [Direction] {
 		var dir:[Direction] = []
 		if _dir != nil {
@@ -68,6 +71,17 @@ class PathNode : NSObject, Node {
 			dir.append(d.opposite())
 		}
 		return dir
+	}
+	
+	func getNowUntakeDerivation(ignore direction: Direction) -> LogicDerivation? {
+		if _prev?.getDirection() == direction {
+			if let shapeNode = _shapeNode {
+				return PRE(CustomQuery.ShapeNowMove(shapeNode))
+			}
+			return RES(true, 3)
+		}
+		print("we have a problem")
+		return nil
 	}
 }
 

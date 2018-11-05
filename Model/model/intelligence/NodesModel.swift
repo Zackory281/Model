@@ -8,61 +8,42 @@
 
 import Foundation
 
-class NodesModel : NSObject, ShapeNodeActionDelegate, PathNodeActionDelegate, AssertionDelegate {
+class NodesModel : NSObject, AssertionDelegate {
 	
 	private var _tick :IntC
-	private var _pathNodeController :PathNodeController
-	private var _shapeNodeController :ShapeNodeController
-	private lazy var _logic: LogicSystem = { return LogicSystem(self) }()
 	
-	weak var  _modelActionDelegate: NodesModelActionDelegate?
-	weak var _guiDelegate: GUIDelegate?
-	
-	convenience override init() {
-		self.init(guiDelegate: nil)
+	var _modelActionDelegate: NodesModelActionDelegate? {
+		set { _outputManager._modelActionDelegate = newValue }
+		get { return _outputManager._modelActionDelegate }
 	}
 	
-	init(guiDelegate: GUIDelegate?) {
+	private var _outputManager: NodesUIManager!
+	private var _nodeManager: NodesController!
+	private var _logicManager: LogicManager!
+	
+	override init() {
+		_outputManager = NodesUIManager()
+		_nodeManager = NodesController()
+		_logicManager = LogicManager()
+		_nodeManager._nodeActionDelegate = _outputManager
+		_logicManager._nodeQueryDelegate = _nodeManager
 		_tick = 0
-		_guiDelegate = guiDelegate
-		_pathNodeController = PathNodeController(width: MAP_WIDTH, height: MAP_HEIGHT)
-		_shapeNodeController = ShapeNodeController()
 		super.init()
-		_shapeNodeController._nodeActionDelegate = self
-		_pathNodeController._pathNodeActionDelegate = self
-	}
-	
-	// Mark: PathNodeActionDelegate stubs
-	func uiAddPathNodes(nodes: [Node]) {
-		_modelActionDelegate?.uiAddPathNodes(nodes)
-	}
-	
-	// Mark: ShapeNodeActionDelegate stubs
-	func moveNodes(points :Points, directions :[Direction]) {
-		perPoint(points: points, meta: directions, function: {(x:IntC, y:IntC, dir:Direction) in
-			print("x: \(x)")
-		})
+		_logicManager.initializeLogicSystem(self)
 	}
 	
 	// Mark: NodesModel stubs
-	func addPathNodeAt(_ x:IntC, _ y:IntC) {
-		//let pathNode = PathNode(IntC(x), IntC(y))
-		_pathNodeController.addPathNodeAt(x, y)
-	}
-	
-	func addPathNodesFromTail(points: Points) {
-		let head = generateNodesHead(points: points)!
-		_pathNodeController.addHeadNode(head)
-	}
-	
-	func loadModel() {
-		_pathNodeController.addHeadNode(generateNodesHead(points: [0,0, 0,1, 0,2, 1,2, 2,2, 2,3, 3,3, 4,3, 5,3, 6,3, 7,3])!)
+	func addNodeAt(_ x:IntC, _ y:IntC, _ type: NodeType) {
+		_nodeManager.addNodeAt(x, y, type)
 	}
 	
 	func tick() -> Bool {
 		_tick += 1
-		_shapeNodeController.tick()
-		
+		if _tick % 2 == 1 {
+			_logicManager.gatherQuery()
+		} else {
+			_logicManager.evaluateQueries()
+		}
 		return false
 	}
 	
@@ -75,23 +56,40 @@ class NodesModel : NSObject, ShapeNodeActionDelegate, PathNodeActionDelegate, As
 	}
 }
 
+extension NodesModel {
+	func loadModel() {
+		let points:[IntC] = [0,0, 0,1, 0,2, 1,2, 2,2, 2,3, 3,3, 4,3, 5,3, 6,3, 7,3]
+		_nodeManager.addPathNodesFromHead(generateNodesHead(points: points)!)
+//		perPoint(points: points) { (x, y) in
+//			addShapeNodeAt(x, y)
+//		}
+	}
+}
+
 let MAP_WIDTH: IntC = 200, MAP_HEIGHT: IntC = 200
 
 protocol NodesModelActionDelegate: NSObjectProtocol {
-	func uiAddPathNodes(_ nodes: [Node])
+	func uiAddNodes(_ nodes: [Node])
 }
 
-protocol ShapeNodeActionDelegate: NSObjectProtocol {
-	func moveNodes(points :Points, directions :[Direction])
+protocol OutputDelegate: NSObjectProtocol {
+	//func moveNodes(points :Points, directions :[Direction])
+	func uiAddNodes(nodes: [Node])
 }
 
 extension NodesModel {
 	
-	func isEmptySquare(_ x: Int, _ y: Int) -> Bool {
-		return !hasObjectAt(x, y)
+	func shapeNowMove(_ shapeNode: ShapeNode) -> LogicDerivation? {
+		guard let pathNode = shapeNode.getPathNode(), let nextPathNode = pathNode.next() else { return RES(false, 1) }
+		return PRE(.IsUntakenSquare(nextPathNode, shapeNode.getDirection()!))
 	}
 	
-	func hasObjectAt(_ x: Int, _ y: Int) -> Bool {
-		return _shapeNodeController.hasShapeNodeAt(IntC(x), y: IntC(y))
+	func isUntakeSquare(_ pathNode: PathNode, _ direction: Direction) -> LogicDerivation? {
+		return pathNode.getNowUntakeDerivation(ignore: direction)
+	}
+	
+	
+	func isEmptySquare(_ x: IntC, _ y: IntC, _ comingDirection: Direction) -> LogicDerivation? {
+		return .Result(Result(true, 5))
 	}
 }

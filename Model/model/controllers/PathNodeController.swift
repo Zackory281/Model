@@ -13,7 +13,7 @@ class PathNodeController {
 	private var _tailNodes:[PathNode]
 	private var _nodeTree:NodeTree<PathNode>
 	private var _headNodes: Set<PathNode>
-	weak var _pathNodeActionDelegate: PathNodeActionDelegate?
+	weak var _nodeActionDelegate: OutputDelegate?
 	
 	func addNodeOnStep() {
 		
@@ -25,7 +25,7 @@ class PathNodeController {
 		let node = PathNode(x, y)
 		guard addNodeIntoTree(node: node) else { print("insertion of node into tree failed"); return}
 		_nodeTree.addNode(node: node)
-		_pathNodeActionDelegate?.uiAddPathNodes(nodes: [node])
+		_nodeActionDelegate?.uiAddNodes(nodes: [node])
 	}
 	
 	func addTailNodes(tailNode:PathNode) {
@@ -46,12 +46,16 @@ class PathNodeController {
 			nodes.append(head!)
 			head = head?.prev()
 		} while head != nil
-		_pathNodeActionDelegate?.uiAddPathNodes(nodes: nodes)
+		_nodeActionDelegate?.uiAddNodes(nodes: nodes)
 	}
 	
 	func addShapeNodeToTail(shapeNode:ShapeNode) {
 		shapeNode.setPathNode(pathNode: _tailNodes[0])
 		_tailNodes[0].setShapeNode(node: shapeNode)
+	}
+	
+	func getPathNodeAt(_ x: IntC, _ y: IntC) -> PathNode?{
+		return _nodeTree.getNodesAt(x, y).first
 	}
 	
 	init(width: IntC, height: IntC) {

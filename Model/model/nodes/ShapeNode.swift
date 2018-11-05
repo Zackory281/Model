@@ -10,14 +10,15 @@ import Foundation
 
 class ShapeNode : NSObject, Node {
 	
+	override var description: String { return "ShapeNode at \(_x), \(_y)" }
 	private weak var _pathNode:PathNode?
 	private var _headShapeNode:HeadNode?
 	private var _x, _y: IntC
 	private var _orientations: [Direction]
 	
-	init(_ x: IntC, _ y: IntC, orientations: [Direction], pathNode:PathNode?, headNode:HeadNode?) {
+	init(_ x: IntC, _ y: IntC, direction: Direction, pathNode:PathNode?, headNode:HeadNode?) {
 		(_x, _y) = (x, y)
-		_orientations = orientations
+		_orientations = [direction]
 		_pathNode = pathNode
 		_headShapeNode = headNode
 	}
@@ -30,14 +31,14 @@ class ShapeNode : NSObject, Node {
 		guard let pathNode = _pathNode else { return false}
 		if pathNode.hasNext() {
 			let next = pathNode.next()!
-			if pathNode.next()!.isFree() {
-				pathNode.liftShapeNode()
-				next.setShapeNode(node: self)
-				_pathNode = next
-				return true;
-			}
+			(_x, _y) = (next.getPoint()[0], next.getPoint()[1])
+			_pathNode = pathNode
 		}
 		return false
+	}
+	
+	func getPathNode() -> PathNode? {
+		return _pathNode
 	}
 	
 	func getPoint() -> [IntC] {
@@ -48,6 +49,10 @@ class ShapeNode : NSObject, Node {
 		return _orientations
 	}
 	
+	func getDirection() -> Direction? {
+		return _pathNode?.getDirection()
+	}
+	
 	func getType() -> NodeType { return .Shape}
 }
 
@@ -55,7 +60,7 @@ class HeadNode {
 	
 	var _headNode:ShapeNode
 	
-	init(head :ShapeNode) {
+	init(head: ShapeNode) {
 		_headNode = head
 	}
 	func getHeadShapeNode() -> ShapeNode {

@@ -17,7 +17,7 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 	private var psx, psy: Int!
 	private var withinSquare: Bool!
 	
-	private var _nodes = Dictionary<Int, UIPathNode>()
+	private var _nodes = Dictionary<Int, SKNode>()
 	
 	// MARK: GUIDelegate stub
 	func addPathNode(_ nodeIterface: NodeIterface) {
@@ -25,7 +25,13 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 			print("adding an existing item")
 			return
 		}
-		let uiNode = UIPathNode.init(nodeIterface.x + 1, nodeIterface.y + 1, orientations: nodeIterface.orientations)
+		var uiNode: SKNode!
+		switch nodeIterface.nodeType{
+		case .Path:
+			uiNode = UIPathNode.init(nodeIterface.x + 1, nodeIterface.y + 1, orientations: nodeIterface.orientations)
+		case .Shape:
+			uiNode = UIShapeNode.init(nodeIterface.x + 1, nodeIterface.y + 1, orientations: nodeIterface.orientations)
+		}
 		_nodes[nodeIterface.hash] = uiNode
 		_scene.addChild(uiNode)
 	}
@@ -52,9 +58,14 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 	}
 	
 	func mouseUp(_ x: Int, _ y: Int) {
-		if withinSquare {
-			_nodesModelController?.clickToggleNode(psx, psy)
-		}
+		guard withinSquare else { return }
+		_nodesModelController?.clickToggleNode(psx, psy, type: .Shape)
+//		let code = UnicodeScalar.init("s")!.utf16.first!
+//		if _scene.keyIsDown(code) {
+//			_nodesModelController?.clickToggleNode(psx, psy, type: .Shape)
+//		} else {
+//			_nodesModelController?.clickToggleNode(psx, psy, type: .Shape)
+//		}
 	}
 	
 	func update(_ currentTime: TimeInterval, for scene: SKScene) {
