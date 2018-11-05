@@ -10,26 +10,26 @@ import Foundation
 
 class PathNodeController {
 	
-	private var _tailNodes:[SerialPathNode]
-	private var _nodeTree:NodeTree<SerialPathNode>
-	private var _headNodes: Set<SerialPathNode>
+	private var _tailNodes:[PathNode]
+	private var _nodeTree:NodeTree<Dummy>
+	private var _headNodes: Set<Dummy>
 	
 	func addNodeOnStep() {
 		
 	}
 	
 	/// - returns: the pathnode successfully inserted
-	func addPathNodeWrongAt(_ x:IntC, _ y:IntC) -> SerialPathNode?{
+	func addPathNodeWrongAt(_ x:IntC, _ y:IntC) -> PathNode?{
 		//_nodeTree.addPathNode(pathNode: PathNode.init(x, y))
 		// TODO: fix me!
-		let node = SerialPathNode(x, y)
+		let node = PathNode(x, y)
 		guard addNodeIntoTree(node: node) else { print("insertion of node into tree failed"); return nil }
 		_nodeTree.addNode(node: node)
 		return node
 	}
 	
 	/// - returns: the pathnode successfully inserted
-	func addPathNode(_ node: SerialPathNode) -> SerialPathNode?{
+	func addPathNode(_ node: PathNode) -> PathNode?{
 		//_nodeTree.addPathNode(pathNode: PathNode.init(x, y))
 		// TODO: fix me!
 		guard addNodeIntoTree(node: node) else { print("insertion of node into tree failed"); return nil }
@@ -37,16 +37,16 @@ class PathNodeController {
 		return node
 	}
 	
-	func addTailNodes(tailNode:SerialPathNode) {
+	func addTailNodes(tailNode:PathNode) {
 		_tailNodes.append(tailNode)
 	}
 	
 	/// - returns: the pathnodes successfully inserted
-	func addHeadNode(_ head: SerialPathNode) -> [SerialPathNode] {
+	func addHeadNode(_ head: PathNode) -> [PathNode] {
 		guard addNodeIntoHeadSet(node: head) else { print("insertion into head set failed"); return []}
-		var head: SerialPathNode? = head
+		var head: PathNode? = head
 		var points: Points = []
-		var nodes: [SerialPathNode] = []
+		var nodes: [PathNode] = []
 		repeat{
 			guard addNodeIntoTree(node: head!) else {
 				print("insertion of seg node into tree failed");
@@ -64,24 +64,24 @@ class PathNodeController {
 		_tailNodes[0].setShapeNode(node: shapeNode)
 	}
 	
-	func getPathNodeAt(_ x: IntC, _ y: IntC) -> SerialPathNode?{
+	func getPathNodeAt(_ x: IntC, _ y: IntC) -> PathNode?{
 		return _nodeTree.getNodesAt(x, y).first
 	}
 	
 	init(width: IntC, height: IntC) {
-		_nodeTree = NodeTree<SerialPathNode>.init(width: width, height: height)
+		_nodeTree = NodeTree<PathNode>.init(width: width, height: height)
 		_tailNodes = []
-		_headNodes = Set<SerialPathNode>()
+		_headNodes = Set<PathNode>()
 		//_nodeTree = NodeTree<PathNode>()
 	}
 	
-	private func addNodeIntoTree(node: SerialPathNode) -> Bool{
+	private func addNodeIntoTree(node: PathNode) -> Bool{
 		guard !_nodeTree.exists(node: node) else { return false;}
 		_nodeTree.addNode(node: node)
 		return true
 	}
 	
-	private func addNodeIntoHeadSet(node: SerialPathNode) -> Bool{
+	private func addNodeIntoHeadSet(node: PathNode) -> Bool{
 		guard !_headNodes.contains(node) else { return false;}
 		_headNodes.insert(node)
 		return true

@@ -44,6 +44,10 @@ class SerialPathNode : NSObject, PathNode {
 	
 	func prev() -> SerialPathNode? { return _prev }
 	
+	func getNext() -> PathNode? {
+		return _next
+	}
+	
 	func getNext(for shapeNode: ShapeNode) -> PathNode? {
 		return _next
 	}
@@ -107,6 +111,40 @@ protocol PathNode: Node {
 	func setShapeNode(node:ShapeNode)
 	func getDirection(for shapeNode: ShapeNode) -> Direction?
 	func liftShapeNode(for node: ShapeNode)
+}
+
+class Dummy: NSObject, Node {
+	func getPoint() -> [IntC] {
+		print("getPoint() not implemeneted!")
+		return []
+	}
+	
+	func getOrientations() -> [Direction] {
+		print("getOrientations() not implemeneted!")
+		return []
+	}
+	
+	func getType() -> NodeType {
+		print("getType() not implemeneted!")
+		return .Shape
+	}
+	
+	func getX() -> IntC {
+		print("getX not implemeneted!")
+		return 0
+	}
+	
+	func getY() -> IntC {
+		print("getY not implemeneted!")
+		return 0
+	}
+	
+	func getColorCode() -> NSColor {
+		print("getColor not implemeneted!")
+		return .white
+	}
+	
+	
 }
 
 enum Occupacity {

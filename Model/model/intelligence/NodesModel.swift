@@ -92,7 +92,7 @@ extension NodesModel {
 		return PRE(.IsUntakenSquare(nextPathNode, shapeNode.getDirection()!))
 	}
 	
-	func isUntakeSquare(_ pathNode: SerialPathNode, _ direction: Direction) -> LogicDerivation? {
+	func isUntakeSquare(_ pathNode: PathNode, _ direction: Direction) -> LogicDerivation? {
 		return pathNode.getNowUntakeDerivation(ignore: direction)
 	}
 	
