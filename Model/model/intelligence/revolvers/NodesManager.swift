@@ -10,41 +10,56 @@ import Foundation
 
 class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 	
-	var _nodeActionDelegate: OutputDelegate? {
-		set { _shapeNodeController._nodeActionDelegate = newValue
-			_pathNodeController._nodeActionDelegate = newValue }
-		get { return _shapeNodeController._nodeActionDelegate ??
-			_pathNodeController._nodeActionDelegate }
-	}
+	weak var _nodeActionDelegate: OutputDelegate?
 	
 	private var _pathNodeController :PathNodeController = PathNodeController(width: 100, height: 100)
 	private var _shapeNodeController :ShapeNodeController = ShapeNodeController()
 	
 	func addNodeAt(_ x: IntC, _ y: IntC, _ type: NodeType) {
+		var addNodes: [Node] = []
+		var updateNodes: [Node] = []
 		switch type {
 		case .Path:
-			guard _pathNodeController.getPathNodeAt(x, y) == nil else {
-				print("adding a path node to an existing location \(x), \(y)")
-				return
-			}
-			_pathNodeController.addPathNodeAt(x, y) //TODO: Node linking
-			return
+			guard let nodeIns = _pathNodeController.addPathNode(PathNode(x, y)) else { return }
+			addNodes.append(nodeIns) //TODO: Node linking
+			break
 		case .Shape:
 			guard !_shapeNodeController.hasShapeNodeAt(x, y: y), let pathNode = _pathNodeController.getPathNodeAt(x, y) else {
-				print("adding a shape node to an existing location \(x), \(y)")
-				return
+				print("adding a shape node to an existing location \(x), \(y), or have to pathnode to add to")
+				break
 			}
 			let shapeNode = ShapeNode.init(x, y, direction: pathNode.getOrientations()[0], pathNode: pathNode, headNode: nil)
 			pathNode.setShapeNode(node: shapeNode)
 			_shapeNodeController.addShapeNode(shapeNode)
-			return
+			addNodes.append(shapeNode)
+			updateNodes.append(pathNode)
+			break
+		}
+		if !addNodes.isEmpty {
+			_nodeActionDelegate?.uiAddNodes(nodes: addNodes)
+		}
+		if !updateNodes.isEmpty {
+			_nodeActionDelegate?.uiUpdateNodes(nodes: updateNodes)
 		}
 	}
 	
 	func addNodeAt(_ p: Point, _ type: NodeType) { addNodeAt(p.0, p.0, type) }
 	
+	func advance(_ node: ShapeNode) {
+		let oldPath = node.getPathNode()!
+		
+		node.getPathNode()!.liftShapeNode(node)
+		let newPathNode = node.getPathNode()!.next()!
+		node.setPathNode(newPathNode)
+		_shapeNodeController.move(node)
+		newPathNode.setShapeNode(node: node)
+		_nodeActionDelegate?.uiUpdateNodes(nodes: [node, oldPath, node.getPathNode()!])
+	}
+	
 	func addPathNodesFromHead(_ head: PathNode) {
-		_pathNodeController.addHeadNode(head)
+		let ups = _pathNodeController.addHeadNode(head)
+		guard !ups.isEmpty else { return }
+		_nodeActionDelegate?.uiAddNodes(nodes: ups)
 	}
 	
 	func getQueries() -> Set<CustomQuery> {
@@ -54,9 +69,14 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 		}
 		return qs
 	}
+	
+	func tick(_ tick: Int16) {
+		
+	}
 }
 
-protocol NodeControlDelegate {
+protocol NodeControlDelegate: NSObjectProtocol {
 	func addNodeAt(_ x: IntC, _ y: IntC, _ type: NodeType)
 	func addNodeAt(_ p: Point, _ type: NodeType)
+	func advance(_ node: ShapeNode)
 }

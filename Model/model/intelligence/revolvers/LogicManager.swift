@@ -11,6 +11,7 @@ import Foundation
 class LogicManager : NSObject {
 	
 	weak var _nodeQueryDelegate: QueryNodeDelegate?
+	weak var _nodeController:NodeControlDelegate?
 	
 	private var _queries = Set<CustomQuery>()
 	private var _logic: LogicSystem!
@@ -32,21 +33,32 @@ class LogicManager : NSObject {
 	
 	func evaluateQueries() {
 		_logic.evaluateAll()
+		_logic.printEverything()
+		guard let nodeController = _nodeController else { print("Shape node controller not setup in Logic Manager returning from making moves."); return}
 		_logic.forEveryFact { (premise, result) in
-			guard let cq = premise.getCustomQuery() else { return }
+			guard let cq = premise.getCustomQuery(), result.getBool() == true else { return }
 			switch cq {
 			case let .ShapeNowMove(shapeNode):
-				//shapeNode.advance()
+				nodeController.advance(shapeNode)
+				
 				print("new position for ", shapeNode)
 			default:
 				return
 			}
 		}
-		_logic.printEverything()
 	}
 	
 	func flushQueries() {
 		_queries.removeAll()
+	}
+	
+	func tick(_ tick :Int16) {
+		if tick % 2 == 1 {
+			flushQueries()
+			gatherQuery()
+		} else {
+			evaluateQueries()
+		}
 	}
 	
 }

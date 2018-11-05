@@ -14,5 +14,7 @@ protocol Node {
 	func getPoint() -> [IntC]
 	func getOrientations() -> [Direction]
 	func getType() -> NodeType
-	
+	func getX() -> IntC
+	func getY() -> IntC
+	func getColorCode() -> NSColor
 }

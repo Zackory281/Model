@@ -10,33 +10,43 @@ import Foundation
 
 class PathNodeController {
 	
-	private var _tailNodes:[PathNode]
-	private var _nodeTree:NodeTree<PathNode>
-	private var _headNodes: Set<PathNode>
-	weak var _nodeActionDelegate: OutputDelegate?
+	private var _tailNodes:[SerialPathNode]
+	private var _nodeTree:NodeTree<SerialPathNode>
+	private var _headNodes: Set<SerialPathNode>
 	
 	func addNodeOnStep() {
 		
 	}
 	
-	func addPathNodeAt(_ x:IntC, _ y:IntC) {
+	/// - returns: the pathnode successfully inserted
+	func addPathNodeWrongAt(_ x:IntC, _ y:IntC) -> SerialPathNode?{
 		//_nodeTree.addPathNode(pathNode: PathNode.init(x, y))
 		// TODO: fix me!
-		let node = PathNode(x, y)
-		guard addNodeIntoTree(node: node) else { print("insertion of node into tree failed"); return}
+		let node = SerialPathNode(x, y)
+		guard addNodeIntoTree(node: node) else { print("insertion of node into tree failed"); return nil }
 		_nodeTree.addNode(node: node)
-		_nodeActionDelegate?.uiAddNodes(nodes: [node])
+		return node
 	}
 	
-	func addTailNodes(tailNode:PathNode) {
+	/// - returns: the pathnode successfully inserted
+	func addPathNode(_ node: SerialPathNode) -> SerialPathNode?{
+		//_nodeTree.addPathNode(pathNode: PathNode.init(x, y))
+		// TODO: fix me!
+		guard addNodeIntoTree(node: node) else { print("insertion of node into tree failed"); return nil }
+		_nodeTree.addNode(node: node)
+		return node
+	}
+	
+	func addTailNodes(tailNode:SerialPathNode) {
 		_tailNodes.append(tailNode)
 	}
 	
-	func addHeadNode(_ head: PathNode) {
-		guard addNodeIntoHeadSet(node: head) else { print("insertion into head set failed"); return}
-		var head: PathNode? = head
+	/// - returns: the pathnodes successfully inserted
+	func addHeadNode(_ head: SerialPathNode) -> [SerialPathNode] {
+		guard addNodeIntoHeadSet(node: head) else { print("insertion into head set failed"); return []}
+		var head: SerialPathNode? = head
 		var points: Points = []
-		var nodes: [Node] = []
+		var nodes: [SerialPathNode] = []
 		repeat{
 			guard addNodeIntoTree(node: head!) else {
 				print("insertion of seg node into tree failed");
@@ -46,7 +56,7 @@ class PathNodeController {
 			nodes.append(head!)
 			head = head?.prev()
 		} while head != nil
-		_nodeActionDelegate?.uiAddNodes(nodes: nodes)
+		return nodes
 	}
 	
 	func addShapeNodeToTail(shapeNode:ShapeNode) {
@@ -54,56 +64,27 @@ class PathNodeController {
 		_tailNodes[0].setShapeNode(node: shapeNode)
 	}
 	
-	func getPathNodeAt(_ x: IntC, _ y: IntC) -> PathNode?{
+	func getPathNodeAt(_ x: IntC, _ y: IntC) -> SerialPathNode?{
 		return _nodeTree.getNodesAt(x, y).first
 	}
 	
 	init(width: IntC, height: IntC) {
-		_nodeTree = NodeTree<PathNode>.init(width: width, height: height)
+		_nodeTree = NodeTree<SerialPathNode>.init(width: width, height: height)
 		_tailNodes = []
-		_headNodes = Set<PathNode>()
+		_headNodes = Set<SerialPathNode>()
 		//_nodeTree = NodeTree<PathNode>()
 	}
 	
-	private func addNodeIntoTree(node: PathNode) -> Bool{
+	private func addNodeIntoTree(node: SerialPathNode) -> Bool{
 		guard !_nodeTree.exists(node: node) else { return false;}
 		_nodeTree.addNode(node: node)
 		return true
 	}
 	
-	private func addNodeIntoHeadSet(node: PathNode) -> Bool{
+	private func addNodeIntoHeadSet(node: SerialPathNode) -> Bool{
 		guard !_headNodes.contains(node) else { return false;}
 		_headNodes.insert(node)
 		return true
-	}
-	
-	func toString() -> String {
-		
-//		var m:[[UInt8]] = []
-//		for _ in 0..<8 {
-//			var l:[UInt8] = []
-//			for _ in 0..<8 {
-//				l.append(0)
-//			}
-//			m.append(l)
-//		}
-//		for no in _tailNodes {
-//			var head = no
-//			while head.hasNext() {
-//				m[head.getPoint()[1]][head.getPoint()[0]] = head.isFree() ? 1 : 2;
-//				head = head.next()!
-//			}
-//			m[head.getPoint()[1]][head.getPoint()[0]] = head.isFree() ? 1 : 2
-//		}
-//		var str:String = ""
-//		for ll in m.reversed() {
-//			for i in ll {
-//				str += i == 0 ? "-" : i == 1 ? "0" : "*"
-//			}
-//			str += "\n"
-//		}
-//		return str
-		return "I am dummy function"
 	}
 }
 

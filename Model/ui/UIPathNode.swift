@@ -9,14 +9,18 @@
 import Foundation
 import SpriteKit
 
-class UIPathNode: SKShapeNode {
+class UINode: SKShapeNode {
 	
-	init(_ x:Float, _ y:Float, orientations:[Direction]) {
+	func update(_ x: CGFloat, _ y: CGFloat, _ color: NSColor) {}
+}
+class UIPathNode: UINode {
+	
+	init(_ x:Float, _ y:Float, orientations:[Direction], _ color:NSColor = .white) {
 		super.init()
 		self.path = getPathForOrentation(ori: orientations)
 		//(path as! CGMutablePath).addPath(path!)
 		position = CGPoint(x: CGFloat(x) * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: CGFloat(y) * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)
-		fillColor = NSColor.white
+		fillColor = color
 		lineWidth = 0
 		let label = SKLabelNode(text: orientations.description)
 		label.fontSize = 12
@@ -24,20 +28,30 @@ class UIPathNode: SKShapeNode {
 		//self.addChild(label)
 	}
 	
+	override func update(_ x: CGFloat, _ y: CGFloat, _ color: NSColor) {
+		fillColor = color
+	}
+	
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
 }
 
-class UIShapeNode: SKShapeNode {
+class UIShapeNode: UINode {
 	
-	init(_ x:Float, _ y:Float, orientations:[Direction]) {
+	init(_ x:Float, _ y:Float, orientations:[Direction], _ color:NSColor = .white) {
 		super.init()
 		self.path = shapeNodePath
 		position = CGPoint(x: CGFloat(x) * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: CGFloat(y) * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)
-		fillColor = NSColor.white
+		print(color)
+		fillColor = color
 		strokeColor = NSColor.gray
 		lineWidth = 1
+	}
+	
+	override func update(_ x: CGFloat, _ y: CGFloat, _ color: NSColor) {
+		position = CGPoint(x: x * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: y * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)
+		fillColor = color
 	}
 	
 	required init?(coder aDecoder: NSCoder) {

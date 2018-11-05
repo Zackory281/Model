@@ -10,23 +10,26 @@ import Foundation
 
 class NodesModel : NSObject, AssertionDelegate {
 	
-	private var _tick :IntC
+	private var _tick :Int16
 	
 	var _modelActionDelegate: NodesModelActionDelegate? {
 		set { _outputManager._modelActionDelegate = newValue }
 		get { return _outputManager._modelActionDelegate }
 	}
 	
-	private var _outputManager: NodesUIManager!
+	private var _outputManager: NodesOutputManager!
 	private var _nodeManager: NodesController!
 	private var _logicManager: LogicManager!
 	
+	private let _queue = DispatchQueue(label: "com.NodeModel", qos: .userInteractive)
+	
 	override init() {
-		_outputManager = NodesUIManager()
+		_outputManager = NodesOutputManager()
 		_nodeManager = NodesController()
 		_logicManager = LogicManager()
 		_nodeManager._nodeActionDelegate = _outputManager
 		_logicManager._nodeQueryDelegate = _nodeManager
+		_logicManager._nodeController = _nodeManager
 		_tick = 0
 		super.init()
 		_logicManager.initializeLogicSystem(self)
@@ -34,15 +37,18 @@ class NodesModel : NSObject, AssertionDelegate {
 	
 	// Mark: NodesModel stubs
 	func addNodeAt(_ x:IntC, _ y:IntC, _ type: NodeType) {
-		_nodeManager.addNodeAt(x, y, type)
+		//tick()
+		_queue.sync { ///Thread queuing so threads that use the same data doesn't cross modify/access them
+			_nodeManager.addNodeAt(x, y, type)
+		}
 	}
 	
 	func tick() -> Bool {
 		_tick += 1
-		if _tick % 2 == 1 {
-			_logicManager.gatherQuery()
-		} else {
-			_logicManager.evaluateQueries()
+		_queue.sync {
+			_logicManager.tick(_tick)
+			_nodeManager.tick(_tick)
+			_outputManager.tick(_tick)
 		}
 		return false
 	}
@@ -70,11 +76,13 @@ let MAP_WIDTH: IntC = 200, MAP_HEIGHT: IntC = 200
 
 protocol NodesModelActionDelegate: NSObjectProtocol {
 	func uiAddNodes(_ nodes: [Node])
+	func uiUpdateNodes(_ nodes: [Node])
 }
 
 protocol OutputDelegate: NSObjectProtocol {
 	//func moveNodes(points :Points, directions :[Direction])
 	func uiAddNodes(nodes: [Node])
+	func uiUpdateNodes(nodes: [Node])
 }
 
 extension NodesModel {
@@ -84,7 +92,7 @@ extension NodesModel {
 		return PRE(.IsUntakenSquare(nextPathNode, shapeNode.getDirection()!))
 	}
 	
-	func isUntakeSquare(_ pathNode: PathNode, _ direction: Direction) -> LogicDerivation? {
+	func isUntakeSquare(_ pathNode: SerialPathNode, _ direction: Direction) -> LogicDerivation? {
 		return pathNode.getNowUntakeDerivation(ignore: direction)
 	}
 	

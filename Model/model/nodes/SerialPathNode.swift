@@ -9,18 +9,18 @@
 import Foundation
 import GameplayKit
 
-class PathNode : NSObject, Node {
+class SerialPathNode : NSObject, PathNode {
 
 	override var description: String { return "PathNode at \(_x), \(_y)" }
 	private let _x, _y:IntC
-	private var _next, _prev:PathNode?
+	private var _next, _prev:SerialPathNode?
 	private let _value:UInt16
 	private var _dir:Direction?
 	private weak var _meta:AnyObject?
 	private var _occupacity:Occupacity
 	private weak var _shapeNode:ShapeNode?
 
-	init(_ x:IntC, _ y:IntC, prev:PathNode? = nil, next:PathNode? = nil, value:UInt16 = 0, dir:Direction? = nil, occupacity:Occupacity = .FREE, shapeNode:ShapeNode? = nil, meta:AnyObject? = nil) {
+	init(_ x:IntC, _ y:IntC, prev:SerialPathNode? = nil, next:SerialPathNode? = nil, value:UInt16 = 0, dir:Direction? = nil, occupacity:Occupacity = .FREE, shapeNode:ShapeNode? = nil, meta:AnyObject? = nil) {
 		_x = x;
 		_y = y;
 		_prev = prev
@@ -32,27 +32,39 @@ class PathNode : NSObject, Node {
 		_meta = meta
 	}
 	
-	convenience init(_ x:IntC, _ y:IntC, prev:PathNode?, next:PathNode?, value:UInt16, dir:Direction?) {
+	convenience init(_ x:IntC, _ y:IntC, prev:SerialPathNode?, next:SerialPathNode?, value:UInt16, dir:Direction?) {
 		self.init(x, y, prev: prev, next: next, value: value, dir: dir, occupacity:.FREE, shapeNode:nil, meta:nil)
 	}
 	
-	func setPrev(_ node:PathNode) { _prev = node }
+	func setPrev(_ node:SerialPathNode) { _prev = node }
 	
-	func setNext(_ node:PathNode) { _next = node }
+	func setNext(_ node:SerialPathNode) { _next = node }
 	
 	func hasPrev() -> Bool { if let _ = _prev { return true }; return false }
 	
-	func hasNext() -> Bool{ if let _ = _next { return true }; return false }
+	func prev() -> SerialPathNode? { return _prev }
 	
-	func next() -> PathNode? { return _next }
+	func getNext(for shapeNode: ShapeNode) -> PathNode? {
+		return _next
+	}
 	
-	func prev() -> PathNode? { return _prev }
+	func hasNext(for shapeNode: ShapeNode) -> Bool { return _next != nil }
+	
+	func getDirection(for shapeNode: ShapeNode) -> Direction? { return _dir ?? getOrientations()[0] }
 	
 	func isFree() -> Bool { if let _ = _shapeNode { return false }; return true }
 	
-	func liftShapeNode() { _shapeNode = nil	}
+	func liftShapeNode(for node: ShapeNode) {
+		if node == _shapeNode {
+			_shapeNode = nil
+		}
+	}
 	
 	func setShapeNode(node:ShapeNode) { _shapeNode = node }
+	
+	func getX() -> IntC { return _x }
+	
+	func getY() -> IntC { return _y }
 	
 	func getPoint() -> [IntC] { return [_x, _y] }
 	
@@ -60,7 +72,9 @@ class PathNode : NSObject, Node {
 	
 	func getShapeNode() -> ShapeNode? { return _shapeNode }
 	
-	func getDirection() -> Direction? { return _dir ?? getOrientations()[0] }
+	func getColorCode() -> NSColor {
+		return _shapeNode?.getColorCode() ?? .white
+	}
 	
 	func getOrientations() -> [Direction] {
 		var dir:[Direction] = []
@@ -83,6 +97,16 @@ class PathNode : NSObject, Node {
 		print("we have a problem")
 		return nil
 	}
+}
+
+protocol PathNode: Node {
+	
+	func getNext(for shapeNode: ShapeNode) -> PathNode?
+	func hasNext(for shapeNode: ShapeNode) -> Bool
+	func getNowUntakeDerivation(ignore direction: Direction) -> LogicDerivation?
+	func setShapeNode(node:ShapeNode)
+	func getDirection(for shapeNode: ShapeNode) -> Direction?
+	func liftShapeNode(for node: ShapeNode)
 }
 
 enum Occupacity {

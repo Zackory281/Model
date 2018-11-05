@@ -21,7 +21,7 @@
 		F22673B2218ECACE006A02A5 /* Facts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A8218ECACD006A02A5 /* Facts.swift */; };
 		F22673B3218ECACE006A02A5 /* LogicInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A9218ECACD006A02A5 /* LogicInterface.swift */; };
 		F22673B4218ECACE006A02A5 /* Vocab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673AA218ECACD006A02A5 /* Vocab.swift */; };
-		F22673B6218F90C5006A02A5 /* NodesUIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673B5218F90C5006A02A5 /* NodesUIManager.swift */; };
+		F22673B6218F90C5006A02A5 /* NodesOutputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673B5218F90C5006A02A5 /* NodesOutputManager.swift */; };
 		F22673BA218FA0A0006A02A5 /* NodesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673B9218FA0A0006A02A5 /* NodesManager.swift */; };
 		F22673BC218FA2EC006A02A5 /* LogicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673BB218FA2EC006A02A5 /* LogicManager.swift */; };
 		F22D59E821828F9B0004B078 /* ShapeNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E721828F9B0004B078 /* ShapeNodeController.swift */; };
@@ -37,8 +37,8 @@
 		F2CF80622180EE6B005194EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2CF80612180EE6B005194EB /* Assets.xcassets */; };
 		F2CF80652180EE6B005194EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2CF80632180EE6B005194EB /* Main.storyboard */; };
 		F2CF80712180EE6B005194EB /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80702180EE6B005194EB /* ModelTests.swift */; };
-		F2CF807D2180EF67005194EB /* PathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807C2180EF67005194EB /* PathNode.swift */; };
-		F2CF807E2180EF67005194EB /* PathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807C2180EF67005194EB /* PathNode.swift */; };
+		F2CF807D2180EF67005194EB /* SerialPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807C2180EF67005194EB /* SerialPathNode.swift */; };
+		F2CF807E2180EF67005194EB /* SerialPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807C2180EF67005194EB /* SerialPathNode.swift */; };
 		F2CF808021812053005194EB /* PathNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807F21812053005194EB /* PathNodeController.swift */; };
 		F2CF808121812053005194EB /* PathNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807F21812053005194EB /* PathNodeController.swift */; };
 		F2CF808321812493005194EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF808221812493005194EB /* Utils.swift */; };
@@ -72,7 +72,7 @@
 		F22673A8218ECACD006A02A5 /* Facts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Facts.swift; sourceTree = "<group>"; };
 		F22673A9218ECACD006A02A5 /* LogicInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicInterface.swift; sourceTree = "<group>"; };
 		F22673AA218ECACD006A02A5 /* Vocab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vocab.swift; sourceTree = "<group>"; };
-		F22673B5218F90C5006A02A5 /* NodesUIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesUIManager.swift; sourceTree = "<group>"; };
+		F22673B5218F90C5006A02A5 /* NodesOutputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesOutputManager.swift; sourceTree = "<group>"; };
 		F22673B9218FA0A0006A02A5 /* NodesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesManager.swift; sourceTree = "<group>"; };
 		F22673BB218FA2EC006A02A5 /* LogicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicManager.swift; sourceTree = "<group>"; };
 		F22D59E721828F9B0004B078 /* ShapeNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNodeController.swift; sourceTree = "<group>"; };
@@ -93,7 +93,7 @@
 		F2CF806C2180EE6B005194EB /* ModelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ModelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2CF80702180EE6B005194EB /* ModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTests.swift; sourceTree = "<group>"; };
 		F2CF80722180EE6B005194EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F2CF807C2180EF67005194EB /* PathNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathNode.swift; sourceTree = "<group>"; };
+		F2CF807C2180EF67005194EB /* SerialPathNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SerialPathNode.swift; sourceTree = "<group>"; };
 		F2CF807F21812053005194EB /* PathNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathNodeController.swift; sourceTree = "<group>"; };
 		F2CF808221812493005194EB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		F2CF80852181311F005194EB /* ShapeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNode.swift; sourceTree = "<group>"; };
@@ -141,7 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				F2D04B152183C5DD00305EB7 /* Node.swift */,
-				F2CF807C2180EF67005194EB /* PathNode.swift */,
+				F2CF807C2180EF67005194EB /* SerialPathNode.swift */,
 				F2CF80852181311F005194EB /* ShapeNode.swift */,
 			);
 			path = nodes;
@@ -178,7 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				F22673B9218FA0A0006A02A5 /* NodesManager.swift */,
-				F22673B5218F90C5006A02A5 /* NodesUIManager.swift */,
+				F22673B5218F90C5006A02A5 /* NodesOutputManager.swift */,
 				F22673BB218FA2EC006A02A5 /* LogicManager.swift */,
 			);
 			path = revolvers;
@@ -364,10 +364,10 @@
 			files = (
 				F2CF808021812053005194EB /* PathNodeController.swift in Sources */,
 				F21CE5172187C4CE000D8CD5 /* NodeTree.swift in Sources */,
-				F2CF807D2180EF67005194EB /* PathNode.swift in Sources */,
+				F2CF807D2180EF67005194EB /* SerialPathNode.swift in Sources */,
 				F22673BC218FA2EC006A02A5 /* LogicManager.swift in Sources */,
 				F22D59F02186C3610004B078 /* SceneController.swift in Sources */,
-				F22673B6218F90C5006A02A5 /* NodesUIManager.swift in Sources */,
+				F22673B6218F90C5006A02A5 /* NodesOutputManager.swift in Sources */,
 				F22673B1218ECACE006A02A5 /* TreeGraph.swift in Sources */,
 				F21CE4E5218571E9000D8CD5 /* NodeScene.swift in Sources */,
 				F2CF80602180EE69005194EB /* NodesFieldViewController.swift in Sources */,
@@ -399,7 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2CF80872181311F005194EB /* ShapeNode.swift in Sources */,
-				F2CF807E2180EF67005194EB /* PathNode.swift in Sources */,
+				F2CF807E2180EF67005194EB /* SerialPathNode.swift in Sources */,
 				F2CF808121812053005194EB /* PathNodeController.swift in Sources */,
 				F20E9D1E21896FE8002C36CC /* Node.swift in Sources */,
 				F2CF80712180EE6B005194EB /* ModelTests.swift in Sources */,

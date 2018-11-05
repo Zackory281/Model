@@ -13,15 +13,15 @@ typealias Points = [IntC]
 typealias Point = (IntC, IntC)
 typealias IntC = Int16
 
-func generateNodesHead(points:Points) -> PathNode? {
-	var head:PathNode?
+func generateNodesHead(points:Points) -> SerialPathNode? {
+	var head:SerialPathNode?
 	perPointSerial(points: points, {(x: IntC, y: IntC, dir: Direction?) in
 		if let headT = head {
-			headT.setNext(PathNode(x, y, prev:headT, next:nil, dir:dir))
+			headT.setNext(SerialPathNode(x, y, prev:headT, next:nil, dir:dir))
 			head = headT.next()
 			return
 		}
-		head = PathNode(x, y, prev:nil, next:nil, dir:dir)
+		head = SerialPathNode(x, y, prev:nil, next:nil, dir:dir)
 	})
 	return head
 }

@@ -13,7 +13,6 @@ class ShapeNodeController {
 	var _shapeNodes :Set<ShapeNode>
 	private var _shapeHeadNodes :Set<ShapeNode>
 	private var _shapeNodeTree: NodeTree<ShapeNode>
-	weak var _nodeActionDelegate:OutputDelegate?
 	
 	init() {
 		_shapeNodes = Set<ShapeNode>()
@@ -24,14 +23,22 @@ class ShapeNodeController {
 	func addShapeNode(_ node: ShapeNode) {
 		_shapeNodes.insert(node)
 		_shapeNodeTree.addNode(node: node)
-		_nodeActionDelegate?.uiAddNodes(nodes: [node])
 	}
 	
 	func addHeadNode(head :ShapeNode) {
 		_shapeHeadNodes.insert(head)
 		_shapeNodes.insert(head)
 		_shapeNodeTree.addNode(node: head)
-		_nodeActionDelegate?.uiAddNodes(nodes: [head])
+	}
+	
+	func remove(_ node: ShapeNode) {
+		let _ = _shapeNodeTree.remove(node: node)
+		_shapeHeadNodes.remove(node)
+		_shapeNodes.remove(node)
+	}
+	
+	func move(_ node: ShapeNode) {
+		let _ = _shapeNodeTree.move(node: node)
 	}
 	
 	func hasShapeNodeAt(_ x: IntC, y: IntC) -> Bool {
@@ -39,9 +46,7 @@ class ShapeNodeController {
 	}
 	
 	func tick() {
-		for head in _shapeHeadNodes {
-			let _ = head.advance()
-		}
+		
 	}
 	
 }

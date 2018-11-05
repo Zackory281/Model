@@ -8,7 +8,7 @@
 
 import Foundation
 
-class NodesUIManager: NSObject, OutputDelegate {
+class NodesOutputManager: NSObject, OutputDelegate {
 	
 	weak var _modelActionDelegate: NodesModelActionDelegate?
 	
@@ -17,9 +17,11 @@ class NodesUIManager: NSObject, OutputDelegate {
 		_modelActionDelegate?.uiAddNodes(nodes)
 	}
 	
-	func moveNodes(points :Points, directions :[Direction]) {
-		//		perPoint(points: points, meta: directions, function: {(x:IntC, y:IntC, dir:Direction) in
-		//			print("x: \(x)")
-		//		})
+	func uiUpdateNodes(nodes: [Node]) {
+		_modelActionDelegate?.uiUpdateNodes(nodes)
+	}
+	
+	func tick(_ tick :Int16) {
+		
 	}
 }

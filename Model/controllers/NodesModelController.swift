@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import AppKit
 
 class NodesModelController :NSObject, NodesModelActionDelegate{
 	
@@ -18,8 +19,15 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 		guard let _guiDelegate = _guiDelegate else { return }
 		for node in nodes {
 			let p = node.getPoint()
-			let s = NodeIterface(x: Float(p[0]), y: Float(p[1]), orientations: node.getOrientations(), hash: (node as! NSObject).hash, nodeType: node.getType())
+			let s = NodeIterface(x: Float(p[0]), y: Float(p[1]), orientations: node.getOrientations(), hash: (node as! NSObject).hash, nodeType: node.getType(), color: node.getColorCode())
 			_guiDelegate.addPathNode(s)
+		}
+	}
+	
+	func uiUpdateNodes(_ nodes: [Node]) {
+		guard let _guiDelegate = _guiDelegate else { return }
+		for node in nodes {
+			_guiDelegate.updatePosition(NodeUpdateIterface(x: CGFloat(node.getX()), y: CGFloat(node.getY()),color: node.getColorCode(), hash: (node as! NSObject).hash))
 		}
 	}
 	
@@ -47,6 +55,7 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 protocol GUIDelegate: NSObjectProtocol {
 	
 	func addPathNode(_ nodeInterface: NodeIterface)
+	func updatePosition(_ nodeUpdateInterface: NodeUpdateIterface)
 	func dislayTickNumber(_ tick: Int, _ success: Bool)
 }
 
@@ -56,6 +65,14 @@ struct NodeIterface {
 	let orientations: [Direction]
 	let hash: Int
 	let nodeType: NodeType
+	let color: NSColor
+}
+
+struct NodeUpdateIterface {
+	let x: CGFloat
+	let y: CGFloat
+	let color: NSColor
+	let hash: Int
 }
 
 enum NodeType {

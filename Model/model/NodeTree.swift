@@ -21,9 +21,21 @@ class NodeTree<T: NSObject & Node> {
 		let p = node.getPoint()
 		return !pathNodeTree.elements(at: float2(Float(p[0]), Float(p[1]))).isEmpty
 	}
+	
 	func addNode(node:T) {
 		let p = node.getPoint()
 		pathNodeTree.add(node, at: float2(Float(p[0]), Float(p[1])))
+	}
+	
+	func move(node: T) -> Bool {
+		guard remove(node: node) else { return false }
+		let pos = node.getPoint()
+		pathNodeTree.add(node, at: float2(Float(pos[0]), Float(pos[0])))
+		return true
+	}
+	
+	func remove(node: T) -> Bool {
+		return pathNodeTree.remove(node)
 	}
 	
 	func getNodesIn(_ cx:IntC, _ cy:IntC, _ cw:IntC, _ ch:IntC) -> [T] {

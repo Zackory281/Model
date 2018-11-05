@@ -17,23 +17,31 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 	private var psx, psy: Int!
 	private var withinSquare: Bool!
 	
-	private var _nodes = Dictionary<Int, SKNode>()
+	private var _nodes = Dictionary<Int, UINode>()
 	
 	// MARK: GUIDelegate stub
-	func addPathNode(_ nodeIterface: NodeIterface) {
-		guard _nodes[nodeIterface.hash] == nil else {
+	func addPathNode(_ nodeInterface: NodeIterface) {
+		guard _nodes[nodeInterface.hash] == nil else {
 			print("adding an existing item")
 			return
 		}
-		var uiNode: SKNode!
-		switch nodeIterface.nodeType{
+		var uiNode: UINode!
+		switch nodeInterface.nodeType{
 		case .Path:
-			uiNode = UIPathNode.init(nodeIterface.x + 1, nodeIterface.y + 1, orientations: nodeIterface.orientations)
+			uiNode = UIPathNode.init(nodeInterface.x + 1, nodeInterface.y + 1, orientations: nodeInterface.orientations, nodeInterface.color)
 		case .Shape:
-			uiNode = UIShapeNode.init(nodeIterface.x + 1, nodeIterface.y + 1, orientations: nodeIterface.orientations)
+			uiNode = UIShapeNode.init(nodeInterface.x + 1, nodeInterface.y + 1, orientations: nodeInterface.orientations, nodeInterface.color)
 		}
-		_nodes[nodeIterface.hash] = uiNode
+		_nodes[nodeInterface.hash] = uiNode
 		_scene.addChild(uiNode)
+	}
+	
+	func updatePosition(_ nodeUpdateInterface: NodeUpdateIterface) {
+		guard let node = _nodes[nodeUpdateInterface.hash] else {
+			print("updaing a non-existant item")
+			return
+		}
+		node.update(nodeUpdateInterface.x + 1, nodeUpdateInterface.y + 1, nodeUpdateInterface.color)
 	}
 	
 	func dislayTickNumber(_ tick: Int, _ success: Bool) {
