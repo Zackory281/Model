@@ -11,16 +11,6 @@
 		F20E9D2221897E8B002C36CC /* UIPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20E9D2121897E8B002C36CC /* UIPathNode.swift */; };
 		F21CE4E5218571E9000D8CD5 /* NodeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21CE4E4218571E9000D8CD5 /* NodeScene.swift */; };
 		F21CE5172187C4CE000D8CD5 /* NodeTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21CE5162187C4CE000D8CD5 /* NodeTree.swift */; };
-		F22673AB218ECACE006A02A5 /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A1218ECACD006A02A5 /* Evaluator.swift */; };
-		F22673AC218ECACE006A02A5 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A2218ECACD006A02A5 /* Stack.swift */; };
-		F22673AD218ECACE006A02A5 /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A3218ECACD006A02A5 /* Predicate.swift */; };
-		F22673AE218ECACE006A02A5 /* PremiseTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A4218ECACD006A02A5 /* PremiseTable.swift */; };
-		F22673AF218ECACE006A02A5 /* PremiseExpander.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A5218ECACD006A02A5 /* PremiseExpander.swift */; };
-		F22673B0218ECACE006A02A5 /* LogicSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A6218ECACD006A02A5 /* LogicSystem.swift */; };
-		F22673B1218ECACE006A02A5 /* TreeGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A7218ECACD006A02A5 /* TreeGraph.swift */; };
-		F22673B2218ECACE006A02A5 /* Facts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A8218ECACD006A02A5 /* Facts.swift */; };
-		F22673B3218ECACE006A02A5 /* LogicInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673A9218ECACD006A02A5 /* LogicInterface.swift */; };
-		F22673B4218ECACE006A02A5 /* Vocab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673AA218ECACD006A02A5 /* Vocab.swift */; };
 		F22673B6218F90C5006A02A5 /* NodesOutputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673B5218F90C5006A02A5 /* NodesOutputManager.swift */; };
 		F22673BA218FA0A0006A02A5 /* NodesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673B9218FA0A0006A02A5 /* NodesManager.swift */; };
 		F22673BC218FA2EC006A02A5 /* LogicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673BB218FA2EC006A02A5 /* LogicManager.swift */; };
@@ -29,6 +19,16 @@
 		F22D59ED2186BEB20004B078 /* NodesModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59EC2186BEB20004B078 /* NodesModelController.swift */; };
 		F22D59F02186C3610004B078 /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59EF2186C3610004B078 /* SceneController.swift */; };
 		F22D59F22186DE240004B078 /* NodesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59F12186DE240004B078 /* NodesModel.swift */; };
+		F263147021918395007CD683 /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263146621918394007CD683 /* Evaluator.swift */; };
+		F263147121918395007CD683 /* Facts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263146721918394007CD683 /* Facts.swift */; };
+		F263147221918395007CD683 /* Vocab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263146821918394007CD683 /* Vocab.swift */; };
+		F263147321918395007CD683 /* PremiseExpander.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263146921918395007CD683 /* PremiseExpander.swift */; };
+		F263147421918395007CD683 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263146A21918395007CD683 /* Stack.swift */; };
+		F263147521918395007CD683 /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263146B21918395007CD683 /* Predicate.swift */; };
+		F263147621918395007CD683 /* LogicSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263146C21918395007CD683 /* LogicSystem.swift */; };
+		F263147721918395007CD683 /* LogicInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263146D21918395007CD683 /* LogicInterface.swift */; };
+		F263147821918395007CD683 /* TreeGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263146E21918395007CD683 /* TreeGraph.swift */; };
+		F263147921918395007CD683 /* PremiseTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263146F21918395007CD683 /* PremiseTable.swift */; };
 		F2CF80582180EE69005194EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80572180EE69005194EB /* AppDelegate.swift */; };
 		F2CF805A2180EE69005194EB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2CF80592180EE69005194EB /* GameScene.sks */; };
 		F2CF805C2180EE69005194EB /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2CF805B2180EE69005194EB /* Actions.sks */; };
@@ -62,16 +62,6 @@
 		F20E9D2121897E8B002C36CC /* UIPathNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPathNode.swift; sourceTree = "<group>"; };
 		F21CE4E4218571E9000D8CD5 /* NodeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeScene.swift; sourceTree = "<group>"; };
 		F21CE5162187C4CE000D8CD5 /* NodeTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeTree.swift; sourceTree = "<group>"; };
-		F22673A1218ECACD006A02A5 /* Evaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluator.swift; sourceTree = "<group>"; };
-		F22673A2218ECACD006A02A5 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
-		F22673A3218ECACD006A02A5 /* Predicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Predicate.swift; sourceTree = "<group>"; };
-		F22673A4218ECACD006A02A5 /* PremiseTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremiseTable.swift; sourceTree = "<group>"; };
-		F22673A5218ECACD006A02A5 /* PremiseExpander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremiseExpander.swift; sourceTree = "<group>"; };
-		F22673A6218ECACD006A02A5 /* LogicSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicSystem.swift; sourceTree = "<group>"; };
-		F22673A7218ECACD006A02A5 /* TreeGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeGraph.swift; sourceTree = "<group>"; };
-		F22673A8218ECACD006A02A5 /* Facts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Facts.swift; sourceTree = "<group>"; };
-		F22673A9218ECACD006A02A5 /* LogicInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicInterface.swift; sourceTree = "<group>"; };
-		F22673AA218ECACD006A02A5 /* Vocab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vocab.swift; sourceTree = "<group>"; };
 		F22673B5218F90C5006A02A5 /* NodesOutputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesOutputManager.swift; sourceTree = "<group>"; };
 		F22673B9218FA0A0006A02A5 /* NodesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesManager.swift; sourceTree = "<group>"; };
 		F22673BB218FA2EC006A02A5 /* LogicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicManager.swift; sourceTree = "<group>"; };
@@ -80,6 +70,16 @@
 		F22D59EC2186BEB20004B078 /* NodesModelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesModelController.swift; sourceTree = "<group>"; };
 		F22D59EF2186C3610004B078 /* SceneController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneController.swift; sourceTree = "<group>"; };
 		F22D59F12186DE240004B078 /* NodesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesModel.swift; sourceTree = "<group>"; };
+		F263146621918394007CD683 /* Evaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Evaluator.swift; sourceTree = "<group>"; };
+		F263146721918394007CD683 /* Facts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Facts.swift; sourceTree = "<group>"; };
+		F263146821918394007CD683 /* Vocab.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vocab.swift; sourceTree = "<group>"; };
+		F263146921918395007CD683 /* PremiseExpander.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremiseExpander.swift; sourceTree = "<group>"; };
+		F263146A21918395007CD683 /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		F263146B21918395007CD683 /* Predicate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Predicate.swift; sourceTree = "<group>"; };
+		F263146C21918395007CD683 /* LogicSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicSystem.swift; sourceTree = "<group>"; };
+		F263146D21918395007CD683 /* LogicInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogicInterface.swift; sourceTree = "<group>"; };
+		F263146E21918395007CD683 /* TreeGraph.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeGraph.swift; sourceTree = "<group>"; };
+		F263146F21918395007CD683 /* PremiseTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PremiseTable.swift; sourceTree = "<group>"; };
 		F2CF80542180EE69005194EB /* Model.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Model.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2CF80572180EE69005194EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2CF80592180EE69005194EB /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -130,8 +130,8 @@
 		F20E9D1C21896FB7002C36CC /* intelligence */ = {
 			isa = PBXGroup;
 			children = (
+				F263146521918327007CD683 /* logic model */,
 				F22673BD218FE76F006A02A5 /* revolvers */,
-				F22673A0218ECACD006A02A5 /* logic model */,
 				F22D59F12186DE240004B078 /* NodesModel.swift */,
 			);
 			path = intelligence;
@@ -154,24 +154,6 @@
 				F20E9D2121897E8B002C36CC /* UIPathNode.swift */,
 			);
 			path = ui;
-			sourceTree = "<group>";
-		};
-		F22673A0218ECACD006A02A5 /* logic model */ = {
-			isa = PBXGroup;
-			children = (
-				F22673A1218ECACD006A02A5 /* Evaluator.swift */,
-				F22673A2218ECACD006A02A5 /* Stack.swift */,
-				F22673A3218ECACD006A02A5 /* Predicate.swift */,
-				F22673A4218ECACD006A02A5 /* PremiseTable.swift */,
-				F22673A5218ECACD006A02A5 /* PremiseExpander.swift */,
-				F22673A6218ECACD006A02A5 /* LogicSystem.swift */,
-				F22673A7218ECACD006A02A5 /* TreeGraph.swift */,
-				F22673A8218ECACD006A02A5 /* Facts.swift */,
-				F22673A9218ECACD006A02A5 /* LogicInterface.swift */,
-				F22673AA218ECACD006A02A5 /* Vocab.swift */,
-			);
-			name = "logic model";
-			path = "../../../../../Logic/Logic/logic model";
 			sourceTree = "<group>";
 		};
 		F22673BD218FE76F006A02A5 /* revolvers */ = {
@@ -200,6 +182,23 @@
 				F2CF805F2180EE69005194EB /* NodesFieldViewController.swift */,
 			);
 			path = viewControllers;
+			sourceTree = "<group>";
+		};
+		F263146521918327007CD683 /* logic model */ = {
+			isa = PBXGroup;
+			children = (
+				F263146621918394007CD683 /* Evaluator.swift */,
+				F263146721918394007CD683 /* Facts.swift */,
+				F263146D21918395007CD683 /* LogicInterface.swift */,
+				F263146C21918395007CD683 /* LogicSystem.swift */,
+				F263146B21918395007CD683 /* Predicate.swift */,
+				F263146921918395007CD683 /* PremiseExpander.swift */,
+				F263146F21918395007CD683 /* PremiseTable.swift */,
+				F263146A21918395007CD683 /* Stack.swift */,
+				F263146E21918395007CD683 /* TreeGraph.swift */,
+				F263146821918394007CD683 /* Vocab.swift */,
+			);
+			path = "logic model";
 			sourceTree = "<group>";
 		};
 		F2CF804B2180EE69005194EB = {
@@ -362,33 +361,33 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F263147821918395007CD683 /* TreeGraph.swift in Sources */,
 				F2CF808021812053005194EB /* PathNodeController.swift in Sources */,
+				F263147221918395007CD683 /* Vocab.swift in Sources */,
 				F21CE5172187C4CE000D8CD5 /* NodeTree.swift in Sources */,
 				F2CF807D2180EF67005194EB /* SerialPathNode.swift in Sources */,
+				F263147421918395007CD683 /* Stack.swift in Sources */,
 				F22673BC218FA2EC006A02A5 /* LogicManager.swift in Sources */,
 				F22D59F02186C3610004B078 /* SceneController.swift in Sources */,
+				F263147621918395007CD683 /* LogicSystem.swift in Sources */,
+				F263147021918395007CD683 /* Evaluator.swift in Sources */,
 				F22673B6218F90C5006A02A5 /* NodesOutputManager.swift in Sources */,
-				F22673B1218ECACE006A02A5 /* TreeGraph.swift in Sources */,
+				F263147121918395007CD683 /* Facts.swift in Sources */,
 				F21CE4E5218571E9000D8CD5 /* NodeScene.swift in Sources */,
 				F2CF80602180EE69005194EB /* NodesFieldViewController.swift in Sources */,
-				F22673B2218ECACE006A02A5 /* Facts.swift in Sources */,
-				F22673AB218ECACE006A02A5 /* Evaluator.swift in Sources */,
+				F263147721918395007CD683 /* LogicInterface.swift in Sources */,
 				F2D04B162183C5DD00305EB7 /* Node.swift in Sources */,
 				F20E9D2221897E8B002C36CC /* UIPathNode.swift in Sources */,
-				F22673B0218ECACE006A02A5 /* LogicSystem.swift in Sources */,
-				F22673B3218ECACE006A02A5 /* LogicInterface.swift in Sources */,
-				F22673AD218ECACE006A02A5 /* Predicate.swift in Sources */,
-				F22673AE218ECACE006A02A5 /* PremiseTable.swift in Sources */,
 				F2CF805E2180EE69005194EB /* GameScene.swift in Sources */,
-				F22673AC218ECACE006A02A5 /* Stack.swift in Sources */,
 				F2CF80582180EE69005194EB /* AppDelegate.swift in Sources */,
 				F22D59E821828F9B0004B078 /* ShapeNodeController.swift in Sources */,
-				F22673B4218ECACE006A02A5 /* Vocab.swift in Sources */,
-				F22673AF218ECACE006A02A5 /* PremiseExpander.swift in Sources */,
+				F263147321918395007CD683 /* PremiseExpander.swift in Sources */,
 				F2CF808321812493005194EB /* Utils.swift in Sources */,
 				F22D59ED2186BEB20004B078 /* NodesModelController.swift in Sources */,
+				F263147921918395007CD683 /* PremiseTable.swift in Sources */,
 				F22D59EA2186B4BC0004B078 /* InputController.swift in Sources */,
 				F22673BA218FA0A0006A02A5 /* NodesManager.swift in Sources */,
+				F263147521918395007CD683 /* Predicate.swift in Sources */,
 				F2CF80862181311F005194EB /* ShapeNode.swift in Sources */,
 				F22D59F22186DE240004B078 /* NodesModel.swift in Sources */,
 			);
