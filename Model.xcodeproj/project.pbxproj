@@ -21,6 +21,7 @@
 		F22D59F22186DE240004B078 /* NodesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59F12186DE240004B078 /* NodesModel.swift */; };
 		F263147B21918403007CD683 /* FuckYou.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263147A21918403007CD683 /* FuckYou.swift */; };
 		F263147D21918429007CD683 /* Facts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263147C21918429007CD683 /* Facts.swift */; };
+		F263147F21918471007CD683 /* WhatTheFuck.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263147E21918471007CD683 /* WhatTheFuck.swift */; };
 		F2CF80582180EE69005194EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80572180EE69005194EB /* AppDelegate.swift */; };
 		F2CF805A2180EE69005194EB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2CF80592180EE69005194EB /* GameScene.sks */; };
 		F2CF805C2180EE69005194EB /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2CF805B2180EE69005194EB /* Actions.sks */; };
@@ -64,6 +65,7 @@
 		F22D59F12186DE240004B078 /* NodesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesModel.swift; sourceTree = "<group>"; };
 		F263147A21918403007CD683 /* FuckYou.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuckYou.swift; sourceTree = "<group>"; };
 		F263147C21918429007CD683 /* Facts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Facts.swift; sourceTree = "<group>"; };
+		F263147E21918471007CD683 /* WhatTheFuck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhatTheFuck.swift; sourceTree = "<group>"; };
 		F2CF80542180EE69005194EB /* Model.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Model.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2CF80572180EE69005194EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2CF80592180EE69005194EB /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				F22D59F12186DE240004B078 /* NodesModel.swift */,
 				F263147A21918403007CD683 /* FuckYou.swift */,
 				F263147C21918429007CD683 /* Facts.swift */,
+				F263147E21918471007CD683 /* WhatTheFuck.swift */,
 			);
 			path = intelligence;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 				F22D59EA2186B4BC0004B078 /* InputController.swift in Sources */,
 				F22673BA218FA0A0006A02A5 /* NodesManager.swift in Sources */,
 				F2CF80862181311F005194EB /* ShapeNode.swift in Sources */,
+				F263147F21918471007CD683 /* WhatTheFuck.swift in Sources */,
 				F22D59F22186DE240004B078 /* NodesModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
