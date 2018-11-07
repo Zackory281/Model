@@ -13,7 +13,7 @@ typealias Points = [IntC]
 typealias Point = (IntC, IntC)
 typealias IntC = Int16
 
-func generateNodesHead(points:Points) -> PathNode? {
+func generateNodesHead(points:Points) -> PathNodeAbstract? {
 	var head:SerialPathNode?
 	perPointSerial(points: points, {(x: IntC, y: IntC, dir: Direction?) in
 		if let headT = head {
@@ -87,4 +87,8 @@ func RES(_ bool: Bool, _ grade: Int8) -> LogicDerivation {
 
 func PRE(_ q: CustomQuery) -> LogicDerivation {
 	return .Premise(Premise(q))
+}
+
+enum MyError: Error {
+	case AbstractClassMethodNotOverriden(className: String, methodName: String)
 }

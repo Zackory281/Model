@@ -20,7 +20,7 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 		var updateNodes: [Node] = []
 		switch type {
 		case .Path:
-			guard let nodeIns = _pathNodeController.addPathNode(PathNode(x, y)) else { return }
+			guard let nodeIns = _pathNodeController.addPathNode(SerialPathNode(x, y)) else { return }
 			addNodes.append(nodeIns) //TODO: Node linking
 			break
 		case .Shape:
@@ -48,15 +48,15 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 	func advance(_ node: ShapeNode) {
 		let oldPath = node.getPathNode()!
 		
-		node.getPathNode()!.liftShapeNode(node)
-		let newPathNode = node.getPathNode()!.next()!
+		node.getPathNode()!.liftShapeNode(node: node)
+		let newPathNode = node.getPathNode()!.next(for: PathNodeMeta(direction: node.getDirection()))!
 		node.setPathNode(newPathNode)
 		_shapeNodeController.move(node)
 		newPathNode.setShapeNode(node: node)
 		_nodeActionDelegate?.uiUpdateNodes(nodes: [node, oldPath, node.getPathNode()!])
 	}
 	
-	func addPathNodesFromHead(_ head: PathNode) {
+	func addPathNodesFromHead(_ head: PathNodeAbstract) {
 		let ups = _pathNodeController.addHeadNode(head)
 		guard !ups.isEmpty else { return }
 		_nodeActionDelegate?.uiAddNodes(nodes: ups)

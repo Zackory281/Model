@@ -11,7 +11,7 @@ import GameplayKit
 
 protocol Node {
 	
-	func getPoint() -> [IntC]
+	func getPoint() -> Point
 	func getOrientations() -> [Direction]
 	func getType() -> NodeType
 	func getX() -> IntC

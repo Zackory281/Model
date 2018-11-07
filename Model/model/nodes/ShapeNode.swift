@@ -12,13 +12,14 @@ import AppKit
 class ShapeNode : NSObject, Node {
 	
 	override var description: String { return "ShapeNode at \(_x), \(_y)" }
-	private weak var _pathNode:PathNode?
+	private weak var _pathNode:PathNodeAbstract?
 	private var _headShapeNode:HeadNode?
 	private var _x, _y: IntC
 	private var _orientations: [Direction]
 	private var _color: NSColor
+	private var _direction: Direction?
 	
-	init(_ x: IntC, _ y: IntC, direction: Direction, pathNode:PathNode?, headNode:HeadNode?) {
+	init(_ x: IntC, _ y: IntC, direction: Direction, pathNode:PathNodeAbstract?, headNode:HeadNode?) {
 		(_x, _y) = (x, y)
 		_orientations = [direction]
 		_pathNode = pathNode
@@ -26,48 +27,26 @@ class ShapeNode : NSObject, Node {
 		_color = _colorsAvaliable.pop() ?? .white
 	}
 	
-	func setPathNode(pathNode:PathNode) {
+	func setPathNode(pathNode:PathNodeAbstract) {
 		_pathNode = pathNode
 	}
 	
-	private func advance() -> Bool {
-		guard let pathNode = _pathNode else { return false}
-		if pathNode.hasNext() {
-			let next = pathNode.next()!
-			(_x, _y) = (next.getPoint()[0], next.getPoint()[1])
-			_pathNode = pathNode
-		}
-		return false
-	}
-	
-	func setPathNode(_ node: PathNode) {
+	func setPathNode(_ node: PathNodeAbstract) {
 		_pathNode = node
-		(_x, _y) = (node.getPoint()[0], node.getPoint()[1])
+		(_x, _y) = node.getPoint()
 	}
 	
-	func getPathNode() -> PathNode? {
+	func getPathNode() -> PathNodeAbstract? {
 		return _pathNode
 	}
 	
-	func getPoint() -> [IntC] { return [_x, _y] }
-	
+	func getPoint() -> Point { return (_x, _y) }
 	func getX() -> IntC { return _x }
-	
 	func getY() -> IntC { return _y }
-	
-	func getOrientations() -> [Direction] {
-		return [getDirection()!]
-	}
-	
-	func getDirection() -> Direction? {
-		return _pathNode?.getDirection()
-	}
-	
+	func getOrientations() -> [Direction] { return [getDirection()!] }
+	func getDirection() -> Direction? { return _direction }
 	func getType() -> NodeType { return .Shape}
-	
-	func getColorCode() -> NSColor {
-		return _color
-	}
+	func getColorCode() -> NSColor { return _color }
 }
 
 let _colorsAvaliable = Stack<NSColor>([NSColor.systemBlue,

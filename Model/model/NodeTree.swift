@@ -9,7 +9,7 @@
 import Foundation
 import GameplayKit
 
-class NodeTree<T:NSObject, Node> {
+class NodeTree<T : NSObject & Node> {
 	//<ElementType> : NSObject where ElementType : NSObject
 	private var pathNodeTree:GKQuadtree<T>
 	
@@ -19,18 +19,18 @@ class NodeTree<T:NSObject, Node> {
 	
 	func exists(node: T) -> Bool {
 		let p = node.getPoint()
-		return !pathNodeTree.elements(at: float2(Float(p[0]), Float(p[1]))).isEmpty
+		return !pathNodeTree.elements(at: float2(Float(p.0), Float(p.1)).isEmpty
 	}
 	
 	func addNode(node:T) {
 		let p = node.getPoint()
-		pathNodeTree.add(node, at: float2(Float(p[0]), Float(p[1])))
+		pathNodeTree.add(node, at: float2(Float(p.0), Float(p.1)))
 	}
 	
 	func move(node: T) -> Bool {
 		guard remove(node: node) else { return false }
 		let pos = node.getPoint()
-		pathNodeTree.add(node, at: float2(Float(pos[0]), Float(pos[0])))
+		pathNodeTree.add(node, at: float2(Float(p.0), Float(p.1)))
 		return true
 	}
 	
