@@ -11,37 +11,27 @@ import GameplayKit
 
 class SerialPathNode : PathNodeAbstract {
 
-	override var description: String { return "PathNode at \(_x), \(_y)" }
+	override var description: String { return "PathNode at \(_point.0), \(_point.1)" }
 	private let _value:UInt16
-	private var _dir:Direction?
 	private weak var _meta:AnyObject?
-
-	init(_ x:IntC, _ y:IntC, prev:SerialPathNode? = nil, next:SerialPathNode? = nil, value:UInt16 = 0, dir:Direction? = nil, occupacity:Occupacity = .FREE, shapeNode:ShapeNode? = nil, meta:AnyObject? = nil) {
-		_x = x;
-		_y = y;
-		_prev = prev
-		_next = next
-		_value = value
-		_dir = dir
-		_occupacity = occupacity
-		_shapeNode = shapeNode
-		_meta = meta
-		_orientations = []
-	}
+	var _next, _prev: PathNodeAbstract?
+	var _direction: Direction?
 	
-	convenience init(_ x:IntC, _ y:IntC, prev:SerialPathNode?, next:SerialPathNode?, value:UInt16, dir:Direction?) {
-		self.init(x, y, prev: prev, next: next, value: value, dir: dir, occupacity:.FREE, shapeNode:nil, meta:nil)
-	}
-	private var _next, _prev: PathNodeAbstract?
-	override var _point: Point
-	override var _type: NodeType{get{return .Path}}
-	override var _color: NSColor{get{return _shapeNode._color}set{print("can't set color")}}
-	override var _nexts: [PathNodeAbstract] { get { return [_next] } set{ print("not doing to set _next")}}
-	override var _prevs: [PathNodeAbstract] { get { return [_prev] } set{ print("not doing to set _prev")}}
-	override var _directions: [Direction]
+	override var _type: NodeType { get { return .Path}}
+	override var _nexts: [PathNodeAbstract]{get{guard let next = _next else {return []}; return [next]}}
+	override var _prevs: [PathNodeAbstract]{get{guard let prev = _prev else {return []};  return [prev]}}
+	override var _directions: [Direction]{get{guard let direction = _direction else {return []};  return [direction]}}
 	override func getNext(_ direction: Direction) -> PathNodeAbstract? {return _next}
 	override func getPrev(_ direction: Direction) -> PathNodeAbstract? {return _prev}
 	override func getNowUntakeDerivation(ignore direction: Direction) -> LogicDerivation? {fatalError("no")}
+	override func update(){print("nothing to update for SerialPathNode")}
+	init(point: Point, next: PathNodeAbstract?, prev: PathNodeAbstract?, direction: Direction?, shapeNode: ShapeNode?) {
+		super.init(point: point, shapeNode: shapeNode)
+		(_next, _prev, _direction) = (next, prev, direction)
+	}
+	override init(point: Point) {
+		super.init(point: point)
+	}
 }
 
 protocol Node {
@@ -50,26 +40,30 @@ protocol Node {
 }
 
 protocol PathNode: Node {
-	var _nexts: [PathNodeAbstract] { get set }
-	var _prevs: [PathNodeAbstract] { get set }
-	var _directions: [Direction] { get set }
+	var _nexts: [PathNodeAbstract] { get }
+	var _prevs: [PathNodeAbstract] { get }
+	var _directions: [Direction] { get }
 	var _shapeNode: ShapeNode? { get set }
 	var _color: NSColor? { get }
 	func getNext(_ direction: Direction) -> PathNodeAbstract?
 	func getNowUntakeDerivation(ignore direction: Direction) -> LogicDerivation?
+	func update()
 }
 
 class PathNodeAbstract: NSObject, PathNode {
-	var _point: Point{get{fatalError("No point get")}set{fatalError("NO point set")}}
-	var _type: NodeType{get{fatalError("No type get")}}
-	var _color: NSColor? {get{fatalError("No color get!")}}
-	var _nexts: [PathNodeAbstract]{get{fatalError("No nothing")}set{fatalError("NO set")}}
-	var _prevs: [PathNodeAbstract]{get{fatalError("No nothing")}set{fatalError("NO set")}}
-	var _directions: [Direction]{get{fatalError("No nothing")}set{fatalError("NO set")}}
+	init(point: Point, shapeNode: ShapeNode?){(_point, _shapeNode)=(point, shapeNode)}
+	init(point: Point){_point = point}
+	var _point: Point
 	weak var _shapeNode: ShapeNode?
-	func getNext(_ direction: Direction) -> PathNodeAbstract? {fatalError("no getNext from direction"); return nil}
-	func getPrev(_ direction: Direction) -> PathNodeAbstract? {fatalError("no getPrev from direction"); return nil}
+	var _type: NodeType { get { fatalError("No nodetype getter blowa!"); return .Shape}}
+	var _color: NSColor? { return _shapeNode?._color }
+	var _nexts: [PathNodeAbstract]{get{fatalError("no _nexts in PathNodeAbstract")}}
+	var _prevs: [PathNodeAbstract]{get{fatalError("no _prevs in PathNodeAbstract")}}
+	var _directions: [Direction]{get{fatalError("no _directions in PathNodeAbstract")}}
+	func getNext(_ direction: Direction) -> PathNodeAbstract? {fatalError("no getNext from direction")}
+	func getPrev(_ direction: Direction) -> PathNodeAbstract? {fatalError("no getPrev from direction")}
 	func getNowUntakeDerivation(ignore direction: Direction) -> LogicDerivation? {fatalError("no")}
+	func update() {fatalError("no update")}
 }
 
 enum Occupacity {

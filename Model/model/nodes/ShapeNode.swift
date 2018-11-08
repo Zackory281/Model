@@ -33,16 +33,15 @@ class ShapeNode : NSObject, Node {
 	
 	func setPathNode(_ node: PathNodeAbstract) {
 		_pathNode = node
-		(_x, _y) = node.getPoint()
+		(_x, _y) = node._point
 	}
 	
 	func getPathNode() -> PathNodeAbstract? {
 		return _pathNode
 	}
 	
-	func getPoint() -> Point { return (_x, _y) }
-	func getX() -> IntC { return _x }
-	func getY() -> IntC { return _y }
+	var _point: Point
+	var _type: NodeType { get { return .Shape } }
 	func getOrientations() -> [Direction] { return [getDirection()!] }
 	func getDirection() -> Direction? { return _direction }
 	func getType() -> NodeType { return .Shape}

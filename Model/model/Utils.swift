@@ -15,32 +15,32 @@ typealias IntC = Int16
 
 func generateNodesHead(points:Points) -> PathNodeAbstract? {
 	var head:SerialPathNode?
-	perPointSerial(points: points, {(x: IntC, y: IntC, dir: Direction?) in
+	perPointSerial(points: points, {(point: Point, dir: Direction?) in
 		if let headT = head {
-			headT.setNext(SerialPathNode(x, y, prev:headT, next:nil, dir:dir))
-			head = headT.getNext()
+			headT._next = SerialPathNode(point: point, next: nil, prev: head, direction: dir, shapeNode: nil)
+			head = headT._next as! SerialPathNode?
 			return
 		}
-		head = SerialPathNode(x, y, prev:nil, next:nil, dir:dir)
+		head = SerialPathNode(point: point)
 	})
 	return head
 }
 
-func perPointSerial(points:Points, _ function:(_ x:IntC, _ y:IntC, _ dir:Direction?) -> ()) {
+func perPointSerial(points:Points, _ function:(_ point: Point, _ dir:Direction?) -> ()) {
 	var px, py:IntC!
 	if points.count >= 2 {
 		px = points[0]
 		py = points[1]
 	}
 	for i in stride(from: 0, to: points.count - 1, by: 2) {
-		function(points[i], points[i + 1], DIR_TO_DIR[points[i + 1] - py + 1 + (points[i] - px + 1) * 10]?.opposite())
+		function((points[i], points[i + 1]), DIR_TO_DIR[points[i + 1] - py + 1 + (points[i] - px + 1) * 10]?.opposite())
 		(px, py) = (points[i], points[i + 1])
 	}
 }
 
-func perPoint<T>(points:Points, meta:[T], function:(_ x:IntC, _ y:IntC, _ meta:T) -> ()) {
+func perPoint<T>(points:Points, meta:[T], function:(_ point: Point, _ meta:T) -> ()) {
 	for i in stride(from: 0, to: points.count - 1, by: 2) {
-		function(points[i], points[i + 1], meta[i / 2])
+		function((points[i], points[i + 1]), meta[i / 2])
 	}
 }
 
