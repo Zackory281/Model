@@ -16,7 +16,7 @@ class ShapeNode : NSObject, Node {
 	private var _headShapeNode:HeadNode?
 	private var _x, _y: IntC
 	private var _orientations: [Direction]
-	private var _color: NSColor
+	var _color: NSColor
 	private var _direction: Direction?
 	
 	init(_ x: IntC, _ y: IntC, direction: Direction, pathNode:PathNodeAbstract?, headNode:HeadNode?) {

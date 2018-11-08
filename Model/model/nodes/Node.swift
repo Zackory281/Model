@@ -9,12 +9,3 @@
 import Foundation
 import GameplayKit
 
-protocol Node {
-	
-	func getPoint() -> Point
-	func getOrientations() -> [Direction]
-	func getType() -> NodeType
-	func getX() -> IntC
-	func getY() -> IntC
-	func getColorCode() -> NSColor
-}

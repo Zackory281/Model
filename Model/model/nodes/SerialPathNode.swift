@@ -12,14 +12,9 @@ import GameplayKit
 class SerialPathNode : PathNodeAbstract {
 
 	override var description: String { return "PathNode at \(_x), \(_y)" }
-	private let _x, _y:IntC
-	private var _next, _prev:SerialPathNode?
 	private let _value:UInt16
 	private var _dir:Direction?
 	private weak var _meta:AnyObject?
-	private var _occupacity:Occupacity
-	private weak var _shapeNode:ShapeNode?
-	private var _orientations: [Direction]
 
 	init(_ x:IntC, _ y:IntC, prev:SerialPathNode? = nil, next:SerialPathNode? = nil, value:UInt16 = 0, dir:Direction? = nil, occupacity:Occupacity = .FREE, shapeNode:ShapeNode? = nil, meta:AnyObject? = nil) {
 		_x = x;
@@ -37,62 +32,44 @@ class SerialPathNode : PathNodeAbstract {
 	convenience init(_ x:IntC, _ y:IntC, prev:SerialPathNode?, next:SerialPathNode?, value:UInt16, dir:Direction?) {
 		self.init(x, y, prev: prev, next: next, value: value, dir: dir, occupacity:.FREE, shapeNode:nil, meta:nil)
 	}
-	
-	override func getPoint() -> Point {return (_x,_y)}
-	override func getOrientations() -> [Direction] {return _orientations}
-	override func getType() -> NodeType {return .Path}
-	override func getX() -> IntC {return _x}
-	override func getY() -> IntC {return _y}
-	override func getColorCode() -> NSColor {return _shapeNode?.getColorCode() ?? .white}
-	override func next(for meta: PathNodeMeta?) -> PathNodeAbstract? {return _next}
-	override func prev(for meta: PathNodeMeta?) -> PathNodeAbstract? {return _prev}
-	override func nexts() -> [PathNodeAbstract] {guard let _next = _next else { return [] }; return [_next]}
-	override func prevs() -> [PathNodeAbstract] {guard let _prev = _prev else { return [] }; return [_prev]}
-	override func setShapeNode(node: ShapeNode) {_shapeNode = node}
-	override func getDirection(for meta: PathNodeMeta?) -> Direction? {return _dir}
-	override func liftShapeNode(node: ShapeNode) {if _shapeNode == node { _shapeNode = nil }}
-	override func getNowUntakeDerivation(ignore meta: PathNodeMeta?) -> LogicDerivation? {
-		if _prev?.getDirection(for: nil) == _dir {
-			if let shapeNode = _shapeNode {
-				return PRE(CustomQuery.ShapeNowMove(shapeNode))
-			}
-			return RES(true, 3)
-		}
-		fatalError("we have a problem")
-		return nil
-	}
+	private var _next, _prev: PathNodeAbstract?
+	override var _point: Point
+	override var _type: NodeType{get{return .Path}}
+	override var _color: NSColor{get{return _shapeNode._color}set{print("can't set color")}}
+	override var _nexts: [PathNodeAbstract] { get { return [_next] } set{ print("not doing to set _next")}}
+	override var _prevs: [PathNodeAbstract] { get { return [_prev] } set{ print("not doing to set _prev")}}
+	override var _directions: [Direction]
+	override func getNext(_ direction: Direction) -> PathNodeAbstract? {return _next}
+	override func getPrev(_ direction: Direction) -> PathNodeAbstract? {return _prev}
+	override func getNowUntakeDerivation(ignore direction: Direction) -> LogicDerivation? {fatalError("no")}
+}
+
+protocol Node {
+	var _point: Point { get set }
+	var _type: NodeType { get }
 }
 
 protocol PathNode: Node {
-	func next(for meta: PathNodeMeta?) -> PathNode?
-	func prev(for meta: PathNodeMeta?) -> PathNode?
-	func nexts() -> [PathNodeAbstract]
-	func prevs() -> [PathNodeAbstract]
-	func getDirection(for meta: PathNodeMeta?) -> Direction?
-	func setShapeNode(node: ShapeNode)
-	func liftShapeNode(node: ShapeNode)
-	func getNowUntakeDerivation(ignore meta: PathNodeMeta?) -> LogicDerivation?
-}
-
-struct PathNodeMeta {
-	let direction: Direction?
+	var _nexts: [PathNodeAbstract] { get set }
+	var _prevs: [PathNodeAbstract] { get set }
+	var _directions: [Direction] { get set }
+	var _shapeNode: ShapeNode? { get set }
+	var _color: NSColor? { get }
+	func getNext(_ direction: Direction) -> PathNodeAbstract?
+	func getNowUntakeDerivation(ignore direction: Direction) -> LogicDerivation?
 }
 
 class PathNodeAbstract: NSObject, PathNode {
-	func getPoint() -> Point {fatalError("getPoint() -> Point not implemented"); return (0,0)}
-	func getOrientations() -> [Direction] {fatalError("getOrientations() -> [Direction] is not implemented"); return []}
-	func getType() -> NodeType {fatalError("getType() -> NodeType is not implemented"); return .Shape}
-	func getX() -> IntC {fatalError("PathNodeAbstract method is not implemented"); return 0}
-	func getY() -> IntC {fatalError("PathNodeAbstract method is not implemented"); return 0}
-	func getColorCode() -> NSColor {fatalError("PathNodeAbstract method is not implemented"); return .white}
-	func next(for meta: PathNodeMeta?) -> PathNodeAbstract? {fatalError("next(for meta: PathNodeMeta) is not implemented"); return nil}
-	func prev(for meta: PathNodeMeta?) -> PathNodeAbstract? {fatalError("PathNodeAbstract method is not implemented"); return nil}
-	func nexts() -> [PathNodeAbstract] {fatalError("PathNodeAbstract method is not implemented"); return []}
-	func prevs() -> [PathNodeAbstract] {fatalError("PathNodeAbstract method is not implemented"); return []}
-	func getDirection(for meta: PathNodeMeta?) -> Direction? {fatalError("PathNodeAbstract method is not implemented"); return nil}
-	func setShapeNode(node: ShapeNode) {fatalError("PathNodeAbstract method is not implemented")}
-	func liftShapeNode(node : ShapeNode) {fatalError("PathNodeAbstract method is not implemented")}
-	func getNowUntakeDerivation(ignore meta: PathNodeMeta?) -> LogicDerivation? {fatalError("PathNodeAbstract method is not implemented"); return nil}
+	var _point: Point{get{fatalError("No point get")}set{fatalError("NO point set")}}
+	var _type: NodeType{get{fatalError("No type get")}}
+	var _color: NSColor? {get{fatalError("No color get!")}}
+	var _nexts: [PathNodeAbstract]{get{fatalError("No nothing")}set{fatalError("NO set")}}
+	var _prevs: [PathNodeAbstract]{get{fatalError("No nothing")}set{fatalError("NO set")}}
+	var _directions: [Direction]{get{fatalError("No nothing")}set{fatalError("NO set")}}
+	weak var _shapeNode: ShapeNode?
+	func getNext(_ direction: Direction) -> PathNodeAbstract? {fatalError("no getNext from direction"); return nil}
+	func getPrev(_ direction: Direction) -> PathNodeAbstract? {fatalError("no getPrev from direction"); return nil}
+	func getNowUntakeDerivation(ignore direction: Direction) -> LogicDerivation? {fatalError("no")}
 }
 
 enum Occupacity {
