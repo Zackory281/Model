@@ -15,7 +15,7 @@ class UINode: SKShapeNode {
 }
 class UIPathNode: UINode {
 	
-	init(_ x:Float, _ y:Float, orientations:[Direction], _ color:NSColor = .white) {
+	init(_ x:CGFloat, _ y:CGFloat, orientations:[Direction], _ color:NSColor = .white) {
 		super.init()
 		self.path = getPathForOrentation(ori: orientations)
 		//(path as! CGMutablePath).addPath(path!)
@@ -39,7 +39,7 @@ class UIPathNode: UINode {
 
 class UIShapeNode: UINode {
 	
-	init(_ x:Float, _ y:Float, orientations:[Direction], _ color:NSColor = .white) {
+	init(_ x:CGFloat, _ y:CGFloat, orientations:[Direction], _ color:NSColor = .white) {
 		super.init()
 		self.path = shapeNodePath
 		position = CGPoint(x: CGFloat(x) * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: CGFloat(y) * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)

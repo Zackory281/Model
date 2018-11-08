@@ -41,6 +41,10 @@ class ShapeNodeController {
 		let _ = _shapeNodeTree.move(node: node)
 	}
 	
+	func hasShapeNodeAt(_ point: Point) -> Bool {
+		return !_shapeNodeTree.getNodesAt(point.0, point.1).isEmpty
+	}
+	
 	func hasShapeNodeAt(_ x: IntC, y: IntC) -> Bool {
 		return !_shapeNodeTree.getNodesAt(x, y).isEmpty
 	}

@@ -28,9 +28,9 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 		var uiNode: UINode!
 		switch nodeInterface.nodeType{
 		case .Path:
-			uiNode = UIPathNode.init(nodeInterface.x + 1, nodeInterface.y + 1, orientations: nodeInterface.orientations, nodeInterface.color)
+			uiNode = UIPathNode.init(CGFloat(nodeInterface.point.0 + 1), CGFloat(nodeInterface.point.1 + 1), orientations: nodeInterface.orientations, nodeInterface.color)
 		case .Shape:
-			uiNode = UIShapeNode.init(nodeInterface.x + 1, nodeInterface.y + 1, orientations: nodeInterface.orientations, nodeInterface.color)
+			uiNode = UIShapeNode.init(CGFloat(nodeInterface.point.0 + 1), CGFloat(nodeInterface.point.1 + 1), orientations: nodeInterface.orientations, nodeInterface.color)
 		}
 		_nodes[nodeInterface.hash] = uiNode
 		_scene.addChild(uiNode)
@@ -41,7 +41,7 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 			print("updaing a non-existant item")
 			return
 		}
-		node.update(nodeUpdateInterface.x + 1, nodeUpdateInterface.y + 1, nodeUpdateInterface.color)
+		node.update(CGFloat(nodeUpdateInterface.point.0 + 1), CGFloat(nodeUpdateInterface.point.1 + 1), nodeUpdateInterface.color)
 	}
 	
 	func dislayTickNumber(_ tick: Int, _ success: Bool) {

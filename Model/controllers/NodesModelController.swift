@@ -18,8 +18,15 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 	func uiAddNodes(_ nodes: [Node]) {
 		guard let _guiDelegate = _guiDelegate else { return }
 		for node in nodes {
-			let p = node.getPoint()
-			let s = NodeIterface(x: Float(p[0]), y: Float(p[1]), orientations: node.getOrientations(), hash: (node as! NSObject).hash, nodeType: node.getType(), color: node.getColorCode())
+			var s:NodeIterface!
+			switch (node._type) {
+			case .Shape:
+				let shapeNode = (node as! PathNodeAbstract)
+				s = NodeIterface(point: node._point, orientations: [], hash: (node as! NSObject).hash, nodeType: node._type, color: shapeNode._color ?? .white)
+			default:
+				let pathNode = (node as! PathNodeAbstract)
+				s = NodeIterface(point: node._point, orientations: pathNode._directions, hash: (node as! NSObject).hash, nodeType: node._type, color: pathNode._color ?? .white)
+			}
 			_guiDelegate.addPathNode(s)
 		}
 	}
@@ -27,7 +34,7 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 	func uiUpdateNodes(_ nodes: [Node]) {
 		guard let _guiDelegate = _guiDelegate else { return }
 		for node in nodes {
-			_guiDelegate.updatePosition(NodeUpdateIterface(x: CGFloat(node.getX()), y: CGFloat(node.getY()),color: node.getColorCode(), hash: (node as! NSObject).hash))
+			_guiDelegate.updatePosition(NodeUpdateIterface(point: node._point,color: node._color ?? .white, hash: (node as! NSObject).hash))
 		}
 	}
 	
@@ -60,8 +67,7 @@ protocol GUIDelegate: NSObjectProtocol {
 }
 
 struct NodeIterface {
-	let x: Float
-	let y: Float
+	let point: Point
 	let orientations: [Direction]
 	let hash: Int
 	let nodeType: NodeType
@@ -69,8 +75,7 @@ struct NodeIterface {
 }
 
 struct NodeUpdateIterface {
-	let x: CGFloat
-	let y: CGFloat
+	let point: Point
 	let color: NSColor
 	let hash: Int
 }

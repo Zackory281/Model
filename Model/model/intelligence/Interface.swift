@@ -8,8 +8,13 @@
 
 import Foundation
 
-enum CustomQuery: Hashable {
-	case IsUntakenSquare(PathNode, Direction)
+
+enum CustomQuery: Hashable, CustomStringConvertible {
+	static func == (lhs: CustomQuery, rhs: CustomQuery) -> Bool {
+		return true
+	}
+	
+	case IsUntakenSquare(PathNodeAbstract, Direction)
 	case ShapeNowMove(ShapeNode)
 	
 	var description: String {
@@ -66,7 +71,7 @@ protocol AssertionDelegate: NSObjectProtocol {
 	func isUntakeSquare(_ pathNode: PathNode, _ direction: Direction) -> LogicDerivation?
 }
 
-enum LogicDerivation {
+enum LogicDerivation: Hashable {
 	case Result(Result)
 	case Premise(Premise)
 }

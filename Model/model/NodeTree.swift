@@ -18,19 +18,19 @@ class NodeTree<T : NSObject & Node> {
 	}
 	
 	func exists(node: T) -> Bool {
-		let p = node.getPoint()
-		return !pathNodeTree.elements(at: float2(Float(p.0), Float(p.1)).isEmpty
+		let p = node._point
+		return !pathNodeTree.elements(at: float2(Float(p.0), Float(p.1))).isEmpty
 	}
 	
 	func addNode(node:T) {
-		let p = node.getPoint()
+		let p = node._point
 		pathNodeTree.add(node, at: float2(Float(p.0), Float(p.1)))
 	}
 	
 	func move(node: T) -> Bool {
 		guard remove(node: node) else { return false }
-		let pos = node.getPoint()
-		pathNodeTree.add(node, at: float2(Float(p.0), Float(p.1)))
+		let pos = node._point
+		pathNodeTree.add(node, at: float2(Float(pos.0), Float(pos.1)))
 		return true
 	}
 	

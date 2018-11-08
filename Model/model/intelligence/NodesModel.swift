@@ -88,7 +88,7 @@ protocol OutputDelegate: NSObjectProtocol {
 extension NodesModel {
 	
 	func shapeNowMove(_ shapeNode: ShapeNode) -> LogicDerivation? {
-		guard let pathNode = shapeNode.getPathNode(), let nextPathNode = pathNode.next() else { return RES(false, 1) }
+		guard let pathNode = shapeNode.getPathNode(), let nextPathNode = pathNode.getNext(nil) else { return RES(false, 1) }
 		return PRE(.IsUntakenSquare(nextPathNode, shapeNode.getDirection()!))
 	}
 	
