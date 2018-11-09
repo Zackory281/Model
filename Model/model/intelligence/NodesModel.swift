@@ -53,7 +53,7 @@ class NodesModel : NSObject, AssertionDelegate {
 		return false
 	}
 	
-	func getTick() -> IntC {
+	func getTick() -> TickU {
 		return _tick
 	}
 	

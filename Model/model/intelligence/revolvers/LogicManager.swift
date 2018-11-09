@@ -54,7 +54,7 @@ class LogicManager : NSObject {
 		_queries.removeAll()
 	}
 	
-	func tick(_ tick :Int16) {
+	func tick(_ tick :TickU) {
 		if _shouldEval {
 			flushQueries()
 			gatherQuery()

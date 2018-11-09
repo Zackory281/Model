@@ -70,8 +70,8 @@ class ShapeNode : NSObject, Node {
 	func getColorCode() -> NSColor? { return _color }
 }
 
-let CHILL_TIME: TickU = 20
-let MOVING_TIME: TickU = 10
+let CHILL_TIME: TickU = 1
+let MOVING_TIME: TickU = 1
 
 enum ShapeNodeState {
 	case Chilling

@@ -12,7 +12,7 @@ import SpriteKit
 typealias Points = [IntC]
 typealias Point = (IntC, IntC)
 typealias IntC = Int16
-typealias TickU = Int16
+typealias TickU = Int
 
 func generateNodesHead(points:Points) -> PathNodeAbstract? {
 	var tail: SerialPathNode?

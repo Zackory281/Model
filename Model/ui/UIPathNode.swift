@@ -24,21 +24,17 @@ class UIPathNode: UINode {
 		fillColor = color
 		lineWidth = 0
 		zPosition = PATHNODE_Z
-		let label = SKLabelNode(text: orientations.description)
-		label.fontSize = 12
-		label.position = CGPoint(x: 200, y: 0)
-		(xScale, yScale, alpha) = (1.5, 1.5, 0)
-		run(SKAction.fadeAlpha(to: 1, duration: 0.05))
-		run(SKAction.scale(to: 1, duration: 0.05))
-		//self.addChild(label)
+//		(xScale, yScale, alpha) = (1.5, 1.5, 0)
+//		run(SKAction.fadeAlpha(to: 1, duration: 0.05))
+//		run(SKAction.scale(to: 1, duration: 0.05))
 	}
 	
 	override func update(interface: NodeUpdateIterface) {
 		fillColor = interface.color!
 		self.path = getPathForOrentation(ori: interface.orientation!)
-		(xScale, yScale) = (1.3, 1.3)
-		run(SKAction.fadeAlpha(to: 1, duration: 0.05))
-		run(SKAction.scale(to: 1, duration: 0.05))
+//		(xScale, yScale) = (1.3, 1.3)
+//		run(SKAction.fadeAlpha(to: 1, duration: 0.05))
+//		run(SKAction.scale(to: 1, duration: 0.05))
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -62,8 +58,10 @@ class UIShapeNode: UINode {
 	override func update(interface: NodeUpdateIterface) {
 		let x = CGFloat(interface.point!.0 + 1)
 		let y = CGFloat(interface.point!.1 + 1)
-		//position = CGPoint(x: x * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: y * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)
-		run(SKAction.group([SKAction.moveTo(x: x * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, duration: 0.1), SKAction.moveTo(y: y * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, duration: 0.1)]))
+		//position.x = x
+		//position.y = y
+//		position = CGPoint(x: x * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: y * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)
+//		run(SKAction.group([SKAction.moveTo(x: x * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, duration: 0.1), SKAction.moveTo(y: y * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, duration: 0.1)]))
 		//run(SKAction.moveTo(x: x * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, duration: 0.1))
 		//run(SKAction.moveTo(x: y * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, duration: 0.1))
 	}

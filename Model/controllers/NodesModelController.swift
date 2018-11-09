@@ -46,7 +46,7 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 		if _nodesModel._tick % 60 == 0 {
 			pushUpdateNodes()
 		}
-		//pushUpdateNodes()
+		pushUpdateNodes()
 		_nodesToUpdate.removeAll()
 	}
 	
