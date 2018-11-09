@@ -48,6 +48,10 @@ class Result: NSObject {
 		_grade = grade
 		_null = false
 	}
+	
+	static func ==(lhs: Result, rhs: Result) -> Bool {
+		return lhs._bool == rhs._bool && lhs._grade == rhs._grade && lhs._null == rhs._null
+	}
 }
 
 extension Result {

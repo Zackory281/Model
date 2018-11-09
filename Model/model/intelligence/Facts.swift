@@ -28,7 +28,9 @@ class Facts: Hashable {
 	/// - Returns: Wether the premise was successfully inserted, false otherwise.
 	///
 	func addEvaluatedPremise(_ premise: Premise, _ result: Result) -> Bool {
-		guard _premises[premise] == nil else { return _premises[premise] == result }
+		guard _premises[premise] == nil else {
+			return _premises[premise] == result
+		}
 		_premises[premise] = result
 		return true
 	}

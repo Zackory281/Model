@@ -23,7 +23,12 @@ class SerialPathNode : PathNodeAbstract {
 	override var _directions: [Direction]{get{guard let direction = _direction else {return []};  return [direction]}}
 	override func getNext(_ direction: Direction?) -> PathNodeAbstract? {return _next}
 	override func getPrev(_ direction: Direction?) -> PathNodeAbstract? {return _prev}
-	override func getNowUntakeDerivation(ignore direction: Direction) -> LogicDerivation? {fatalError("no")}
+	override func getNowUntakeDerivation(ignore direction: Direction) -> LogicDerivation? {
+		if let shape = _shapeNode { // Assume the querier is the node before
+			return PRE(.ShapeNowMove(shape))
+		}
+		return RES(true, 2)
+	}
 	override func update(){print("nothing to update for SerialPathNode")}
 	init(point: Point, next: PathNodeAbstract?, prev: PathNodeAbstract?, direction: Direction?, shapeNode: ShapeNode?) {
 		_value = 0
@@ -59,7 +64,7 @@ class PathNodeAbstract: NSObject, PathNode {
 	init(point: Point){_point = point}
 	var _point: Point
 	weak var _shapeNode: ShapeNode?
-	var _type: NodeType { get { fatalError("No nodetype getter blowa!"); return .Shape}}
+	var _type: NodeType { get { fatalError("No nodetype getter blowa!")}}
 	var _color: NSColor? { return _shapeNode?._color }
 	var _nexts: [PathNodeAbstract]{get{fatalError("no _nexts in PathNodeAbstract")}}
 	var _prevs: [PathNodeAbstract]{get{fatalError("no _prevs in PathNodeAbstract")}}

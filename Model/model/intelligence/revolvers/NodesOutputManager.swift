@@ -18,10 +18,10 @@ class NodesOutputManager: NSObject, OutputDelegate {
 	}
 	
 	func uiUpdateNodes(nodes: [Node]) {
-		_modelActionDelegate?.uiUpdateNodes(nodes)
+		_modelActionDelegate?.uiBufferUpdate(nodes)
 	}
 	
-	func tick(_ tick :Int16) {
+	func tick(_ tick :TickU) {
 		
 	}
 }

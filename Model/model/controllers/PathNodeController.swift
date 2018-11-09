@@ -16,6 +16,9 @@ class PathNodeController {
 	private var _nodeTree: NodeTree<PathNodeAbstract>
 	private var _headNodes: Set<PathNodeAbstract>
 	
+	var _nodesToUpdate: [PathNodeAbstract]
+	var _nodesToAdd: [PathNodeAbstract]
+	
 	func addNodeOnStep() {
 		
 	}
@@ -32,9 +35,76 @@ class PathNodeController {
 	}
 	
 	/// - returns: the pathnode successfully inserted
-	func addPathNode(_ node: PathNodeAbstract) -> PathNodeAbstract?{
+	func addPathNode(at point: Point) -> PathNodeAbstract?{
 		//_nodeTree.addPathNode(pathNode: PathNode.init(x, y))
 		// TODO: fix me!
+		guard _nodeTree.isEmpty(at: point) else { print("I thought there weren't any nodes?");return nil }
+		let node = SerialPathNode(point: point)
+		_nodesToAdd.append(node)
+		let _dirNodes = _nodeTree.getNeibhorNodesAt(node._point).filter { (node, dir) -> Bool in
+			return (node._nexts.isEmpty || node._prevs.isEmpty)
+		}
+		switch _dirNodes.count {
+		case 0:
+			break
+		case 1:
+			let (n, d) = _dirNodes[0]
+			if let n = n as? SerialPathNode {
+				if n._next == nil {
+					n._next = node
+					node._prev = n
+					n._direction = d.opposite()
+					_nodesToUpdate.append(n)
+					break
+				}
+				if n._prev == nil && (n._next?._point)! != node._point {
+					n._prev = node
+					node._next = n
+					node._direction = d.opposite()
+					n._direction = d
+					_nodesToUpdate.append(n)
+					break
+				}
+			}
+		case 2:
+			for (n, d) in _dirNodes {
+				if let n = n as? SerialPathNode {
+					if n._next == nil {
+						n._next = node
+						node._prev = n
+						n._direction = d.opposite()
+						_nodesToUpdate.append(n)
+					} else if n._prev == nil && (n._next?._point)! != node._point {
+						n._prev = node
+						node._next = n
+						node._direction = d
+						_nodesToUpdate.append(n)
+					}
+				}
+			}
+			break
+		default:
+			break
+		}
+//		for (n, dir) in _nodeTree.getNeibhorNodesAt(node._point) {
+//			switch n {
+//			case let n as SerialPathNode:
+//				if n._next == nil {
+//					n._next = node
+//					node._prev = n
+//					n._direction = dir.opposite()
+//					_nodesToUpdate.append(n)
+//					continue
+//				} else if n._prev == nil{
+////					n._prev = node
+////					node._next = n
+////					_nodesToUpdate.append(n)
+////					continue
+//				}
+//			default:
+//				continue
+//			}
+//		}
 		guard addNodeIntoTree(node: node) else { print("insertion of node into tree failed"); return nil }
 		_nodeTree.addNode(node: node)
 		return node
@@ -63,7 +133,7 @@ class PathNodeController {
 	}
 	
 	func addShapeNodeToTail(shapeNode:ShapeNode) {
-		shapeNode.setPathNode(pathNode: _tailNodes[0])
+		shapeNode._pathNode = _tailNodes[0]
 		_tailNodes[0]._shapeNode = shapeNode
 	}
 	
@@ -75,7 +145,8 @@ class PathNodeController {
 		_nodeTree = NodeTree<PathNodeAbstract>.init(width: width, height: height)
 		_tailNodes = []
 		_headNodes = Set<PathNodeAbstract>()
-		//_nodeTree = NodeTree<PathNode>()
+		_nodesToUpdate = []
+		_nodesToAdd = []
 	}
 	
 	private func addNodeIntoTree(node: PathNodeAbstract) -> Bool{

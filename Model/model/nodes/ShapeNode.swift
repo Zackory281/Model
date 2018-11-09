@@ -12,11 +12,28 @@ import AppKit
 class ShapeNode : NSObject, Node {
 	
 	override var description: String { return "ShapeNode at \(_point)" }
-	private weak var _pathNode:PathNodeAbstract?
+	weak var _pathNode:PathNodeAbstract? {
+		didSet {
+			if let p = _pathNode?._point {
+				_point = p
+			}
+		}
+	}
 	private var _headShapeNode:HeadNode?
 	private var _orientations: [Direction]
+	var _changedState: Bool = false
 	var _color: NSColor?
-	private var _direction: Direction?
+	var _direction: Direction?
+	var _state: ShapeNodeState = .Chilling {
+		didSet{
+			if _state != oldValue {
+				_lastStateTick = _tick
+				_changedState = true
+			}
+		}
+	}
+	var _tick: TickU = 0
+	var _lastStateTick: TickU = 0
 	
 	init(_ point: Point, direction: Direction, pathNode:PathNodeAbstract?, headNode:HeadNode?) {
 		_point = point
@@ -24,27 +41,42 @@ class ShapeNode : NSObject, Node {
 		_pathNode = pathNode
 		_headShapeNode = headNode
 		_color = _colorsAvaliable.pop() ?? .white
+		_direction = direction
 	}
 	
-	func setPathNode(pathNode:PathNodeAbstract) {
-		_pathNode = pathNode
-	}
-	
-	func setPathNode(_ node: PathNodeAbstract) {
-		_pathNode = node
-		_point = node._point
-	}
-	
-	func getPathNode() -> PathNodeAbstract? {
-		return _pathNode
+	func tick(_ tick: TickU) {
+		_tick = tick
+		switch _state {
+		case .Chilling:
+			if _lastStateTick + CHILL_TIME < tick {
+				_state = .CanNowMove
+				_lastStateTick = tick
+			}
+		case .Moving:
+			if _lastStateTick + MOVING_TIME < tick {
+				_state = .Chilling
+				_lastStateTick = tick
+			}
+		default:
+			break
+		}
 	}
 	
 	var _point: Point
 	var _type: NodeType { get { return .Shape } }
-	func getOrientations() -> [Direction] { return [getDirection()!] }
+	func getOrientations() -> [Direction] { return [_direction!] }
 	func getDirection() -> Direction? { return _direction }
 	func getType() -> NodeType { return .Shape}
 	func getColorCode() -> NSColor? { return _color }
+}
+
+let CHILL_TIME: TickU = 20
+let MOVING_TIME: TickU = 10
+
+enum ShapeNodeState {
+	case Chilling
+	case CanNowMove
+	case Moving
 }
 
 let _colorsAvaliable = Stack<NSColor>([NSColor.systemBlue,

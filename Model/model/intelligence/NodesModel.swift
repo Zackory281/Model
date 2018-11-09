@@ -10,7 +10,7 @@ import Foundation
 
 class NodesModel : NSObject, AssertionDelegate {
 	
-	private var _tick :Int16
+	var _tick: TickU
 	
 	var _modelActionDelegate: NodesModelActionDelegate? {
 		set { _outputManager._modelActionDelegate = newValue }
@@ -76,7 +76,7 @@ let MAP_WIDTH: IntC = 200, MAP_HEIGHT: IntC = 200
 
 protocol NodesModelActionDelegate: NSObjectProtocol {
 	func uiAddNodes(_ nodes: [Node])
-	func uiUpdateNodes(_ nodes: [Node])
+	func uiBufferUpdate(_ nodes: [Node])
 }
 
 protocol OutputDelegate: NSObjectProtocol {
@@ -88,14 +88,16 @@ protocol OutputDelegate: NSObjectProtocol {
 extension NodesModel {
 	
 	func shapeNowMove(_ shapeNode: ShapeNode) -> LogicDerivation? {
-		guard let pathNode = shapeNode.getPathNode(), let nextPathNode = pathNode.getNext(nil) else { return RES(false, 1) }
-		return PRE(.IsUntakenSquare(nextPathNode, shapeNode.getDirection()!))
+		guard shapeNode._state == .CanNowMove, let nextPathNode = shapeNode._pathNode?.getNext(nil) else { return RES(false, 1) }
+		if nextPathNode._shapeNode != nil {
+			return RES(false, 2)
+		}
+		return PRE(.IsUntakenSquare(nextPathNode, shapeNode._direction!))
 	}
 	
 	func isUntakeSquare(_ pathNode: PathNode, _ direction: Direction) -> LogicDerivation? {
 		return pathNode.getNowUntakeDerivation(ignore: direction)
 	}
-	
 	
 	func isEmptySquare(_ x: IntC, _ y: IntC, _ comingDirection: Direction) -> LogicDerivation? {
 		return .Result(Result(true, 5))

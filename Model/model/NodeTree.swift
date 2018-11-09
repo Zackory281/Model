@@ -46,7 +46,29 @@ class NodeTree<T : NSObject & Node> {
 		return pathNodeTree.elements(at: float2(Float(x), Float(y)))
 	}
 	
+	func getNeibhorNodesAt(_ point: Point) -> [(T, Direction)] {
+		let (x, y) = (Float(point.0), Float(point.1))
+		var a: [(T, Direction)] = []
+		if let right = pathNodeTree.elements(at: float2(x+1, y))[safe: 0] {
+			a.append((right, .RIGHT))
+		}
+		if let left = pathNodeTree.elements(at: float2(x-1, y))[safe: 0] {
+			a.append((left, .LEFT))
+		}
+		if let up = pathNodeTree.elements(at: float2(x, y+1))[safe: 0] {
+			a.append((up, .UP))
+		}
+		if let down = pathNodeTree.elements(at: float2(x, y-1))[safe: 0] {
+			a.append((down, .DOWN))
+		}
+		return a
+	}
+	
 	func getNodesAt(_ x:Float, _ y:Float) -> [T] {
 		return pathNodeTree.elements(at: float2(x, y))
+	}
+	
+	func isEmpty(at point: Point) -> Bool {
+		return pathNodeTree.elements(at: float2(Float(point.0), Float(point.1))).isEmpty
 	}
 }

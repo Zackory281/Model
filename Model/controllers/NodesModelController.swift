@@ -13,6 +13,7 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 	
 	private let _nodesModel:NodesModel
 	private weak var _guiDelegate:GUIDelegate?
+	private var _nodesToUpdate: [Node] = []
 	
 	// Mark: NodesModelActionDelegate stubs
 	func uiAddNodes(_ nodes: [Node]) {
@@ -21,7 +22,7 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 			var s:NodeIterface!
 			switch (node._type) {
 			case .Shape:
-				let shapeNode = (node as! PathNodeAbstract)
+				let shapeNode = (node as! ShapeNode)
 				s = NodeIterface(point: node._point, orientations: [], hash: (node as! NSObject).hash, nodeType: node._type, color: shapeNode._color ?? .white)
 			default:
 				let pathNode = (node as! PathNodeAbstract)
@@ -31,11 +32,8 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 		}
 	}
 	
-	func uiUpdateNodes(_ nodes: [Node]) {
-		guard let _guiDelegate = _guiDelegate else { return }
-		for node in nodes {
-			_guiDelegate.updatePosition(NodeUpdateIterface(point: node._point,color: node._color ?? .white, hash: (node as! NSObject).hash))
-		}
+	func uiBufferUpdate(_ nodes: [Node]) {
+		_nodesToUpdate.append(contentsOf: nodes)
 	}
 	
 	func clickToggleNode(_ x: Int, _ y: Int, type: NodeType) -> Void {
@@ -45,6 +43,24 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 	func tick() {
 		let success = _nodesModel.tick()
 		_guiDelegate?.dislayTickNumber(Int(_nodesModel.getTick()), success)
+		if _nodesModel._tick % 60 == 0 {
+			pushUpdateNodes()
+		}
+		//pushUpdateNodes()
+		_nodesToUpdate.removeAll()
+	}
+	
+	func pushUpdateNodes() {
+		guard let _guiDelegate = _guiDelegate else { return }
+		for node in _nodesToUpdate {
+			switch (node) {
+			case let node as PathNodeAbstract:
+				_guiDelegate.updatePosition(NodeUpdateIterface(point: node._point,color: node._color ?? .white, orientation: node._directions, hash: node.hash))
+			default:
+				_guiDelegate.updatePosition(NodeUpdateIterface(point: node._point,color: node._color ?? .white, orientation: nil, hash: (node as! NSObject).hash))
+			}
+		}
+		_nodesToUpdate.removeAll()
 	}
 	
 	func preloadModel() {
@@ -75,8 +91,9 @@ struct NodeIterface {
 }
 
 struct NodeUpdateIterface {
-	let point: Point
-	let color: NSColor
+	let point: Point?
+	let color: NSColor?
+	let orientation: [Direction]?
 	let hash: Int
 }
 

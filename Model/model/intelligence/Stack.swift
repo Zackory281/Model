@@ -56,6 +56,13 @@ public class SetStack<T: Hashable> {
 	private var _toRemove: Set<T>
 	private var _size: Int
 	
+	func clearAll() {
+		_head._next = nil
+		_set.removeAll()
+		_toRemove.removeAll()
+		_size = 0
+	}
+	
 	func stack(_ t: T) -> Bool {
 		guard !_set.contains(t) else {
 			return false
@@ -243,5 +250,34 @@ class EmptyStackNode<T>: StackNode<T> {
 	init(_ next: StackNode<T>?) {
 		super.init(element: nil, next)
 		_next = next
+	}
+}
+
+class TimeQueue<T> {
+	var _tick: Int = 0
+	var _head: TimeQueueNode<T>
+	init(stating tick: Int) {
+		_tick = tick
+		_head = TimeQueueNode<T>(next: nil, tick: -1)
+	}
+	func insert(element: T, at tick: Int) {
+		var head = _head
+//		while head._next?._tick < tick {
+//			if let next = head._next {
+//				head = next
+//			}
+//			break
+//		}
+	}
+}
+
+class TimeQueueNode<T> {
+	var _next: TimeQueueNode<T>?
+	var _elements: [T]
+	var _tick: Int
+	init(next: TimeQueueNode<T>?, tick: Int) {
+		_next = next
+		_tick = tick
+		_elements = []
 	}
 }

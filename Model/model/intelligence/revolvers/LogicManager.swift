@@ -28,38 +28,46 @@ class LogicManager : NSObject {
 		for query in _queries {
 			_logic.addPremise(Premise(query))
 		}
-		_logic.printUnevaluatedPremises()
 	}
 	
-	func evaluateQueries() {
-		_logic.evaluateAll()
-		_logic.printEverything()
+	func evaluateQueries() -> Bool {
+		let ret = _logic.evaluateAll()
+		defer {
+			//_logic.printEverything()
+		}
+		return ret
+	}
+	
+	func imposeFacts() {
 		guard let nodeController = _nodeController else { print("Shape node controller not setup in Logic Manager returning from making moves."); return}
 		_logic.forEveryFact { (premise, result) in
 			guard let cq = premise.getCustomQuery(), result.getBool() == true else { return }
 			switch cq {
 			case let .ShapeNowMove(shapeNode):
-				nodeController.advance(shapeNode)
-				
-				print("new position for ", shapeNode)
+				nodeController.addNodeToadvance(shapeNode)
 			default:
 				return
 			}
 		}
 	}
-	
 	func flushQueries() {
 		_queries.removeAll()
 	}
 	
 	func tick(_ tick :Int16) {
-		if tick % 2 == 1 {
+		if _shouldEval {
 			flushQueries()
 			gatherQuery()
-		} else {
-			evaluateQueries()
+			if evaluateQueries() {
+				imposeFacts()
+			}
 		}
+//		if tick % 2 == 1 {
+//		} else {
+//		}
 	}
+	
+	private var _shouldEval = true
 	
 }
 

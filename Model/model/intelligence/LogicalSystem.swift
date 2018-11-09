@@ -24,9 +24,9 @@ class LogicSystem {
 	var _poppedPremise: Premise?
 	var _shouldEvalute: Bool
 	
-	func evaluateAll() {
+	func evaluateAll() -> Bool {
 		_shouldEvalute = true
-		_evaluator.evaluateAll()
+		return _evaluator.evaluateAll()
 	}
 	
 	func forEveryFact(_ function: (Premise, Result) -> ()) {

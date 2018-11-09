@@ -47,16 +47,16 @@ class Evaluator {
 		return false
 	}
 	
-	func evaluateAll() {
+	/// return - Wether the evaluation succeeded.
+	func evaluateAll() -> Bool {
 		_shouldEvalute = true
 		while _shouldEvalute, let toEvalPremise = _toEvaluatePremises.first {
 			guard _premises.stack(toEvalPremise) else {
 				print("Premises stack should be empty...")
-				return
+				return false
 			}
 			while _shouldEvalute, let poppedPremise = _premises.pop() {
 				_poppedPremise = poppedPremise
-				print("evaluating: ", poppedPremise)
 				_evaluations += 1
 				if let r = evaluateOnFacts(poppedPremise) {
 					imposeResult(premise: poppedPremise, result: r)
@@ -83,11 +83,13 @@ class Evaluator {
 			_poppedPremise = nil
 			_toEvaluatePremises.remove(toEvalPremise)
 		}
+		return _shouldEvalute
 	}
 	
 	func clearEvaluations() {
 		_premiseGraph.clearAll()
 		_facts.removeAll()
+		_premises.clearAll()
 		_evaluations = 0
 		_derivations = 0
 		_factChecking = 0
@@ -167,20 +169,30 @@ class Evaluator {
 	}
 	
 	/**
-	* Recognize the contradtion.
+	* Recognize the contradtion. Pops off the previous stacked premise
 	*/
 	private func declareContradtion(on premise: Premise, with result: Result) {
 		print("Detected contradting query: ", premise, ", with result: ", result.description)
+		print(_premiseGraph.getParentTrace(from: premise))
 		_shouldEvalute = false
 	}
 	
 	/**
-	* Recognize the contradtion.
+	* Recognize the contradtion after the pop of the premise
 	*/
 	private func declareSelfEvaluation(on premise: Premise) {
-		print("Detected self evaluating premise: ", premise)
+		//print("Detected self evaluating premise: ", premise)
+		if let customQuery = premise._customQuery {
+			switch (customQuery) {
+			case .ShapeNowMove(_):
+				//print("ShapeNowMove loop, assume true with negative grade.")
+				imposeResult(premise: premise, result: Result(true, -1))
+				return
+			default:
+				break
+			}
+		}
 		print("Premise Stack Trace")
-		printPremises()
 		_shouldEvalute = false
 	}
 	
@@ -195,11 +207,11 @@ class Evaluator {
 			return
 		}
 		for premise in permises {
+			_premiseGraph.addElementWithParent(_poppedPremise!, premise)
 			guard _premises.stack(premise) else {
 				declareSelfEvaluation(on: premise)
 				return
 			}
-			_premiseGraph.addElementWithParent(_poppedPremise!, premise)
 		}
 	}
 	

@@ -41,11 +41,11 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 			print("updaing a non-existant item")
 			return
 		}
-		node.update(CGFloat(nodeUpdateInterface.point.0 + 1), CGFloat(nodeUpdateInterface.point.1 + 1), nodeUpdateInterface.color)
+		node.update(interface: nodeUpdateInterface)
 	}
 	
 	func dislayTickNumber(_ tick: Int, _ success: Bool) {
-		_scene.changeTick(tick, success)
+		//_scene.changeTick(tick, success)
 	}
 	
 	func keyClicked(_ c: String) {
@@ -76,7 +76,7 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 //		}
 	}
 	
-	func update(_ currentTime: TimeInterval, for scene: SKScene) {
+	func update() {
 		_nodesModelController?.tick()
 	}
 	

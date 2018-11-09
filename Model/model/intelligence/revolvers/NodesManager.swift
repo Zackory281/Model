@@ -18,23 +18,21 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 	func addNodeAt(_ point: Point, _ type: NodeType) {
 		var addNodes: [Node] = []
 		var updateNodes: [Node] = []
-		switch type {
-		case .Path:
-			guard let nodeIns = _pathNodeController.addPathNode(SerialPathNode(point: point)) else { return }
-			addNodes.append(nodeIns) //TODO: Node linking
-			break
-		case .Shape:
-			guard !_shapeNodeController.hasShapeNodeAt(point), let pathNode = _pathNodeController.getPathNodeAt(point) else {
-				print("adding a shape node to an existing location \(point), or have to pathnode to add to")
-				break
-			}
-			let shapeNode = ShapeNode.init(point, direction: pathNode._directions[0], pathNode: pathNode, headNode: nil)
+		if _pathNodeController.getPathNodeAt(point) == nil {
+			guard let _ = _pathNodeController.addPathNode(at: point) else { return }
+			addNodes.append(contentsOf: _pathNodeController._nodesToAdd)
+			updateNodes.append(contentsOf: _pathNodeController._nodesToUpdate)
+			_pathNodeController._nodesToAdd.removeAll()
+			_pathNodeController._nodesToUpdate.removeAll()
+		} else if let pathNode = _pathNodeController.getPathNodeAt(point), pathNode._shapeNode == nil {
+			print("adding a shape")
+			let shapeNode = ShapeNode.init(point, direction: pathNode._directions[safe: 0] ?? .UP, pathNode: pathNode, headNode: nil)
 			pathNode._shapeNode = shapeNode
 			_shapeNodeController.addShapeNode(shapeNode)
 			addNodes.append(shapeNode)
 			updateNodes.append(pathNode)
-			break
 		}
+		print("not adding a shape")
 		if !addNodes.isEmpty {
 			_nodeActionDelegate?.uiAddNodes(nodes: addNodes)
 		}
@@ -45,17 +43,8 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 	
 	func addNodeAt(_ x: IntC, _ y: IntC, _ type: NodeType) { addNodeAt((x, y), type) }
 	
-	func advance(_ node: ShapeNode) {
-		let oldPath = node.getPathNode()!
-		
-		if oldPath._shapeNode == node {
-			oldPath._shapeNode = nil
-		}
-		let newPathNode = node.getPathNode()!.getNext(nil)!
-		node.setPathNode(newPathNode)
-		_shapeNodeController.move(node)
-		newPathNode._shapeNode = node
-		_nodeActionDelegate?.uiUpdateNodes(nodes: [node, oldPath, node.getPathNode()!])
+	func addNodeToadvance(_ node: ShapeNode) {
+		_shapeNodeController._toStartAdvanceNodes.insert(node)
 	}
 	
 	func addPathNodesFromHead(_ head: PathNodeAbstract) {
@@ -67,18 +56,54 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 	func getQueries() -> Set<CustomQuery> {
 		var qs = Set<CustomQuery>()
 		for n in _shapeNodeController._shapeNodes {
-			qs.insert(.ShapeNowMove(n))
+			if n._state == .CanNowMove {
+				qs.insert(.ShapeNowMove(n))
+			}
 		}
 		return qs
 	}
 	
-	func tick(_ tick: Int16) {
-		
+	func tick(_ tick: TickU) {
+		startAdvanceNodes()
+		finishAdvanceNodes()
+		_shapeNodeController.tick(tick)
+	}
+	
+	func startAdvanceNodes() {
+		for node in _shapeNodeController._toStartAdvanceNodes {
+			let newPath = node._pathNode!.getNext(node._direction)!
+			newPath._shapeNode = node
+			node._state = .Moving
+			//let newPathNode = node.getPathNode()!.getNext(nil)!
+//			node.setPathNode(newPathNode)
+//			_shapeNodeController.move(node)
+//			newPathNode._shapeNode = node
+//			node._state = .Moving
+			_nodeActionDelegate?.uiUpdateNodes(nodes: [newPath])
+		}
+		_shapeNodeController._toStartAdvanceNodes.removeAll()
+	}
+	
+	func finishAdvanceNodes() {
+		for node in _shapeNodeController._toFinishAdvanceNodes {
+			let oldPath = node._pathNode!
+			let newPath = oldPath.getNext(node._direction)!
+			if oldPath._shapeNode == node {
+				oldPath._shapeNode = nil
+			}
+			node._pathNode = newPath
+			//			node.setPathNode(newPathNode)
+			//			_shapeNodeController.move(node)
+			//			newPathNode._shapeNode = node
+			//			node._state = .Moving
+			_nodeActionDelegate?.uiUpdateNodes(nodes: [node, oldPath, newPath])
+		}
+		_shapeNodeController._toFinishAdvanceNodes.removeAll()
 	}
 }
 
 protocol NodeControlDelegate: NSObjectProtocol {
 	func addNodeAt(_ x: IntC, _ y: IntC, _ type: NodeType)
 	func addNodeAt(_ p: Point, _ type: NodeType)
-	func advance(_ node: ShapeNode)
+	func addNodeToadvance(_ node: ShapeNode)
 }

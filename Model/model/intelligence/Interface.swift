@@ -10,10 +10,6 @@ import Foundation
 
 
 enum CustomQuery: Hashable, CustomStringConvertible {
-	static func == (lhs: CustomQuery, rhs: CustomQuery) -> Bool {
-		return true
-	}
-	
 	case IsUntakenSquare(PathNodeAbstract, Direction)
 	case ShapeNowMove(ShapeNode)
 	

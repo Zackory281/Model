@@ -12,21 +12,24 @@ import SpriteKit
 typealias Points = [IntC]
 typealias Point = (IntC, IntC)
 typealias IntC = Int16
+typealias TickU = Int16
 
 func generateNodesHead(points:Points) -> PathNodeAbstract? {
-	var head:SerialPathNode?
-	perPointSerial(points: points, {(point: Point, dir: Direction?) in
-		if let headT = head {
-			headT._next = SerialPathNode(point: point, next: nil, prev: head, direction: dir, shapeNode: nil)
-			head = headT._next as! SerialPathNode?
+	var tail: SerialPathNode?
+	var head: SerialPathNode?
+	perPointSerialHTT(points: points, {(point: Point, dir: Direction?) in
+		if let headT = tail {
+			headT._prev = SerialPathNode(point: point, next: headT, prev: nil, direction: dir, shapeNode: nil)
+			tail = headT._prev as! SerialPathNode?
 			return
 		}
-		head = SerialPathNode(point: point)
+		tail = SerialPathNode(point: point)
+		head = tail
 	})
 	return head
 }
 
-func perPointSerial(points:Points, _ function:(_ point: Point, _ dir:Direction?) -> ()) {
+func perPointSerialHTT(points:Points, _ function:(_ point: Point, _ dir:Direction?) -> ()) {
 	var px, py:IntC!
 	if points.count >= 2 {
 		px = points[0]
@@ -91,4 +94,12 @@ func PRE(_ q: CustomQuery) -> LogicDerivation {
 
 enum MyError: Error {
 	case AbstractClassMethodNotOverriden(className: String, methodName: String)
+}
+
+extension Collection {
+	
+	/// Returns the element at the specified index if it is within bounds, otherwise nil.
+	subscript (safe index: Index) -> Element? {
+		return indices.contains(index) ? self[index] : nil
+	}
 }

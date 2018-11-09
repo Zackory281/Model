@@ -67,6 +67,10 @@ class NodeScene : SKScene {
 		let location = event.location(in: self)
 		inputDelegate.mouseUp(Int(location.x), Int(location.y))
 	}
+	
+	override func update(_ currentTime: TimeInterval) {
+		_inputDelegate?.update()
+	}
 }
 
 enum PATH_NODE_ORIENTATION {
@@ -91,6 +95,7 @@ protocol SceneInputDelegate {
 	func mouseUp(_ x : Int, _ y : Int)
 	func mouseDragged(_ x : Int, _ y : Int)
 	func keyClicked(_ c:String)
+	func update()
 }
 
 //func getPathNodeAt(_ x:Int, _ y:Int) -> SKShapeNode {
