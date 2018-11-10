@@ -9,7 +9,7 @@
 import Foundation
 import AppKit
 
-class ShapeNode : NSObject, Node {
+class ShapeNode : NodeAbstract {
 	
 	override var description: String { return "ShapeNode at \(_point)" }
 	weak var _pathNode:PathNodeAbstract? {
@@ -47,8 +47,8 @@ class ShapeNode : NSObject, Node {
 	func tick(_ tick: TickU) {
 		_tick = tick
 		switch _state {
-		case .Chilling:
-			if _lastStateTick + CHILL_TIME < tick {
+		case .CanNowMoveWaiting:
+			if _lastStateTick + CAN_MOVE_WAIT_TIME < tick {
 				_state = .CanNowMove
 				_lastStateTick = tick
 			}
@@ -61,20 +61,20 @@ class ShapeNode : NSObject, Node {
 			break
 		}
 	}
-	
-	var _point: Point
-	var _type: NodeType { get { return .Shape } }
+	override var _type: NodeType { get { return .Shape } }
 	func getOrientations() -> [Direction] { return [_direction!] }
 	func getDirection() -> Direction? { return _direction }
 	func getType() -> NodeType { return .Shape}
 	func getColorCode() -> NSColor? { return _color }
 }
 
-let CHILL_TIME: TickU = 1
-let MOVING_TIME: TickU = 1
+//let CHILL_TIME: TickU = 10
+let CAN_MOVE_WAIT_TIME: TickU = 30
+let MOVING_TIME: TickU = 60
 
 enum ShapeNodeState {
 	case Chilling
+	case CanNowMoveWaiting
 	case CanNowMove
 	case Moving
 }

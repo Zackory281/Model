@@ -45,10 +45,26 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 	}
 	
 	func dislayTickNumber(_ tick: Int, _ success: Bool) {
+		if !_autoTick {
+			_scene.changeTick(tick, success)
+		}
 		//_scene.changeTick(tick, success)
 	}
 	
 	func keyClicked(_ c: String) {
+		switch c {
+		case "c":
+			for node in _nodes.values {
+				node.removeFromParent()
+			}
+			_nodes.removeAll()
+			return
+		case "a":
+			_autoTick = !_autoTick
+			return
+		default:
+			break
+		}
 		guard let nodesModelController = _nodesModelController, let f = KEY_CODES[c] else { return }
 		f(nodesModelController)()
 	}
@@ -66,8 +82,14 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 	}
 	
 	func mouseUp(_ x: Int, _ y: Int) {
-		guard withinSquare else { return }
-		_nodesModelController?.clickToggleNode(psx, psy, type: .Shape)
+		if withinSquare {
+			_nodesModelController?.clickToggleNode(psx, psy, type: .Shape)
+			return
+		}
+		if let b = _nodesModelController?.addNodes(psx, psy, x / PATH_WIDTH, y / PATH_WIDTH), b {
+			return
+		}
+		
 //		let code = UnicodeScalar.init("s")!.utf16.first!
 //		if _scene.keyIsDown(code) {
 //			_nodesModelController?.clickToggleNode(psx, psy, type: .Shape)
@@ -77,7 +99,9 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 	}
 	
 	func update() {
-		_nodesModelController?.tick()
+		if _autoTick {
+			_nodesModelController?.tick()
+		}
 	}
 	
 	weak var _nodesModelController:NodesModelController?
@@ -89,6 +113,8 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 	func getScene() -> SKScene {
 		return _scene
 	}
+	
+	private var _autoTick = true
 }
 
 let KEY_CODES:Dictionary<String, (NodesModelController) -> () -> ()> = [

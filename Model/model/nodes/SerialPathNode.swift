@@ -47,25 +47,32 @@ protocol Node {
 	var _color: NSColor? { get }
 }
 
+class NodeAbstract: NSObject {
+	var _point: Point = (0, 0)
+	var _type: NodeType { get { return .Shape} }
+	var _color: NSColor? { get { return nil} }
+}
+
 protocol PathNode: Node {
 	var _nexts: [PathNodeAbstract] { get }
 	var _prevs: [PathNodeAbstract] { get }
 	var _directions: [Direction] { get }
 	var _shapeNode: ShapeNode? { get set }
 	var _color: NSColor? { get }
+	var _taken: Bool { get set }
 	func getNext(_ direction: Direction?) -> PathNodeAbstract?
 	func getPrev(_ direction: Direction?) -> PathNodeAbstract?
 	func getNowUntakeDerivation(ignore direction: Direction) -> LogicDerivation?
 	func update()
 }
 
-class PathNodeAbstract: NSObject, PathNode {
+class PathNodeAbstract: NodeAbstract {
 	init(point: Point, shapeNode: ShapeNode?){(_point, _shapeNode)=(point, shapeNode)}
 	init(point: Point){_point = point}
-	var _point: Point
+	var _taken: Bool = false
 	weak var _shapeNode: ShapeNode?
-	var _type: NodeType { get { fatalError("No nodetype getter blowa!")}}
-	var _color: NSColor? { return _shapeNode?._color }
+	override var _type: NodeType { get { fatalError("No nodetype getter blowa!")}}
+	override var _color: NSColor? { return _shapeNode?._color }
 	var _nexts: [PathNodeAbstract]{get{fatalError("no _nexts in PathNodeAbstract")}}
 	var _prevs: [PathNodeAbstract]{get{fatalError("no _prevs in PathNodeAbstract")}}
 	var _directions: [Direction]{get{fatalError("no _directions in PathNodeAbstract")}}

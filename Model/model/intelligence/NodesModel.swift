@@ -43,6 +43,12 @@ class NodesModel : NSObject, AssertionDelegate {
 		}
 	}
 	
+	func addNodeStride(_ points: Points) {
+		_queue.sync {
+			_nodeManager.addPathNodesFromHead(generateNodesHead(points: points)!)
+		}
+	}
+	
 	func tick() -> Bool {
 		_tick += 1
 		_queue.sync {
@@ -88,7 +94,10 @@ protocol OutputDelegate: NSObjectProtocol {
 extension NodesModel {
 	
 	func shapeNowMove(_ shapeNode: ShapeNode) -> LogicDerivation? {
-		guard shapeNode._state == .CanNowMove, let nextPathNode = shapeNode._pathNode?.getNext(nil) else { return RES(false, 1) }
+		guard shapeNode._state == .CanNowMove, let nextPathNode = shapeNode._pathNode?.getNext(nil)
+			, !nextPathNode._taken else {
+			return RES(false, 1)
+		}
 		if nextPathNode._shapeNode != nil {
 			return RES(false, 2)
 		}

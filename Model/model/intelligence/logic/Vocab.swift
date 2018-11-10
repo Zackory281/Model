@@ -74,6 +74,7 @@ class Premise: Hashable, CustomStringConvertible {
 	
 	func hasQuery() -> Bool {
 		return _query != nil
+		
 	}
 	
 	func getQuery() -> Query? {

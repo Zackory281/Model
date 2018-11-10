@@ -12,6 +12,9 @@ import SpriteKit
 class UINode: SKShapeNode {
 	
 	func update(interface: NodeUpdateIterface) {}
+	deinit {
+		print("I am deinitiated!")
+	}
 }
 class UIPathNode: UINode {
 	
@@ -24,14 +27,18 @@ class UIPathNode: UINode {
 		fillColor = color
 		lineWidth = 0
 		zPosition = PATHNODE_Z
-//		(xScale, yScale, alpha) = (1.5, 1.5, 0)
-//		run(SKAction.fadeAlpha(to: 1, duration: 0.05))
-//		run(SKAction.scale(to: 1, duration: 0.05))
+		(alpha) = (0)
+		run(SKAction.fadeAlpha(to: 1, duration: 0.05))
+		//run(SKAction.scale(to: 1, duration: 0.05))
 	}
 	
 	override func update(interface: NodeUpdateIterface) {
-		fillColor = interface.color!
-		self.path = getPathForOrentation(ori: interface.orientation!)
+		if let color = interface.color {
+			fillColor = color
+		}
+		if let orientations = interface.orientation {
+			self.path = getPathForOrentation(ori: orientations)
+		}
 //		(xScale, yScale) = (1.3, 1.3)
 //		run(SKAction.fadeAlpha(to: 1, duration: 0.05))
 //		run(SKAction.scale(to: 1, duration: 0.05))
@@ -58,12 +65,15 @@ class UIShapeNode: UINode {
 	override func update(interface: NodeUpdateIterface) {
 		let x = CGFloat(interface.point!.0 + 1)
 		let y = CGFloat(interface.point!.1 + 1)
-		//position.x = x
 		//position.y = y
-//		position = CGPoint(x: x * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: y * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)
-//		run(SKAction.group([SKAction.moveTo(x: x * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, duration: 0.1), SKAction.moveTo(y: y * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, duration: 0.1)]))
-		//run(SKAction.moveTo(x: x * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, duration: 0.1))
-		//run(SKAction.moveTo(x: y * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, duration: 0.1))
+		//position = CGPoint(x: x * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: y * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)
+		let time = Double(MOVING_TIME) / 60
+		run(SKAction.group([
+			SKAction.moveTo(x: x * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, duration: time),
+			SKAction.moveTo(y: y * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, duration: time)]))
+		if let state = interface.shapeState {
+			strokeColor = STATE_TO_COLOR[state]!
+		}
 	}
 	
 	required init?(coder aDecoder: NSCoder) {
@@ -71,6 +81,12 @@ class UIShapeNode: UINode {
 	}
 }
 
+let STATE_TO_COLOR: [ShapeNodeState:NSColor] = [
+	ShapeNodeState.Chilling : NSColor.red,
+	ShapeNodeState.CanNowMoveWaiting : NSColor.yellow,
+	ShapeNodeState.CanNowMove : NSColor.black,
+	ShapeNodeState.Moving : NSColor.green,
+]
 let SHAPENODE_Z: CGFloat = 10
 let PATHNODE_Z: CGFloat = 5
 

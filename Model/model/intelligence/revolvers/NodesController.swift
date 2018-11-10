@@ -16,28 +16,18 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 	private var _shapeNodeController :ShapeNodeController = ShapeNodeController()
 	
 	func addNodeAt(_ point: Point, _ type: NodeType) {
-		var addNodes: [Node] = []
-		var updateNodes: [Node] = []
 		if _pathNodeController.getPathNodeAt(point) == nil {
 			guard let _ = _pathNodeController.addPathNode(at: point) else { return }
-			addNodes.append(contentsOf: _pathNodeController._nodesToAdd)
-			updateNodes.append(contentsOf: _pathNodeController._nodesToUpdate)
-			_pathNodeController._nodesToAdd.removeAll()
-			_pathNodeController._nodesToUpdate.removeAll()
+//			_pathNodeController._nodesToAdd.removeAll()
+//			_pathNodeController._nodesToUpdate.removeAll()
 		} else if let pathNode = _pathNodeController.getPathNodeAt(point), pathNode._shapeNode == nil {
 			print("adding a shape")
 			let shapeNode = ShapeNode.init(point, direction: pathNode._directions[safe: 0] ?? .UP, pathNode: pathNode, headNode: nil)
 			pathNode._shapeNode = shapeNode
+			pathNode._taken = true
 			_shapeNodeController.addShapeNode(shapeNode)
-			addNodes.append(shapeNode)
-			updateNodes.append(pathNode)
-		}
-		print("not adding a shape")
-		if !addNodes.isEmpty {
-			_nodeActionDelegate?.uiAddNodes(nodes: addNodes)
-		}
-		if !updateNodes.isEmpty {
-			_nodeActionDelegate?.uiUpdateNodes(nodes: updateNodes)
+//			addNodes.append(shapeNode)
+//			updateNodes.append(pathNode)
 		}
 	}
 	
@@ -50,7 +40,7 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 	func addPathNodesFromHead(_ head: PathNodeAbstract) {
 		let ups = _pathNodeController.addHeadNode(head)
 		guard !ups.isEmpty else { return }
-		_nodeActionDelegate?.uiAddNodes(nodes: ups)
+		addToAddQueue([ups as! Node])
 	}
 	
 	func getQueries() -> Set<CustomQuery> {
@@ -72,33 +62,64 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 	func startAdvanceNodes() {
 		for node in _shapeNodeController._toStartAdvanceNodes {
 			let newPath = node._pathNode!.getNext(node._direction)!
+			var ns: [Node] = [newPath, node]
+			if let oldPath = node._pathNode, oldPath._shapeNode == node {
+				ns.append(oldPath)
+				oldPath._shapeNode = nil
+				oldPath._taken = false
+			}
 			newPath._shapeNode = node
+			newPath._taken = true
 			node._state = .Moving
+			node._pathNode = newPath
 			//let newPathNode = node.getPathNode()!.getNext(nil)!
 //			node.setPathNode(newPathNode)
 //			_shapeNodeController.move(node)
 //			newPathNode._shapeNode = node
 //			node._state = .Moving
-			_nodeActionDelegate?.uiUpdateNodes(nodes: [newPath])
+			addToUpdateQueue(ns)
+			//_nodeActionDelegate?.uiUpdateNodes(nodes: ns)
 		}
 		_shapeNodeController._toStartAdvanceNodes.removeAll()
 	}
 	
 	func finishAdvanceNodes() {
 		for node in _shapeNodeController._toFinishAdvanceNodes {
-			let oldPath = node._pathNode!
-			let newPath = oldPath.getNext(node._direction)!
-			if oldPath._shapeNode == node {
-				oldPath._shapeNode = nil
-			}
-			node._pathNode = newPath
+			let oldPath = (node._pathNode! as! SerialPathNode)._prev!
+			oldPath._taken = false
+			node._state = .Chilling
 			//			node.setPathNode(newPathNode)
 			//			_shapeNodeController.move(node)
 			//			newPathNode._shapeNode = node
 			//			node._state = .Moving
-			_nodeActionDelegate?.uiUpdateNodes(nodes: [node, oldPath, newPath])
+			addToUpdateQueue([node, oldPath])
 		}
 		_shapeNodeController._toFinishAdvanceNodes.removeAll()
+	}
+	
+	func addToAddQueue(_ array: [Node]) {
+		for r in array {
+			switch (r) {
+			case let r as ShapeNode:
+				_shapeNodeController._nodesToAdd.insert(r)
+			case let r as PathNodeAbstract:
+				_pathNodeController._nodesToAdd.insert(r)
+			default:
+				break
+			}
+		}
+	}
+	func addToUpdateQueue(_ array: [Node]) {
+		for r in array {
+			switch (r) {
+			case let r as ShapeNode:
+				_shapeNodeController._nodesToUpdate.insert(r)
+			case let r as PathNodeAbstract:
+				_pathNodeController._nodesToUpdate.insert(r)
+			default:
+				break
+			}
+		}
 	}
 }
 

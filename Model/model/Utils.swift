@@ -103,3 +103,11 @@ extension Collection {
 		return indices.contains(index) ? self[index] : nil
 	}
 }
+
+extension Set {
+	mutating func append(contentsOf c: [Element]) {
+		for t in c {
+			insert(t)
+		}
+	}
+}

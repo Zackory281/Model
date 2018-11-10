@@ -13,12 +13,61 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 	
 	private let _nodesModel:NodesModel
 	private weak var _guiDelegate:GUIDelegate?
-	private var _nodesToUpdate: [Node] = []
+	private var _shapeNodesToUpdate = Set<ShapeNode>()
+	private var _pathNodesToUpdate = Set<PathNodeAbstract>()
 	
 	// Mark: NodesModelActionDelegate stubs
 	func uiAddNodes(_ nodes: [Node]) {
+	}
+	
+	func uiBufferUpdate(_ nodes: [Node]) {
+		_nodesToUpdate.append(contentsOf: nodes)
+	}
+	
+	func clickToggleNode(_ x: Int, _ y: Int, type: NodeType) -> Void {
+		_nodesModel.addNodeAt(IntC(x), IntC(y), type)
+	}
+	
+	func addNodes(_ x1: Int, _ y1: Int, _ x2: Int, _ y2: Int)  -> Bool {
+		guard x2 - x1 == 0 || y2 - y1 == 0 else {
+			print("Stride bad.")
+			return false
+		}
+		var points: Points = []
+		
+		let (dx, dy) = (IntC(x1 - x2), IntC(y1 - y2))
+		var (idx, idy): (IntC, IntC) = (0, 0)
+		if dx > 0 {
+			idx = 1
+		} else if dx < 0 {
+			idx = -1
+		}
+		if dy > 0 {
+			idy = 1
+		} else if dy < 0 {
+			idy = -1
+		}
+		for i in 0...abs(dx) + abs(dy) {
+			points.append(IntC(x2) + i * idx)
+			points.append(IntC(y2) + i * idy)
+		}
+		_nodesModel.addNodeStride(points)
+		return true
+	}
+	
+	func tick() {
+		let success = _nodesModel.tick()
+		_guiDelegate?.dislayTickNumber(Int(_nodesModel.getTick()), success)
+		if _nodesModel._tick % 60 == 0 {
+			pushUpdateNodes()
+		}
+		pushUpdateNodes()
+		_nodesToUpdate.removeAll()
+	}
+	
+	func pushAddNodes() {
 		guard let _guiDelegate = _guiDelegate else { return }
-		for node in nodes {
+		for node in _ {
 			var s:NodeIterface!
 			switch (node._type) {
 			case .Shape:
@@ -32,32 +81,16 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 		}
 	}
 	
-	func uiBufferUpdate(_ nodes: [Node]) {
-		_nodesToUpdate.append(contentsOf: nodes)
-	}
-	
-	func clickToggleNode(_ x: Int, _ y: Int, type: NodeType) -> Void {
-		_nodesModel.addNodeAt(IntC(x), IntC(y), type)
-	}
-	
-	func tick() {
-		let success = _nodesModel.tick()
-		_guiDelegate?.dislayTickNumber(Int(_nodesModel.getTick()), success)
-		if _nodesModel._tick % 60 == 0 {
-			pushUpdateNodes()
-		}
-		pushUpdateNodes()
-		_nodesToUpdate.removeAll()
-	}
-	
 	func pushUpdateNodes() {
 		guard let _guiDelegate = _guiDelegate else { return }
 		for node in _nodesToUpdate {
 			switch (node) {
 			case let node as PathNodeAbstract:
-				_guiDelegate.updatePosition(NodeUpdateIterface(point: node._point,color: node._color ?? .white, orientation: node._directions, hash: node.hash))
+				_guiDelegate.updatePosition(NodeUpdateIterface(point: node._point,color: node._color ?? .white, orientation: node._directions, shapeState: nil, hash: node.hash))
+			case let node as ShapeNode:
+				_guiDelegate.updatePosition(NodeUpdateIterface(point: node._point,color: node._color ?? .white, orientation: nil, shapeState: node._state, hash: node.hash))
 			default:
-				_guiDelegate.updatePosition(NodeUpdateIterface(point: node._point,color: node._color ?? .white, orientation: nil, hash: (node as! NSObject).hash))
+				break
 			}
 		}
 		_nodesToUpdate.removeAll()
@@ -94,6 +127,7 @@ struct NodeUpdateIterface {
 	let point: Point?
 	let color: NSColor?
 	let orientation: [Direction]?
+	let shapeState: ShapeNodeState?
 	let hash: Int
 }
 

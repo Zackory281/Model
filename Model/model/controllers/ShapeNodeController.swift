@@ -14,8 +14,11 @@ class ShapeNodeController {
 	var _toStartAdvanceNodes: Set<ShapeNode>
 	var _toFinishAdvanceNodes: Set<ShapeNode>
 	var _idleShapeNodes: Set<ShapeNode>
+	var _nodesToUpdate = Set<ShapeNode>()
+	var _nodesToAdd = Set<ShapeNode>()
 	private var _shapeHeadNodes :Set<ShapeNode>
 	private var _shapeNodeTree: NodeTree<ShapeNode>
+	private var _tick: TickU = 0
 	
 	init() {
 		_shapeNodes = Set<ShapeNode>()
@@ -61,8 +64,13 @@ class ShapeNodeController {
 	}
 	
 	func tick(_ tick: TickU) {
+		_tick = tick
+		shapeNodeStateChange()
+	}
+	
+	func shapeNodeStateChange() {
 		for node in _shapeNodes {
-			node.tick(tick)
+			node.tick(_tick)
 			if node._changedState {
 				switch node._state {
 				case .Chilling:
@@ -71,6 +79,15 @@ class ShapeNodeController {
 					break
 				}
 				node._changedState = false
+			} else {
+				switch node._state {
+				case .Chilling :
+					if let next = (node._pathNode as! SerialPathNode)._next, !next._taken {
+						node._state = .CanNowMoveWaiting
+					}
+				default:
+					break
+				}
 			}
 		}
 	}

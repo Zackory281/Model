@@ -8,44 +8,44 @@
 
 /* Begin PBXBuildFile section */
 		F20E9D1E21896FE8002C36CC /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D04B152183C5DD00305EB7 /* Node.swift */; };
-		F20E9D2221897E8B002C36CC /* UIPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20E9D2121897E8B002C36CC /* UIPathNode.swift */; };
-		F21CE4E5218571E9000D8CD5 /* NodeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21CE4E4218571E9000D8CD5 /* NodeScene.swift */; };
-		F21CE5172187C4CE000D8CD5 /* NodeTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21CE5162187C4CE000D8CD5 /* NodeTree.swift */; };
-		F22673B6218F90C5006A02A5 /* NodesOutputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673B5218F90C5006A02A5 /* NodesOutputManager.swift */; };
-		F22673BA218FA0A0006A02A5 /* NodesManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673B9218FA0A0006A02A5 /* NodesManager.swift */; };
-		F22673BC218FA2EC006A02A5 /* LogicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673BB218FA2EC006A02A5 /* LogicManager.swift */; };
-		F22D59E821828F9B0004B078 /* ShapeNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E721828F9B0004B078 /* ShapeNodeController.swift */; };
-		F22D59EA2186B4BC0004B078 /* InputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E92186B4BB0004B078 /* InputController.swift */; };
-		F22D59ED2186BEB20004B078 /* NodesModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59EC2186BEB20004B078 /* NodesModelController.swift */; };
-		F22D59F02186C3610004B078 /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59EF2186C3610004B078 /* SceneController.swift */; };
-		F22D59F22186DE240004B078 /* NodesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59F12186DE240004B078 /* NodesModel.swift */; };
-		F263147B21918403007CD683 /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263147A21918403007CD683 /* Evaluator.swift */; };
-		F263147D21918429007CD683 /* Facts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263147C21918429007CD683 /* Facts.swift */; };
-		F263147F21918471007CD683 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263147E21918471007CD683 /* Interface.swift */; };
-		F263148121918576007CD683 /* LogicalSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263148021918575007CD683 /* LogicalSystem.swift */; };
-		F263148321918589007CD683 /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263148221918589007CD683 /* Predicate.swift */; };
-		F26314852191859F007CD683 /* QueryExpander.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26314842191859F007CD683 /* QueryExpander.swift */; };
-		F2631487219185B6007CD683 /* PremiseTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2631486219185B6007CD683 /* PremiseTable.swift */; };
-		F2631489219185CC007CD683 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2631488219185CC007CD683 /* Stack.swift */; };
-		F263148B219185DE007CD683 /* TreeGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263148A219185DE007CD683 /* TreeGraph.swift */; };
-		F263148D219185EC007CD683 /* Vocab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263148C219185EC007CD683 /* Vocab.swift */; };
-		F2CF80582180EE69005194EB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80572180EE69005194EB /* AppDelegate.swift */; };
 		F2CF805A2180EE69005194EB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2CF80592180EE69005194EB /* GameScene.sks */; };
 		F2CF805C2180EE69005194EB /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2CF805B2180EE69005194EB /* Actions.sks */; };
-		F2CF805E2180EE69005194EB /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF805D2180EE69005194EB /* GameScene.swift */; };
-		F2CF80602180EE69005194EB /* NodesFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF805F2180EE69005194EB /* NodesFieldViewController.swift */; };
 		F2CF80622180EE6B005194EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2CF80612180EE6B005194EB /* Assets.xcassets */; };
 		F2CF80652180EE6B005194EB /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F2CF80632180EE6B005194EB /* Main.storyboard */; };
 		F2CF80712180EE6B005194EB /* ModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80702180EE6B005194EB /* ModelTests.swift */; };
-		F2CF807D2180EF67005194EB /* SerialPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807C2180EF67005194EB /* SerialPathNode.swift */; };
 		F2CF807E2180EF67005194EB /* SerialPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807C2180EF67005194EB /* SerialPathNode.swift */; };
-		F2CF808021812053005194EB /* PathNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807F21812053005194EB /* PathNodeController.swift */; };
 		F2CF808121812053005194EB /* PathNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807F21812053005194EB /* PathNodeController.swift */; };
-		F2CF808321812493005194EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF808221812493005194EB /* Utils.swift */; };
 		F2CF808421812493005194EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF808221812493005194EB /* Utils.swift */; };
-		F2CF80862181311F005194EB /* ShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80852181311F005194EB /* ShapeNode.swift */; };
 		F2CF80872181311F005194EB /* ShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80852181311F005194EB /* ShapeNode.swift */; };
-		F2D04B162183C5DD00305EB7 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D04B152183C5DD00305EB7 /* Node.swift */; };
+		F2E6FB702196555F00B8A253 /* QueryExpander.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26314842191859F007CD683 /* QueryExpander.swift */; };
+		F2E6FB712196555F00B8A253 /* NodesFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF805F2180EE69005194EB /* NodesFieldViewController.swift */; };
+		F2E6FB722196555F00B8A253 /* InputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E92186B4BB0004B078 /* InputController.swift */; };
+		F2E6FB732196555F00B8A253 /* NodesModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59EC2186BEB20004B078 /* NodesModelController.swift */; };
+		F2E6FB742196555F00B8A253 /* SceneController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59EF2186C3610004B078 /* SceneController.swift */; };
+		F2E6FB752196555F00B8A253 /* NodeScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21CE4E4218571E9000D8CD5 /* NodeScene.swift */; };
+		F2E6FB762196555F00B8A253 /* UIPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20E9D2121897E8B002C36CC /* UIPathNode.swift */; };
+		F2E6FB772196555F00B8A253 /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D04B152183C5DD00305EB7 /* Node.swift */; };
+		F2E6FB782196555F00B8A253 /* SerialPathNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807C2180EF67005194EB /* SerialPathNode.swift */; };
+		F2E6FB792196555F00B8A253 /* ShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80852181311F005194EB /* ShapeNode.swift */; };
+		F2E6FB7A2196555F00B8A253 /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263147A21918403007CD683 /* Evaluator.swift */; };
+		F2E6FB7B2196555F00B8A253 /* Facts.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263147C21918429007CD683 /* Facts.swift */; };
+		F2E6FB7C2196555F00B8A253 /* Interface.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263147E21918471007CD683 /* Interface.swift */; };
+		F2E6FB7D2196555F00B8A253 /* LogicalSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263148021918575007CD683 /* LogicalSystem.swift */; };
+		F2E6FB7E2196555F00B8A253 /* Predicate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263148221918589007CD683 /* Predicate.swift */; };
+		F2E6FB7F2196555F00B8A253 /* PremiseTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2631486219185B6007CD683 /* PremiseTable.swift */; };
+		F2E6FB802196555F00B8A253 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2631488219185CC007CD683 /* Stack.swift */; };
+		F2E6FB812196555F00B8A253 /* TreeGraph.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263148A219185DE007CD683 /* TreeGraph.swift */; };
+		F2E6FB822196555F00B8A253 /* Vocab.swift in Sources */ = {isa = PBXBuildFile; fileRef = F263148C219185EC007CD683 /* Vocab.swift */; };
+		F2E6FB832196555F00B8A253 /* NodesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673B9218FA0A0006A02A5 /* NodesController.swift */; };
+		F2E6FB842196555F00B8A253 /* NodesOutputManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673B5218F90C5006A02A5 /* NodesOutputManager.swift */; };
+		F2E6FB852196555F00B8A253 /* LogicManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22673BB218FA2EC006A02A5 /* LogicManager.swift */; };
+		F2E6FB862196555F00B8A253 /* NodesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59F12186DE240004B078 /* NodesModel.swift */; };
+		F2E6FB872196555F00B8A253 /* PathNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807F21812053005194EB /* PathNodeController.swift */; };
+		F2E6FB882196555F00B8A253 /* ShapeNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E721828F9B0004B078 /* ShapeNodeController.swift */; };
+		F2E6FB892196555F00B8A253 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF808221812493005194EB /* Utils.swift */; };
+		F2E6FB8A2196555F00B8A253 /* NodeTree.swift in Sources */ = {isa = PBXBuildFile; fileRef = F21CE5162187C4CE000D8CD5 /* NodeTree.swift */; };
+		F2E6FB8B2196555F00B8A253 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80572180EE69005194EB /* AppDelegate.swift */; };
+		F2E6FB8E2196555F00B8A253 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF805D2180EE69005194EB /* GameScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,7 +63,7 @@
 		F21CE4E4218571E9000D8CD5 /* NodeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeScene.swift; sourceTree = "<group>"; };
 		F21CE5162187C4CE000D8CD5 /* NodeTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeTree.swift; sourceTree = "<group>"; };
 		F22673B5218F90C5006A02A5 /* NodesOutputManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesOutputManager.swift; sourceTree = "<group>"; };
-		F22673B9218FA0A0006A02A5 /* NodesManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesManager.swift; sourceTree = "<group>"; };
+		F22673B9218FA0A0006A02A5 /* NodesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodesController.swift; sourceTree = "<group>"; };
 		F22673BB218FA2EC006A02A5 /* LogicManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogicManager.swift; sourceTree = "<group>"; };
 		F22D59E721828F9B0004B078 /* ShapeNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNodeController.swift; sourceTree = "<group>"; };
 		F22D59E92186B4BB0004B078 /* InputController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputController.swift; sourceTree = "<group>"; };
@@ -130,17 +130,9 @@
 		F20E9D1C21896FB7002C36CC /* intelligence */ = {
 			isa = PBXGroup;
 			children = (
+				F2E6FB6F219654A900B8A253 /* logic */,
 				F22673BD218FE76F006A02A5 /* revolvers */,
 				F22D59F12186DE240004B078 /* NodesModel.swift */,
-				F263147A21918403007CD683 /* Evaluator.swift */,
-				F263147C21918429007CD683 /* Facts.swift */,
-				F263147E21918471007CD683 /* Interface.swift */,
-				F263148021918575007CD683 /* LogicalSystem.swift */,
-				F263148221918589007CD683 /* Predicate.swift */,
-				F2631486219185B6007CD683 /* PremiseTable.swift */,
-				F2631488219185CC007CD683 /* Stack.swift */,
-				F263148A219185DE007CD683 /* TreeGraph.swift */,
-				F263148C219185EC007CD683 /* Vocab.swift */,
 			);
 			path = intelligence;
 			sourceTree = "<group>";
@@ -167,7 +159,7 @@
 		F22673BD218FE76F006A02A5 /* revolvers */ = {
 			isa = PBXGroup;
 			children = (
-				F22673B9218FA0A0006A02A5 /* NodesManager.swift */,
+				F22673B9218FA0A0006A02A5 /* NodesController.swift */,
 				F22673B5218F90C5006A02A5 /* NodesOutputManager.swift */,
 				F22673BB218FA2EC006A02A5 /* LogicManager.swift */,
 			);
@@ -249,6 +241,22 @@
 				F21CE5162187C4CE000D8CD5 /* NodeTree.swift */,
 			);
 			path = model;
+			sourceTree = "<group>";
+		};
+		F2E6FB6F219654A900B8A253 /* logic */ = {
+			isa = PBXGroup;
+			children = (
+				F263147A21918403007CD683 /* Evaluator.swift */,
+				F263147C21918429007CD683 /* Facts.swift */,
+				F263147E21918471007CD683 /* Interface.swift */,
+				F263148021918575007CD683 /* LogicalSystem.swift */,
+				F263148221918589007CD683 /* Predicate.swift */,
+				F2631486219185B6007CD683 /* PremiseTable.swift */,
+				F2631488219185CC007CD683 /* Stack.swift */,
+				F263148A219185DE007CD683 /* TreeGraph.swift */,
+				F263148C219185EC007CD683 /* Vocab.swift */,
+			);
+			path = logic;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -353,35 +361,35 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F263148B219185DE007CD683 /* TreeGraph.swift in Sources */,
-				F2CF808021812053005194EB /* PathNodeController.swift in Sources */,
-				F21CE5172187C4CE000D8CD5 /* NodeTree.swift in Sources */,
-				F2CF807D2180EF67005194EB /* SerialPathNode.swift in Sources */,
-				F22673BC218FA2EC006A02A5 /* LogicManager.swift in Sources */,
-				F22D59F02186C3610004B078 /* SceneController.swift in Sources */,
-				F22673B6218F90C5006A02A5 /* NodesOutputManager.swift in Sources */,
-				F21CE4E5218571E9000D8CD5 /* NodeScene.swift in Sources */,
-				F263147D21918429007CD683 /* Facts.swift in Sources */,
-				F2CF80602180EE69005194EB /* NodesFieldViewController.swift in Sources */,
-				F2D04B162183C5DD00305EB7 /* Node.swift in Sources */,
-				F2631489219185CC007CD683 /* Stack.swift in Sources */,
-				F20E9D2221897E8B002C36CC /* UIPathNode.swift in Sources */,
-				F2CF805E2180EE69005194EB /* GameScene.swift in Sources */,
-				F2CF80582180EE69005194EB /* AppDelegate.swift in Sources */,
-				F26314852191859F007CD683 /* QueryExpander.swift in Sources */,
-				F2631487219185B6007CD683 /* PremiseTable.swift in Sources */,
-				F22D59E821828F9B0004B078 /* ShapeNodeController.swift in Sources */,
-				F2CF808321812493005194EB /* Utils.swift in Sources */,
-				F263147B21918403007CD683 /* Evaluator.swift in Sources */,
-				F22D59ED2186BEB20004B078 /* NodesModelController.swift in Sources */,
-				F263148D219185EC007CD683 /* Vocab.swift in Sources */,
-				F22D59EA2186B4BC0004B078 /* InputController.swift in Sources */,
-				F263148121918576007CD683 /* LogicalSystem.swift in Sources */,
-				F263148321918589007CD683 /* Predicate.swift in Sources */,
-				F22673BA218FA0A0006A02A5 /* NodesManager.swift in Sources */,
-				F2CF80862181311F005194EB /* ShapeNode.swift in Sources */,
-				F263147F21918471007CD683 /* Interface.swift in Sources */,
-				F22D59F22186DE240004B078 /* NodesModel.swift in Sources */,
+				F2E6FB702196555F00B8A253 /* QueryExpander.swift in Sources */,
+				F2E6FB712196555F00B8A253 /* NodesFieldViewController.swift in Sources */,
+				F2E6FB722196555F00B8A253 /* InputController.swift in Sources */,
+				F2E6FB732196555F00B8A253 /* NodesModelController.swift in Sources */,
+				F2E6FB742196555F00B8A253 /* SceneController.swift in Sources */,
+				F2E6FB752196555F00B8A253 /* NodeScene.swift in Sources */,
+				F2E6FB762196555F00B8A253 /* UIPathNode.swift in Sources */,
+				F2E6FB772196555F00B8A253 /* Node.swift in Sources */,
+				F2E6FB782196555F00B8A253 /* SerialPathNode.swift in Sources */,
+				F2E6FB792196555F00B8A253 /* ShapeNode.swift in Sources */,
+				F2E6FB7A2196555F00B8A253 /* Evaluator.swift in Sources */,
+				F2E6FB7B2196555F00B8A253 /* Facts.swift in Sources */,
+				F2E6FB7C2196555F00B8A253 /* Interface.swift in Sources */,
+				F2E6FB7D2196555F00B8A253 /* LogicalSystem.swift in Sources */,
+				F2E6FB7E2196555F00B8A253 /* Predicate.swift in Sources */,
+				F2E6FB7F2196555F00B8A253 /* PremiseTable.swift in Sources */,
+				F2E6FB802196555F00B8A253 /* Stack.swift in Sources */,
+				F2E6FB812196555F00B8A253 /* TreeGraph.swift in Sources */,
+				F2E6FB822196555F00B8A253 /* Vocab.swift in Sources */,
+				F2E6FB832196555F00B8A253 /* NodesController.swift in Sources */,
+				F2E6FB842196555F00B8A253 /* NodesOutputManager.swift in Sources */,
+				F2E6FB852196555F00B8A253 /* LogicManager.swift in Sources */,
+				F2E6FB862196555F00B8A253 /* NodesModel.swift in Sources */,
+				F2E6FB872196555F00B8A253 /* PathNodeController.swift in Sources */,
+				F2E6FB882196555F00B8A253 /* ShapeNodeController.swift in Sources */,
+				F2E6FB892196555F00B8A253 /* Utils.swift in Sources */,
+				F2E6FB8A2196555F00B8A253 /* NodeTree.swift in Sources */,
+				F2E6FB8B2196555F00B8A253 /* AppDelegate.swift in Sources */,
+				F2E6FB8E2196555F00B8A253 /* GameScene.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
