@@ -62,7 +62,7 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 	func startAdvanceNodes() {
 		for node in _shapeNodeController._toStartAdvanceNodes {
 			let newPath = node._pathNode!.getNext(node._direction)!
-			var ns: [Node] = [newPath, node]
+			var ns: [NodeAbstract] = [newPath, node]
 			if let oldPath = node._pathNode, oldPath._shapeNode == node {
 				ns.append(oldPath)
 				oldPath._shapeNode = nil
@@ -97,7 +97,7 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 		_shapeNodeController._toFinishAdvanceNodes.removeAll()
 	}
 	
-	func addToAddQueue(_ array: [Node]) {
+	func addToAddQueue(_ array: [NodeAbstract]) {
 		for r in array {
 			switch (r) {
 			case let r as ShapeNode:
@@ -109,7 +109,7 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 			}
 		}
 	}
-	func addToUpdateQueue(_ array: [Node]) {
+	func addToUpdateQueue(_ array: [NodeAbstract]) {
 		for r in array {
 			switch (r) {
 			case let r as ShapeNode:

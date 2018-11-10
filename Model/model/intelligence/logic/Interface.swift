@@ -64,7 +64,7 @@ extension QueryExander {
 
 protocol AssertionDelegate: NSObjectProtocol {
 	func shapeNowMove(_ shapeNode: ShapeNode) -> LogicDerivation?
-	func isUntakeSquare(_ pathNode: PathNode, _ direction: Direction) -> LogicDerivation?
+	func isUntakeSquare(_ pathNode: PathNodeAbstract, _ direction: Direction) -> LogicDerivation?
 }
 
 enum LogicDerivation: Hashable {

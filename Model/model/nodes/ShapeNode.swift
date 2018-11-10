@@ -22,7 +22,8 @@ class ShapeNode : NodeAbstract {
 	private var _headShapeNode:HeadNode?
 	private var _orientations: [Direction]
 	var _changedState: Bool = false
-	var _color: NSColor?
+	override var _color: NSColor? { get { return _ccolor } }
+	var _ccolor: NSColor?
 	var _direction: Direction?
 	var _state: ShapeNodeState = .Chilling {
 		didSet{
@@ -40,7 +41,8 @@ class ShapeNode : NodeAbstract {
 		_orientations = [direction]
 		_pathNode = pathNode
 		_headShapeNode = headNode
-		_color = _colorsAvaliable.pop() ?? .white
+		_ccolor = _colorsAvaliable.pop() ?? .white
+		super.init()
 		_direction = direction
 	}
 	

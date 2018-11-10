@@ -81,14 +81,14 @@ extension NodesModel {
 let MAP_WIDTH: IntC = 200, MAP_HEIGHT: IntC = 200
 
 protocol NodesModelActionDelegate: NSObjectProtocol {
-	func uiAddNodes(_ nodes: [Node])
-	func uiBufferUpdate(_ nodes: [Node])
+	func uiAddNodes(_ nodes: [NodeAbstract])
+	func uiBufferUpdate(_ nodes: [NodeAbstract])
 }
 
 protocol OutputDelegate: NSObjectProtocol {
 	//func moveNodes(points :Points, directions :[Direction])
-	func uiAddNodes(nodes: [Node])
-	func uiUpdateNodes(nodes: [Node])
+	func uiAddNodes(nodes: [NodeAbstract])
+	func uiUpdateNodes(nodes: [NodeAbstract])
 }
 
 extension NodesModel {
