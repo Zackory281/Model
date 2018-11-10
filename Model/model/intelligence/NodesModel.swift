@@ -9,7 +9,6 @@
 import Foundation
 
 class NodesModel : NSObject, AssertionDelegate {
-	
 	var _tick: TickU
 	
 	var _modelActionDelegate: NodesModelActionDelegate? {
@@ -66,6 +65,7 @@ class NodesModel : NSObject, AssertionDelegate {
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+	
 }
 
 extension NodesModel {
@@ -81,14 +81,11 @@ extension NodesModel {
 let MAP_WIDTH: IntC = 200, MAP_HEIGHT: IntC = 200
 
 protocol NodesModelActionDelegate: NSObjectProtocol {
-	func uiAddNodes(_ nodes: [NodeAbstract])
-	func uiBufferUpdate(_ nodes: [NodeAbstract])
+	func uiAddQueue(_ : GUIQueue)
 }
 
 protocol OutputDelegate: NSObjectProtocol {
-	//func moveNodes(points :Points, directions :[Direction])
-	func uiAddNodes(nodes: [NodeAbstract])
-	func uiUpdateNodes(nodes: [NodeAbstract])
+	func uiAddQueue(_ : GUIQueue)
 }
 
 extension NodesModel {
@@ -104,7 +101,7 @@ extension NodesModel {
 		return PRE(.IsUntakenSquare(nextPathNode, shapeNode._direction!))
 	}
 	
-	func isUntakeSquare(_ pathNode: PathNode, _ direction: Direction) -> LogicDerivation? {
+	func isUntakeSquare(_ pathNode: PathNodeAbstract, _ direction: Direction) -> LogicDerivation? {
 		return pathNode.getNowUntakeDerivation(ignore: direction)
 	}
 	

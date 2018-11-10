@@ -37,12 +37,12 @@ class ShapeNode : NodeAbstract {
 	var _lastStateTick: TickU = 0
 	
 	init(_ point: Point, direction: Direction, pathNode:PathNodeAbstract?, headNode:HeadNode?) {
-		_point = point
 		_orientations = [direction]
+		super.init()
+		self._point = point
 		_pathNode = pathNode
 		_headShapeNode = headNode
 		_ccolor = _colorsAvaliable.pop() ?? .white
-		super.init()
 		_direction = direction
 	}
 	
@@ -70,9 +70,8 @@ class ShapeNode : NodeAbstract {
 	func getColorCode() -> NSColor? { return _color }
 }
 
-//let CHILL_TIME: TickU = 10
-let CAN_MOVE_WAIT_TIME: TickU = 30
-let MOVING_TIME: TickU = 60
+let CAN_MOVE_WAIT_TIME: TickU = 2
+let MOVING_TIME: TickU = 25
 
 enum ShapeNodeState {
 	case Chilling

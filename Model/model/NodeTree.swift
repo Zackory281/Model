@@ -9,7 +9,7 @@
 import Foundation
 import GameplayKit
 
-class NodeTree<T : NSObject & Node> {
+class NodeTree<T : NodeAbstract> {
 	//<ElementType> : NSObject where ElementType : NSObject
 	private var pathNodeTree:GKQuadtree<T>
 	

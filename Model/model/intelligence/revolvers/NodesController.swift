@@ -12,22 +12,18 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 	
 	weak var _nodeActionDelegate: OutputDelegate?
 	
-	private var _pathNodeController :PathNodeController = PathNodeController(width: 100, height: 100)
-	private var _shapeNodeController :ShapeNodeController = ShapeNodeController()
+	private var _pathNodeController: PathNodeController
+	private var _shapeNodeController: ShapeNodeController
+	private var _queue: GUIQueue
 	
 	func addNodeAt(_ point: Point, _ type: NodeType) {
 		if _pathNodeController.getPathNodeAt(point) == nil {
 			guard let _ = _pathNodeController.addPathNode(at: point) else { return }
-//			_pathNodeController._nodesToAdd.removeAll()
-//			_pathNodeController._nodesToUpdate.removeAll()
 		} else if let pathNode = _pathNodeController.getPathNodeAt(point), pathNode._shapeNode == nil {
-			print("adding a shape")
 			let shapeNode = ShapeNode.init(point, direction: pathNode._directions[safe: 0] ?? .UP, pathNode: pathNode, headNode: nil)
 			pathNode._shapeNode = shapeNode
 			pathNode._taken = true
 			_shapeNodeController.addShapeNode(shapeNode)
-//			addNodes.append(shapeNode)
-//			updateNodes.append(pathNode)
 		}
 	}
 	
@@ -38,9 +34,7 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 	}
 	
 	func addPathNodesFromHead(_ head: PathNodeAbstract) {
-		let ups = _pathNodeController.addHeadNode(head)
-		guard !ups.isEmpty else { return }
-		addToAddQueue([ups as! Node])
+		let _ = _pathNodeController.addHeadNode(head)
 	}
 	
 	func getQueries() -> Set<CustomQuery> {
@@ -57,6 +51,7 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 		startAdvanceNodes()
 		finishAdvanceNodes()
 		_shapeNodeController.tick(tick)
+		_nodeActionDelegate?.uiAddQueue(_queue)
 	}
 	
 	func startAdvanceNodes() {
@@ -77,7 +72,7 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 //			_shapeNodeController.move(node)
 //			newPathNode._shapeNode = node
 //			node._state = .Moving
-			addToUpdateQueue(ns)
+			_queue._nodesToUpdate.append(contentsOf: ns)
 			//_nodeActionDelegate?.uiUpdateNodes(nodes: ns)
 		}
 		_shapeNodeController._toStartAdvanceNodes.removeAll()
@@ -86,40 +81,24 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 	func finishAdvanceNodes() {
 		for node in _shapeNodeController._toFinishAdvanceNodes {
 			let oldPath = (node._pathNode! as! SerialPathNode)._prev!
-			oldPath._taken = false
+			if oldPath._shapeNode == node {
+				oldPath._taken = false
+			}
 			node._state = .Chilling
 			//			node.setPathNode(newPathNode)
 			//			_shapeNodeController.move(node)
 			//			newPathNode._shapeNode = node
 			//			node._state = .Moving
-			addToUpdateQueue([node, oldPath])
+			_queue._nodesToUpdate.append(contentsOf: [node, oldPath])
 		}
 		_shapeNodeController._toFinishAdvanceNodes.removeAll()
 	}
 	
-	func addToAddQueue(_ array: [NodeAbstract]) {
-		for r in array {
-			switch (r) {
-			case let r as ShapeNode:
-				_shapeNodeController._nodesToAdd.insert(r)
-			case let r as PathNodeAbstract:
-				_pathNodeController._nodesToAdd.insert(r)
-			default:
-				break
-			}
-		}
-	}
-	func addToUpdateQueue(_ array: [NodeAbstract]) {
-		for r in array {
-			switch (r) {
-			case let r as ShapeNode:
-				_shapeNodeController._nodesToUpdate.insert(r)
-			case let r as PathNodeAbstract:
-				_pathNodeController._nodesToUpdate.insert(r)
-			default:
-				break
-			}
-		}
+	override init() {
+		_queue = GUIQueue()
+		_pathNodeController = PathNodeController(width: 100, height: 100, queue: _queue)
+		_shapeNodeController = ShapeNodeController(queue: _queue)
+		super.init()
 	}
 }
 

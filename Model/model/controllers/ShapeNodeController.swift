@@ -19,8 +19,10 @@ class ShapeNodeController {
 	private var _shapeHeadNodes :Set<ShapeNode>
 	private var _shapeNodeTree: NodeTree<ShapeNode>
 	private var _tick: TickU = 0
+	private weak var _queue: GUIQueue?
 	
-	init() {
+	init(queue: GUIQueue) {
+		_queue = queue
 		_shapeNodes = Set<ShapeNode>()
 		_toStartAdvanceNodes = Set<ShapeNode>()
 		_toFinishAdvanceNodes = Set<ShapeNode>()
@@ -33,6 +35,7 @@ class ShapeNodeController {
 		_shapeNodes.insert(node)
 		_idleShapeNodes.insert(node)
 		_shapeNodeTree.addNode(node: node)
+		_queue?.add(node: node)
 	}
 	
 	func addHeadNode(head :ShapeNode) {
@@ -40,6 +43,7 @@ class ShapeNodeController {
 		_shapeNodes.insert(head)
 		_idleShapeNodes.insert(head)
 		_shapeNodeTree.addNode(node: head)
+		_queue?.add(node: head)
 	}
 	
 	func remove(_ node: ShapeNode) {
@@ -53,6 +57,7 @@ class ShapeNodeController {
 	
 	func move(_ node: ShapeNode) {
 		let _ = _shapeNodeTree.move(node: node)
+		_queue?.add(node: node)
 	}
 	
 	func hasShapeNodeAt(_ point: Point) -> Bool {
@@ -84,6 +89,10 @@ class ShapeNodeController {
 				case .Chilling :
 					if let next = (node._pathNode as! SerialPathNode)._next, !next._taken {
 						node._state = .CanNowMoveWaiting
+					}
+				case .CanNowMoveWaiting:
+					if let next = (node._pathNode as! SerialPathNode)._next, next._taken {
+						node._state = .Chilling
 					}
 				default:
 					break

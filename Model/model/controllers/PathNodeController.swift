@@ -16,8 +16,7 @@ class PathNodeController {
 	private var _nodeTree: NodeTree<PathNodeAbstract>
 	private var _headNodes: Set<PathNodeAbstract>
 	
-	var _nodesToUpdate: Set<PathNodeAbstract>
-	var _nodesToAdd: Set<PathNodeAbstract>
+	private var _queue: GUIQueue
 	
 	func addNodeOnStep() {
 		
@@ -25,32 +24,33 @@ class PathNodeController {
 	
 	/// Stitch the head after it's been added.
 	/// - Returns: the node stitched to.
-	func stitch(head: PathNodeAbstract) -> PathNodeAbstract? {
+	func stitch(head: PathNodeAbstract, except: PathNodeAbstract? = nil) {
 		let _dirNodes = _nodeTree.getNeibhorNodesAt(head._point).filter { arg -> Bool in
-			return arg.0._prevs.isEmpty
+			return arg.0._prevs.isEmpty && arg.0 != except
 		}
 		guard let tail = _dirNodes.first?.0 as? SerialPathNode else {
-			return nil
+			return
 		}
 		tail._prev = head
 		(head as! SerialPathNode)._next = tail
 		(head as! SerialPathNode)._direction = _dirNodes.first!.1
-		return tail
+		_queue.update(node: tail)
 	}
 	
 	/// Stitch the tail after it's been added.
 	/// - Returns: the node stitched to.
-	func stitch(tail: PathNodeAbstract) -> PathNodeAbstract? {
+	func stitch(tail: PathNodeAbstract, except: PathNodeAbstract? = nil) {
 		let _dirNodes = _nodeTree.getNeibhorNodesAt(tail._point).filter { (node, dir) -> Bool in
-			return node._nexts.isEmpty
+			return node._nexts.isEmpty && node != except
 		}
 		guard let head = _dirNodes.first?.0 as? SerialPathNode else {
-			return nil
+			return
 		}
 		head._next = tail
-		(tail as! SerialPathNode)._next = head
-		(tail as! SerialPathNode)._direction = _dirNodes.first!.1
-		return head
+		head._direction = _dirNodes.first!.1.opposite()
+		(tail as! SerialPathNode)._prev = head
+		_queue.update(node: head)
+		_queue.update(node: tail)
 	}
 	
 	/// - returns: the pathnode successfully inserted
@@ -59,7 +59,7 @@ class PathNodeController {
 		// TODO: fix me!
 		guard _nodeTree.isEmpty(at: point) else { print("I thought there weren't any nodes?");return nil }
 		let node = SerialPathNode(point: point)
-		_nodesToAdd.insert(node)
+		_queue.add(node: node)
 		let _dirNodes = _nodeTree.getNeibhorNodesAt(node._point).filter { (node, dir) -> Bool in
 			return (node._nexts.isEmpty || node._prevs.isEmpty)
 		}
@@ -73,7 +73,7 @@ class PathNodeController {
 					n._next = node
 					node._prev = n
 					n._direction = d.opposite()
-					_nodesToUpdate.insert(n)
+					_queue.update(node: n)
 					break
 				}
 				if n._prev == nil && (n._next?._point)! != node._point {
@@ -81,7 +81,7 @@ class PathNodeController {
 					node._next = n
 					node._direction = d.opposite()
 					n._direction = d
-					_nodesToUpdate.insert(n)
+					_queue.update(node: n)
 					break
 				}
 			}
@@ -92,12 +92,12 @@ class PathNodeController {
 						n._next = node
 						node._prev = n
 						n._direction = d.opposite()
-						_nodesToUpdate.insert(n)
+						_queue.update(node: n)
 					} else if n._prev == nil && (n._next?._point)! != node._point {
 						n._prev = node
 						node._next = n
 						node._direction = d
-						_nodesToUpdate.insert(n)
+						_queue.update(node: n)
 					}
 				}
 			}
@@ -115,24 +115,24 @@ class PathNodeController {
 	}
 	
 	/// - returns: the pathnodes successfully inserted
-	func addHeadNode(_ head: PathNodeAbstract) -> [PathNodeAbstract] {
-		guard addNodeIntoHeadSet(node: head) else { print("insertion into head set failed"); return []}
+	func addHeadNode(_ head: PathNodeAbstract){
+		guard addNodeIntoHeadSet(node: head) else { print("insertion into head set failed"); return}
 		
 		let nodes = Stack<PathNodeAbstract>()
-		if let d = stitch(head: head) {
-			_nodesToUpdate.insert(d)
-		}
-		_nodesToAdd.insert(head)
+		_queue.add(node: head)
 		nodes.stack(head)
+		stitch(head: head)
 		while let top = nodes.pop() {
 			guard addNodeIntoTree(node: top) else {
 				print("insertion of seg node into tree failed");
 				break
 			}
 			nodes.stack(top._prevs)
-			_nodesToAdd.append(contentsOf: top._prevs)
+			if top._prevs.isEmpty {
+				stitch(tail: top, except: head)
+			}
+			_queue._nodesToAdd.append(contentsOf: top._prevs)
 		}
-		return []
 	}
 	
 	func addShapeNodeToTail(shapeNode:ShapeNode) {
@@ -144,12 +144,11 @@ class PathNodeController {
 		return _nodeTree.getNodesAt(point.0, point.1).first
 	}
 	
-	init(width: IntC, height: IntC) {
+	init(width: IntC, height: IntC, queue: GUIQueue) {
+		_queue = queue
 		_nodeTree = NodeTree<PathNodeAbstract>.init(width: width, height: height)
 		_tailNodes = []
 		_headNodes = Set<PathNodeAbstract>()
-		_nodesToUpdate = []
-		_nodesToAdd = []
 	}
 	
 	private func addNodeIntoTree(node: PathNodeAbstract) -> Bool{

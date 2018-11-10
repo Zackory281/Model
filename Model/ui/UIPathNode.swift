@@ -25,10 +25,10 @@ class UIPathNode: UINode {
 		position = CGPoint(x: x * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: y * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)
 		print(position)
 		fillColor = color
-		lineWidth = 0
+		lineWidth = 1
 		zPosition = PATHNODE_Z
 		(alpha) = (0)
-		run(SKAction.fadeAlpha(to: 1, duration: 0.05))
+		run(SKAction.fadeAlpha(to: 0.5, duration: 0.05))
 		//run(SKAction.scale(to: 1, duration: 0.05))
 	}
 	
@@ -38,6 +38,9 @@ class UIPathNode: UINode {
 		}
 		if let orientations = interface.orientation {
 			self.path = getPathForOrentation(ori: orientations)
+		}
+		if let taken = interface.taken {
+			self.strokeColor = taken ? .red : .green
 		}
 //		(xScale, yScale) = (1.3, 1.3)
 //		run(SKAction.fadeAlpha(to: 1, duration: 0.05))

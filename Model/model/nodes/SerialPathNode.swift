@@ -67,8 +67,8 @@ protocol PathNode: Node {
 }
 
 class PathNodeAbstract: NodeAbstract {
-	init(point: Point, shapeNode: ShapeNode?){(_point, _shapeNode)=(point, shapeNode)}
-	init(point: Point){_point = point}
+	init(point: Point, shapeNode: ShapeNode?){super.init();(self._point, _shapeNode)=(point, shapeNode)}
+	init(point: Point){super.init();self._point = point}
 	var _taken: Bool = false
 	weak var _shapeNode: ShapeNode?
 	override var _type: NodeType { get { fatalError("No nodetype getter blowa!")}}
