@@ -16,7 +16,7 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 	var _shapeNodeController: ShapeNodeController
 	var _projectileNodeController: ProjectileNodeController
 	var _geometryNodeController: GeometryNodeController
-	var _treeMap : NodeMap
+	var _nodeMap : NodeMap
 	var _queue: GUIQueue
 	
 	func addNodeAt(_ point: Point, _ type: NodeType) {
@@ -93,10 +93,11 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 	
 	override init() {
 		_queue = GUIQueue()
-		_pathNodeController = PathNodeController(width: 100, height: 100, queue: _queue)
-		_shapeNodeController = ShapeNodeController(queue: _queue)
+		_nodeMap = NodeMap(width: 100, height: 100)
+		_pathNodeController = PathNodeController(nodeMap: _nodeMap, queue: _queue)
+		_shapeNodeController = ShapeNodeController(nodeMap: _nodeMap, queue: _queue)
 		_projectileNodeController = ProjectileNodeController(queue: _queue)
-		_geometryNodeController = GeometryNodeController(queue: _queue)
+		_geometryNodeController = GeometryNodeController(nodeMap: _nodeMap, queue: _queue)
 		super.init()
 	}
 }

@@ -10,23 +10,22 @@ import Foundation
 
 class GeometryNodeController {
 	
-	var _nodeTree = NodeTree<GeometryNode>(width: 100, height: 100)
+	var _nodeMap: NodeMap
 	private weak var _queue: GUIQueue?
 	
 	func add(geometry: GeometryNode) -> Bool {
 		for point in geometry._pointsOccupied {
-			guard _nodeTree.getNodesAt(point.0, point.1).isEmpty else {
+			guard !_nodeMap.contains(of: GeometryNode.self, at: point) else {
 				return false
 			}
 		}
-		for point in geometry._pointsOccupied {
-			_nodeTree.add(node: geometry, at: point)
-		}
+		_nodeMap.add(node: geometry)
 		_queue?.add(node: geometry)
 		return true
 	}
 	
-	init(queue: GUIQueue) {
+	init(nodeMap: NodeMap, queue: GUIQueue) {
 		_queue = queue
+		_nodeMap = nodeMap
 	}
 }

@@ -14,6 +14,8 @@ class GeometryNode: NodeAbstract {
 	var _pointsOccupied: [Point]
 	var _geometry: GeometryType
 	override var _type: NodeType { get { return .Geometry } }
+	override var _category: UInt { get { return 0b0010}}
+	override var _overlap: UInt { get { return 0b0011}}
 	init(anchor: Point, geometry: GeometryType) {
 		_pointsOccupied = []
 		_geometry = geometry

@@ -27,7 +27,7 @@ class AttackController {
 		var toRemove = Set<ProjectileNode>()
 		for proj in _projectileController.projectileNodes {
 			if proj._hit {
-				print("Projectile \(proj) hit \(proj._end)")
+				//print("Projectile \(proj) hit \(proj._end)")
 				toRemove.insert(proj)
 			}
 		}

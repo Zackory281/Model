@@ -13,9 +13,8 @@ import AppKit
 class PathNodeController {
 	
 	private var _tailNodes:[PathNodeAbstract]
-	private var treeMap: NodeTree<PathNodeAbstract>
 	private var _headNodes: Set<PathNodeAbstract>
-	
+	private var _nodeMap: NodeMap
 	private var _queue: GUIQueue
 	
 	func addNodeOnStep() {
@@ -25,7 +24,7 @@ class PathNodeController {
 	/// Stitch the head after it's been added.
 	/// - Returns: the node stitched to.
 	func stitch(head: PathNodeAbstract, except: PathNodeAbstract? = nil) {
-		let _dirNodes = _nodeTree.getNeibhorNodesAt(head._point).filter { arg -> Bool in
+		let _dirNodes = _nodeMap.getPatternNodes(of: PathNodeAbstract.self, at: head._point, from: GRID_NEIGHBOR).filter { arg -> Bool in
 			return arg.0._prevs.isEmpty && arg.0 != except
 		}
 		guard let tail = _dirNodes.first?.0 as? SerialPathNode else {
@@ -40,7 +39,7 @@ class PathNodeController {
 	/// Stitch the tail after it's been added.
 	/// - Returns: the node stitched to.
 	func stitch(tail: PathNodeAbstract, except: PathNodeAbstract? = nil) {
-		let _dirNodes = _nodeTree.getNeibhorNodesAt(tail._point).filter { (node, dir) -> Bool in
+		let _dirNodes = _nodeMap.getPatternNodes(of: PathNodeAbstract.self, at: tail._point, from: GRID_NEIGHBOR).filter { (node, dir) -> Bool in
 			return node._nexts.isEmpty && node != except
 		}
 		guard let head = _dirNodes.first?.0 as? SerialPathNode else {
@@ -57,10 +56,10 @@ class PathNodeController {
 	func addPathNode(at point: Point) -> PathNodeAbstract?{
 		//_nodeTree.addPathNode(pathNode: PathNode.init(x, y))
 		// TODO: fix me!
-		guard _nodeTree.isEmpty(at: point) else { print("I thought there weren't any nodes?");return nil }
+		guard !_nodeMap.contains(of: PathNodeAbstract.self, at: point) else { print("I thought there weren't any nodes?");return nil }
 		let node = SerialPathNode(point: point)
 		_queue.add(node: node)
-		let _dirNodes = _nodeTree.getNeibhorNodesAt(node._point).filter { (node, dir) -> Bool in
+		let _dirNodes = _nodeMap.getPatternNodes(of: PathNodeAbstract.self, at: node._point, from: GRID_NEIGHBOR).filter { (node, dir) -> Bool in
 			return (node._nexts.isEmpty || node._prevs.isEmpty)
 		}
 		switch _dirNodes.count {
@@ -123,12 +122,12 @@ class PathNodeController {
 		nodes.stack(head)
 		stitch(head: head)
 		while let top = nodes.pop() {
-			guard addNodeIntoTree(node: top) else {
+			guard !_nodeMap.containsCollisionNode(top) && addNodeIntoTree(node: top) else {
 				print("insertion of seg node into tree failed");
 				break
 			}
 			nodes.stack(top._prevs)
-			_queue._nodesToAdd.append(contentsOf: top._prevs)
+			_queue.add(node: top)
 			if top._prevs.isEmpty {
 				stitch(tail: top, except: head)
 			}
@@ -141,19 +140,20 @@ class PathNodeController {
 	}
 	
 	func getPathNodeAt(_ point: Point) -> PathNodeAbstract?{
-		return _nodeTree.getNodesAt(point.0, point.1).first
+		return _nodeMap.getNodes(of: PathNodeAbstract.self, at: point).first
 	}
 	
-	init(width: IntC, height: IntC, queue: GUIQueue) {
+	init(nodeMap: NodeMap, queue: GUIQueue) {
 		_queue = queue
-		_nodeTree = NodeTree<PathNodeAbstract>.init(width: width, height: height)
+		_nodeMap = nodeMap
 		_tailNodes = []
 		_headNodes = Set<PathNodeAbstract>()
 	}
 	
 	private func addNodeIntoTree(node: PathNodeAbstract) -> Bool{
-		guard !_nodeTree.exists(node: node) else { return false;}
-		_nodeTree.addNode(node: node)
+		guard !_nodeMap.contains(of: PathNodeAbstract.self, at: node._point) else {
+			return false;}
+		_nodeMap.add(node: node)
 		return true
 	}
 	

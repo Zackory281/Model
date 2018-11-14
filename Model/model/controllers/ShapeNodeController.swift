@@ -13,25 +13,26 @@ class ShapeNodeController {
 	var _shapeNodes :Set<ShapeNode>
 	var _idleShapeNodes: Set<ShapeNode>
 	private var _shapeHeadNodes :Set<ShapeNode>
-	private var _shapeNodeTree: NodeTree<ShapeNode>
+	private var _shapeNodeMap: NodeMap
 	
 	var _toStartAdvanceNodes = Set<ShapeNode>()
 	var _toFinishAdvanceNodes = Set<ShapeNode>()
 	private var _tick: TickU = 0
 	private weak var _queue: GUIQueue?
 	
-	init(queue: GUIQueue) {
+	init(nodeMap: NodeMap, queue: GUIQueue) {
 		_queue = queue
 		_shapeNodes = Set<ShapeNode>()
 		_idleShapeNodes = Set<ShapeNode>()
 		_shapeHeadNodes = Set<ShapeNode>()
-		_shapeNodeTree = NodeTree<ShapeNode>(width: 100, height: 100)
+		_shapeNodeMap = nodeMap
+		//_shapeNodeTree = NodeTree<ShapeNode>(width: 100, height: 100)
 	}
 	
 	func addShapeNode(_ node: ShapeNode) {
 		_shapeNodes.insert(node)
 		_idleShapeNodes.insert(node)
-		_shapeNodeTree.addNode(node: node)
+		_shapeNodeMap.add(node: node)
 		_queue?.add(node: node)
 	}
 	
@@ -39,12 +40,12 @@ class ShapeNodeController {
 		_shapeHeadNodes.insert(head)
 		_shapeNodes.insert(head)
 		_idleShapeNodes.insert(head)
-		_shapeNodeTree.addNode(node: head)
+		_shapeNodeMap.add(node: head)
 		_queue?.add(node: head)
 	}
 	
 	func remove(_ node: ShapeNode) {
-		let _ = _shapeNodeTree.remove(node: node)
+		_shapeNodeMap.remove(node: node)
 		_shapeHeadNodes.remove(node)
 		_shapeNodes.remove(node)
 		_toStartAdvanceNodes.remove(node)
@@ -53,20 +54,20 @@ class ShapeNodeController {
 	}
 	
 	func move(_ node: ShapeNode) {
-		let _ = _shapeNodeTree.move(node: node)
+		let _ = _shapeNodeMap.move(node: node)
 		_queue?.update(node: node)
 	}
 	
 	func hasShapeNodeAt(_ point: Point) -> Bool {
-		return !_shapeNodeTree.getNodesAt(point.0, point.1).isEmpty
+		return !_shapeNodeMap.contains(of: ShapeNode.self, at: point)
 	}
 	
 	func hasShapeNodeAt(_ x: IntC, y: IntC) -> Bool {
-		return !_shapeNodeTree.getNodesAt(x, y).isEmpty
+		return hasShapeNodeAt((x, y))
 	}
 	
 	func getShapeNode(at point:Point) -> ShapeNode? {
-		return _shapeNodeTree.getNodesAt(point.0, point.1).first
+		return _shapeNodeMap.getNodes(of: ShapeNode.self, at: point).first
 	}
 	
 	func tick(_ tick: TickU) {

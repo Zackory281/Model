@@ -51,6 +51,8 @@ class NodeAbstract: NSObject {
 	var _point: Point = (0, 0)
 	var _type: NodeType { get { return .Shape} }
 	var _color: NSColor? { get { return nil} }
+	var _category: UInt { get { return 0}}
+	var _overlap: UInt { get { return 0}}
 }
 
 protocol PathNode: Node {
@@ -73,6 +75,8 @@ class PathNodeAbstract: NodeAbstract {
 	weak var _shapeNode: ShapeNode?
 	override var _type: NodeType { get { fatalError("No nodetype getter blowa!")}}
 	override var _color: NSColor? { return _shapeNode?._color }
+	override var _category: UInt { get { return 0b0001}}
+	override var _overlap: UInt { get { return 0b0011}}
 	var _nexts: [PathNodeAbstract]{get{fatalError("no _nexts in PathNodeAbstract")}}
 	var _prevs: [PathNodeAbstract]{get{fatalError("no _prevs in PathNodeAbstract")}}
 	var _directions: [Direction]{get{fatalError("no _directions in PathNodeAbstract")}}
