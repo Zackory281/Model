@@ -39,12 +39,12 @@ class LogicManager : NSObject {
 	}
 	
 	func imposeFacts() {
-		guard let nodeController = _nodeController else { print("Shape node controller not setup in Logic Manager returning from making moves."); return}
+		//guard let nodeController = _nodeController else { print("Shape node controller not setup in Logic Manager returning from making moves."); return}
 		_logic.forEveryFact { (premise, result) in
 			guard let cq = premise.getCustomQuery(), result.getBool() == true else { return }
 			switch cq {
 			case let .ShapeNowMove(shapeNode):
-				nodeController.addNodeToadvance(shapeNode)
+				shapeNode._state = .Moving
 			default:
 				return
 			}

@@ -43,11 +43,13 @@ class NodeScene : SKScene {
 	override func keyDown(with event: NSEvent) {
 		guard !_downKeys.contains(event.keyCode) else { return }
 	    _downKeys.insert(event.keyCode)
+		_inputDelegate?.keyDown(event.characters!)
 		_inputDelegate?.keyClicked(event.characters!)
 	}
 	
 	override func keyUp(with event: NSEvent) {
 		_downKeys.remove(event.keyCode)
+		_inputDelegate?.keyUp(event.characters!)
 	}
 	
 	override func mouseDragged(with event: NSEvent) {
@@ -95,6 +97,8 @@ protocol SceneInputDelegate {
 	func mouseUp(_ x : Int, _ y : Int)
 	func mouseDragged(_ x : Int, _ y : Int)
 	func keyClicked(_ c:String)
+	func keyUp(_ c:String)
+	func keyDown(_ c: String)
 	func update()
 }
 

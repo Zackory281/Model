@@ -9,58 +9,32 @@
 import Foundation
 import SpriteKit
 
-class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelegate {
+class SceneController : NSObject, SKSceneDelegate, SceneInputDelegate {
 	
 	private let _scene:NodeScene
+	var _guiDelegate: GUIController
 	
 	private var px, py: Int!
 	private var psx, psy: Int!
 	private var withinSquare: Bool!
+	private var _uiSetting: UISetting
+	private var _keysDown = Set<String>()
 	
-	private var _nodes = Dictionary<Int, UINode>()
-	
-	// MARK: GUIDelegate stub
-	func addPathNode(_ nodeInterface: NodeIterface) {
-		guard _nodes[nodeInterface.hash] == nil else {
-			print("adding an existing item")
-			return
-		}
-		var uiNode: UINode!
-		switch nodeInterface.nodeType{
-		case .Path:
-			uiNode = UIPathNode.init(CGFloat(nodeInterface.point.0 + 1), CGFloat(nodeInterface.point.1 + 1), orientations: nodeInterface.orientations, nodeInterface.color)
-		case .Shape:
-			uiNode = UIShapeNode.init(CGFloat(nodeInterface.point.0 + 1), CGFloat(nodeInterface.point.1 + 1), orientations: nodeInterface.orientations, nodeInterface.color)
-		}
-		_nodes[nodeInterface.hash] = uiNode
-		_scene.addChild(uiNode)
+	func keyDown(_ c:String) {
+		_keysDown.insert(c)
 	}
 	
-	func updatePosition(_ nodeUpdateInterface: NodeUpdateIterface) {
-		guard let node = _nodes[nodeUpdateInterface.hash] else {
-			print("updaing a non-existant item")
-			return
-		}
-		node.update(interface: nodeUpdateInterface)
-	}
-	
-	func dislayTickNumber(_ tick: Int, _ success: Bool) {
-		if !_autoTick {
-			_scene.changeTick(tick, success)
-		}
-		//_scene.changeTick(tick, success)
+	func keyUp(_ c:String) {
+		_keysDown.remove(c)
 	}
 	
 	func keyClicked(_ c: String) {
 		switch c {
 		case "c":
-			for node in _nodes.values {
-				node.removeFromParent()
-			}
-			_nodes.removeAll()
+			_guiDelegate.clearAllNodes()
 			return
 		case "a":
-			_autoTick = !_autoTick
+			_uiSetting[.AutoTick] = !(_uiSetting[.AutoTick] as! Bool)
 			return
 		default:
 			break
@@ -83,23 +57,20 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 	
 	func mouseUp(_ x: Int, _ y: Int) {
 		if withinSquare {
-			_nodesModelController?.clickToggleNode(psx, psy, type: .Shape)
+			if _keysDown.contains("g") {
+				_nodesModelController?.clickToggleNode(psx, psy, type: .Geometry)
+			} else {
+				_nodesModelController?.clickToggleNode(psx, psy, type: .Shape)
+			}
 			return
 		}
 		if let b = _nodesModelController?.addNodes(psx, psy, x / PATH_WIDTH, y / PATH_WIDTH), b {
 			return
 		}
-		
-//		let code = UnicodeScalar.init("s")!.utf16.first!
-//		if _scene.keyIsDown(code) {
-//			_nodesModelController?.clickToggleNode(psx, psy, type: .Shape)
-//		} else {
-//			_nodesModelController?.clickToggleNode(psx, psy, type: .Shape)
-//		}
 	}
 	
 	func update() {
-		if _autoTick {
+		if (_uiSetting[.AutoTick] as! Bool) {
 			_nodesModelController?.tick()
 		}
 	}
@@ -108,16 +79,34 @@ class SceneController : NSObject, GUIDelegate, SKSceneDelegate, SceneInputDelega
 	
 	init(scene:NodeScene) {
 		self._scene = scene
+		_uiSetting = UISetting()
+		_guiDelegate = GUIController(scene: scene, setting: _uiSetting)
 	}
 	
 	func getScene() -> SKScene {
 		return _scene
 	}
-	
-	private var _autoTick = true
 }
 
 let KEY_CODES:Dictionary<String, (NodesModelController) -> () -> ()> = [
 	"t" : NodesModelController.tick,
 	"l" : NodesModelController.preloadModel,
 ]
+
+class UISetting: NSObject {
+	var UI_SETTING:Dictionary<UI_SettingOption, Any> = [
+		.AutoTick : Bool(true)
+	]
+	subscript(_ option: UI_SettingOption) -> Any {
+		get {
+			return UI_SETTING[option]!
+		}
+		set {
+			UI_SETTING[option] = newValue
+		}
+	}
+}
+
+enum UI_SettingOption {
+	case AutoTick
+}

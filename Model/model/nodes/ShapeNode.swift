@@ -30,9 +30,11 @@ class ShapeNode : NodeAbstract {
 			if _state != oldValue {
 				_lastStateTick = _tick
 				_changedState = true
+				_lastState = oldValue
 			}
 		}
 	}
+	var _lastState: ShapeNodeState = .Chilling
 	var _tick: TickU = 0
 	var _lastStateTick: TickU = 0
 	
@@ -48,20 +50,6 @@ class ShapeNode : NodeAbstract {
 	
 	func tick(_ tick: TickU) {
 		_tick = tick
-		switch _state {
-		case .CanNowMoveWaiting:
-			if _lastStateTick + CAN_MOVE_WAIT_TIME < tick {
-				_state = .CanNowMove
-				_lastStateTick = tick
-			}
-		case .Moving:
-			if _lastStateTick + MOVING_TIME < tick {
-				_state = .Chilling
-				_lastStateTick = tick
-			}
-		default:
-			break
-		}
 	}
 	override var _type: NodeType { get { return .Shape } }
 	func getOrientations() -> [Direction] { return [_direction!] }
@@ -72,12 +60,14 @@ class ShapeNode : NodeAbstract {
 
 let CAN_MOVE_WAIT_TIME: TickU = 2
 let MOVING_TIME: TickU = 25
+let ATTACK_TIME: TickU = 60
 
 enum ShapeNodeState {
 	case Chilling
 	case CanNowMoveWaiting
 	case CanNowMove
 	case Moving
+	case Attacking
 }
 
 let _colorsAvaliable = Stack<NSColor>([NSColor.systemBlue,

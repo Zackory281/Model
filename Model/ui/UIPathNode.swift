@@ -23,7 +23,6 @@ class UIPathNode: UINode {
 		self.path = getPathForOrentation(ori: orientations)
 		//(path as! CGMutablePath).addPath(path!)
 		position = CGPoint(x: x * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: y * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)
-		print(position)
 		fillColor = color
 		lineWidth = 1
 		zPosition = PATHNODE_Z
@@ -58,7 +57,6 @@ class UIShapeNode: UINode {
 		super.init()
 		self.path = shapeNodePath
 		position = CGPoint(x: x * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: y * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)
-		print(color)
 		fillColor = color
 		strokeColor = NSColor.gray
 		lineWidth = 1
@@ -84,11 +82,34 @@ class UIShapeNode: UINode {
 	}
 }
 
+class UIProjectileNode: UINode {
+	
+	init(_ x: CGFloat, _ y: CGFloat, radius: CGFloat) {
+		super.init()
+		let path = CGPath(ellipseIn: CGRect(x: -radius, y: -radius, width: radius, height: radius), transform: nil)
+		position = CGPoint(x: x * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: y * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)
+//		path.move(to: CGPoint(x: x, y: 0))
+//		path.addArc(tangent1End: CGPoint(x: x, y: 0), tangent2End: CGPoint(x: -x, y: 0), radius: x)
+//		path.addArc(tangent1End: CGPoint(x: -x, y: 0), tangent2End: CGPoint(x: x, y: 0), radius: x)
+	  	self.fillColor = .white
+		self.path = path
+	}
+	
+	override func update(interface: NodeUpdateIterface) {
+		self.position = CGPoint(x: CGFloat(interface.fpoint!.0 + 1) * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF, y: CGFloat(interface.fpoint!.1 + 1) * PATH_WIDTH_CGF - PATH_HALF_WIDTH_CGF)
+	}
+	
+	required init?(coder aDecoder: NSCoder) {
+		fatalError("init(coder:) has not been implemented")
+	}
+}
+
 let STATE_TO_COLOR: [ShapeNodeState:NSColor] = [
 	ShapeNodeState.Chilling : NSColor.red,
 	ShapeNodeState.CanNowMoveWaiting : NSColor.yellow,
-	ShapeNodeState.CanNowMove : NSColor.black,
+	ShapeNodeState.CanNowMove : NSColor.systemGreen,
 	ShapeNodeState.Moving : NSColor.green,
+	ShapeNodeState.Attacking : NSColor.black,
 ]
 let SHAPENODE_Z: CGFloat = 10
 let PATHNODE_Z: CGFloat = 5

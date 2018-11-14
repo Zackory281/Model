@@ -13,7 +13,7 @@ import AppKit
 class PathNodeController {
 	
 	private var _tailNodes:[PathNodeAbstract]
-	private var _nodeTree: NodeTree<PathNodeAbstract>
+	private var treeMap: NodeTree<PathNodeAbstract>
 	private var _headNodes: Set<PathNodeAbstract>
 	
 	private var _queue: GUIQueue
@@ -106,7 +106,7 @@ class PathNodeController {
 			break
 		}
 		guard addNodeIntoTree(node: node) else { print("insertion of node into tree failed"); return nil }
-		_nodeTree.addNode(node: node)
+		//_nodeTree.addNode(node: node)
 		return node
 	}
 	
@@ -128,10 +128,10 @@ class PathNodeController {
 				break
 			}
 			nodes.stack(top._prevs)
+			_queue._nodesToAdd.append(contentsOf: top._prevs)
 			if top._prevs.isEmpty {
 				stitch(tail: top, except: head)
 			}
-			_queue._nodesToAdd.append(contentsOf: top._prevs)
 		}
 	}
 	

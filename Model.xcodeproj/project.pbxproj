@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F20015A221993351004D4237 /* GUIController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20015A121993351004D4237 /* GUIController.swift */; };
+		F20015A4219A16B9004D4237 /* ShapeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20015A3219A16B9004D4237 /* ShapeController.swift */; };
 		F20E9D1E21896FE8002C36CC /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D04B152183C5DD00305EB7 /* Node.swift */; };
 		F2CF805A2180EE69005194EB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2CF80592180EE69005194EB /* GameScene.sks */; };
 		F2CF805C2180EE69005194EB /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2CF805B2180EE69005194EB /* Actions.sks */; };
@@ -17,6 +19,12 @@
 		F2CF808121812053005194EB /* PathNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF807F21812053005194EB /* PathNodeController.swift */; };
 		F2CF808421812493005194EB /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF808221812493005194EB /* Utils.swift */; };
 		F2CF80872181311F005194EB /* ShapeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF80852181311F005194EB /* ShapeNode.swift */; };
+		F2D446CD219AA7E5002F262D /* AttackController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D446CC219AA7E5002F262D /* AttackController.swift */; };
+		F2D446CF219AB031002F262D /* ProjectileNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D446CE219AB031002F262D /* ProjectileNode.swift */; };
+		F2D446D1219AB55F002F262D /* ProjectileNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D446D0219AB55F002F262D /* ProjectileNodeController.swift */; };
+		F2D446D3219B7636002F262D /* GeometryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D446D2219B7636002F262D /* GeometryNode.swift */; };
+		F2D446D5219B7806002F262D /* GeometryNodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D446D4219B7806002F262D /* GeometryNodeController.swift */; };
+		F2D446D7219B88E2002F262D /* UIGeometryNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D446D6219B88E2002F262D /* UIGeometryNode.swift */; };
 		F2E6FB702196555F00B8A253 /* QueryExpander.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26314842191859F007CD683 /* QueryExpander.swift */; };
 		F2E6FB712196555F00B8A253 /* NodesFieldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CF805F2180EE69005194EB /* NodesFieldViewController.swift */; };
 		F2E6FB722196555F00B8A253 /* InputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F22D59E92186B4BB0004B078 /* InputController.swift */; };
@@ -59,6 +67,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F20015A121993351004D4237 /* GUIController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GUIController.swift; sourceTree = "<group>"; };
+		F20015A3219A16B9004D4237 /* ShapeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeController.swift; sourceTree = "<group>"; };
 		F20E9D2121897E8B002C36CC /* UIPathNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPathNode.swift; sourceTree = "<group>"; };
 		F21CE4E4218571E9000D8CD5 /* NodeScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeScene.swift; sourceTree = "<group>"; };
 		F21CE5162187C4CE000D8CD5 /* NodeTree.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NodeTree.swift; sourceTree = "<group>"; };
@@ -98,6 +108,12 @@
 		F2CF808221812493005194EB /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		F2CF80852181311F005194EB /* ShapeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeNode.swift; sourceTree = "<group>"; };
 		F2D04B152183C5DD00305EB7 /* Node.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.swift; sourceTree = "<group>"; };
+		F2D446CC219AA7E5002F262D /* AttackController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttackController.swift; sourceTree = "<group>"; };
+		F2D446CE219AB031002F262D /* ProjectileNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectileNode.swift; sourceTree = "<group>"; };
+		F2D446D0219AB55F002F262D /* ProjectileNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectileNodeController.swift; sourceTree = "<group>"; };
+		F2D446D2219B7636002F262D /* GeometryNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryNode.swift; sourceTree = "<group>"; };
+		F2D446D4219B7806002F262D /* GeometryNodeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryNodeController.swift; sourceTree = "<group>"; };
+		F2D446D6219B88E2002F262D /* UIGeometryNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIGeometryNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +139,8 @@
 			children = (
 				F2CF807F21812053005194EB /* PathNodeController.swift */,
 				F22D59E721828F9B0004B078 /* ShapeNodeController.swift */,
+				F2D446D0219AB55F002F262D /* ProjectileNodeController.swift */,
+				F2D446D4219B7806002F262D /* GeometryNodeController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -143,6 +161,8 @@
 				F2D04B152183C5DD00305EB7 /* Node.swift */,
 				F2CF807C2180EF67005194EB /* SerialPathNode.swift */,
 				F2CF80852181311F005194EB /* ShapeNode.swift */,
+				F2D446CE219AB031002F262D /* ProjectileNode.swift */,
+				F2D446D2219B7636002F262D /* GeometryNode.swift */,
 			);
 			path = nodes;
 			sourceTree = "<group>";
@@ -152,6 +172,7 @@
 			children = (
 				F21CE4E4218571E9000D8CD5 /* NodeScene.swift */,
 				F20E9D2121897E8B002C36CC /* UIPathNode.swift */,
+				F2D446D6219B88E2002F262D /* UIGeometryNode.swift */,
 			);
 			path = ui;
 			sourceTree = "<group>";
@@ -162,6 +183,8 @@
 				F22673B9218FA0A0006A02A5 /* NodesController.swift */,
 				F22673B5218F90C5006A02A5 /* NodesOutputManager.swift */,
 				F22673BB218FA2EC006A02A5 /* LogicManager.swift */,
+				F20015A3219A16B9004D4237 /* ShapeController.swift */,
+				F2D446CC219AA7E5002F262D /* AttackController.swift */,
 			);
 			path = revolvers;
 			sourceTree = "<group>";
@@ -172,6 +195,7 @@
 				F22D59E92186B4BB0004B078 /* InputController.swift */,
 				F22D59EC2186BEB20004B078 /* NodesModelController.swift */,
 				F22D59EF2186C3610004B078 /* SceneController.swift */,
+				F20015A121993351004D4237 /* GUIController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -363,15 +387,21 @@
 			files = (
 				F2E6FB702196555F00B8A253 /* QueryExpander.swift in Sources */,
 				F2E6FB712196555F00B8A253 /* NodesFieldViewController.swift in Sources */,
+				F2D446D1219AB55F002F262D /* ProjectileNodeController.swift in Sources */,
 				F2E6FB722196555F00B8A253 /* InputController.swift in Sources */,
 				F2E6FB732196555F00B8A253 /* NodesModelController.swift in Sources */,
 				F2E6FB742196555F00B8A253 /* SceneController.swift in Sources */,
 				F2E6FB752196555F00B8A253 /* NodeScene.swift in Sources */,
 				F2E6FB762196555F00B8A253 /* UIPathNode.swift in Sources */,
+				F20015A221993351004D4237 /* GUIController.swift in Sources */,
+				F20015A4219A16B9004D4237 /* ShapeController.swift in Sources */,
 				F2E6FB772196555F00B8A253 /* Node.swift in Sources */,
 				F2E6FB782196555F00B8A253 /* SerialPathNode.swift in Sources */,
 				F2E6FB792196555F00B8A253 /* ShapeNode.swift in Sources */,
+				F2D446D5219B7806002F262D /* GeometryNodeController.swift in Sources */,
 				F2E6FB7A2196555F00B8A253 /* Evaluator.swift in Sources */,
+				F2D446CD219AA7E5002F262D /* AttackController.swift in Sources */,
+				F2D446CF219AB031002F262D /* ProjectileNode.swift in Sources */,
 				F2E6FB7B2196555F00B8A253 /* Facts.swift in Sources */,
 				F2E6FB7C2196555F00B8A253 /* Interface.swift in Sources */,
 				F2E6FB7D2196555F00B8A253 /* LogicalSystem.swift in Sources */,
@@ -386,8 +416,10 @@
 				F2E6FB862196555F00B8A253 /* NodesModel.swift in Sources */,
 				F2E6FB872196555F00B8A253 /* PathNodeController.swift in Sources */,
 				F2E6FB882196555F00B8A253 /* ShapeNodeController.swift in Sources */,
+				F2D446D3219B7636002F262D /* GeometryNode.swift in Sources */,
 				F2E6FB892196555F00B8A253 /* Utils.swift in Sources */,
 				F2E6FB8A2196555F00B8A253 /* NodeTree.swift in Sources */,
+				F2D446D7219B88E2002F262D /* UIGeometryNode.swift in Sources */,
 				F2E6FB8B2196555F00B8A253 /* AppDelegate.swift in Sources */,
 				F2E6FB8E2196555F00B8A253 /* GameScene.swift in Sources */,
 			);

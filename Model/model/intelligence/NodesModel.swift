@@ -19,6 +19,8 @@ class NodesModel : NSObject, AssertionDelegate {
 	private var _outputManager: NodesOutputManager!
 	private var _nodeManager: NodesController!
 	private var _logicManager: LogicManager!
+	private var _shapeController: ShapeController!
+	private var _attackController: AttackController!
 	
 	private let _queue = DispatchQueue(label: "com.NodeModel", qos: .userInteractive)
 	
@@ -26,6 +28,8 @@ class NodesModel : NSObject, AssertionDelegate {
 		_outputManager = NodesOutputManager()
 		_nodeManager = NodesController()
 		_logicManager = LogicManager()
+		_attackController = AttackController(nodesController: _nodeManager)
+		_shapeController = ShapeController(nodesController: _nodeManager, shapeNodeController: _nodeManager._shapeNodeController, pathNodeController: _nodeManager._pathNodeController, attackController: _attackController)
 		_nodeManager._nodeActionDelegate = _outputManager
 		_logicManager._nodeQueryDelegate = _nodeManager
 		_logicManager._nodeController = _nodeManager
@@ -44,7 +48,12 @@ class NodesModel : NSObject, AssertionDelegate {
 	
 	func addNodeStride(_ points: Points) {
 		_queue.sync {
-			_nodeManager.addPathNodesFromHead(generateNodesHead(points: points)!)
+			if _nodeManager.getNode(at: (points[0], points[1])) == nil {			_nodeManager.addPathNodesFromHead(generateNodesHead(points: points)!)
+			} else {
+				perPoint(points: points, function: { (x, y) in
+					_nodeManager.addNodeAt(x, y, .Shape)
+				})
+			}
 		}
 	}
 	
@@ -52,10 +61,12 @@ class NodesModel : NSObject, AssertionDelegate {
 		_tick += 1
 		_queue.sync {
 			_logicManager.tick(_tick)
+			_shapeController.tick(_tick)
+			_attackController.tick(_tick)
 			_nodeManager.tick(_tick)
 			_outputManager.tick(_tick)
 		}
-		return false
+		return true
 	}
 	
 	func getTick() -> TickU {
