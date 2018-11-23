@@ -111,6 +111,10 @@ class NodeMap {
 		return _quadTree.elements(in: quad)
 	}
 	
+	func getNodes(at point: Point) -> [NodeAbstract] {
+		return _quadTree.elements(at: float2(Float(point.0)+0.5, Float(point.1)+0.5))
+	}
+	
 	func getNodes<T:NodeAbstract>(of _: T.Type, at point: Point) -> [T] {
 		return _quadTree.elements(at: float2(Float(point.0)+0.5, Float(point.1)+0.5)).filter{$0 is T} as! [T]
 	}
