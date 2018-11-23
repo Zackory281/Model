@@ -103,6 +103,14 @@ class NodeMap {
 		return nodes
 	}
 	
+	func getNodes(left: Point, right: Point) -> [NodeAbstract]
+	{
+		let quad = GKQuad(quadMin:
+			float2(Float(left.0), Float(left.1)),
+						  quadMax: float2(Float(right.0), Float(right.1)))
+		return _quadTree.elements(in: quad)
+	}
+	
 	func getNodes<T:NodeAbstract>(of _: T.Type, at point: Point) -> [T] {
 		return _quadTree.elements(at: float2(Float(point.0)+0.5, Float(point.1)+0.5)).filter{$0 is T} as! [T]
 	}

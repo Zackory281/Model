@@ -14,7 +14,6 @@ class AttackController {
 	var _tick: TickU = 0
 	var _projectileController: ProjectileNodeController{
 		get{ return _nodesController._projectileNodeController}}
-	
 	init(nodesController: NodesController) {
 		_nodesController = nodesController
 	}
