@@ -13,6 +13,7 @@ typealias Points = [IntC]
 typealias Point = (IntC, IntC)
 typealias IntC = Int16
 typealias TickU = Int
+typealias INTB = UInt32
 
 func generateNodesHead(points:Points) -> PathNodeAbstract? {
 	var tail: SerialPathNode?
