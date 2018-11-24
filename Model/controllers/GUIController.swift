@@ -57,6 +57,10 @@ class GUIController : NSObject, GUIDelegate {
 		_overlayController = UIOverlayController(scene: scene, setting: setting)
 	}
 	
+	func display(_ string: String) {
+		_overlayController.display(.Display(string))
+	}
+	
 	func clearAllNodes() {
 		for node in _nodes.values {
 			node.removeFromParent()

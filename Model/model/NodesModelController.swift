@@ -133,6 +133,7 @@ protocol GUIDelegate: NSObjectProtocol {
 	func addNode(_ nodeInterface: NodeIterface)
 	func updatePosition(_ nodeUpdateInterface: NodeUpdateIterface)
 	func dislayTickNumber(_ tick: Int, _ success: Bool)
+	func display(_ string: String)
 }
 
 struct NodeIterface {

@@ -33,6 +33,9 @@ class UIOverlayController : NSObject, UISettingDelegate {
 		case let .AddNode(i):
 			item = getActionNode(text: "Add Node \(i)", color: NSColor.systemPurple)
 			time = 1
+		case let .Display(i):
+			item = getActionNode(text: i, color: NSColor.systemPurple)
+			time = 1
 		default:
 			print("not set display for ", action)
 		}
@@ -45,7 +48,6 @@ class UIOverlayController : NSObject, UISettingDelegate {
 	}
 	
 	func removeDisplay(_ node: ActionItemNode) {
-		node._node.removeFromParent()
 		let b4 = node._nodeBefore
 		b4._nodeAfter = node._nodeAfter
 		if let a = node._nodeAfter {
@@ -61,6 +63,8 @@ class UIOverlayController : NSObject, UISettingDelegate {
 		if node === _actionTop {
 			_actionTop = b4
 		}
+		node._node.run(SKAction.scale(to: 0, duration: 0.1))
+		node._node.run(SKAction.sequence([.fadeOut(withDuration: 0.1), .run{node._node.removeFromParent()}]))
 	}
 	
 	func loadTags() {
@@ -81,12 +85,11 @@ class UIOverlayController : NSObject, UISettingDelegate {
 		label.fontSize = nodeHeight / 1.5
 		node.position = CGPoint(x: _scene!.size.width, y: y)
 		label.position = CGPoint(x: nodeWidth/2, y: nodeHeight/2 - label.frame.height/2)
-		label.fontName = "SF Mono"
+		//label.fontName = "SF Mono"
 		node.addChild(label)
 		node.fillColor = b ? NSColor.systemGreen : NSColor.systemRed
-		node.alpha = 0.7
+		//node.alpha = 0.7
 		node.lineWidth = 0
-		label.alpha = 1
 		return node
 	}
 	
@@ -161,6 +164,7 @@ let nodeCrack: CGFloat = 10
 enum OverlayAction {
 	case Tick(TickU)
 	case AddNode(String)
+	case Display(String)
 }
 protocol UISettingDelegate: class {
 	func update(option: UISettingOption, content: Any)

@@ -127,7 +127,8 @@ class UISetting: NSObject {
 	}
 }
 
-enum UISettingOption {
-	case AutoTick
-	case AddGeometry
+enum UISettingOption: String {
+	case AutoTick = "Auto Tick"
+	case AddGeometry = "Add Geo"
+	case Remove = "Remove"
 }
