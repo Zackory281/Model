@@ -165,5 +165,5 @@ class PathNodeController {
 }
 
 protocol PathNodeActionDelegate :NSObjectProtocol {
-	func uiAddPathNodes(nodes: [Node])
+	func uiAddPathNodes(nodes: [NodeAbstract])
 }

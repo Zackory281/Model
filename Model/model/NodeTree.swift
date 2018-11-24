@@ -172,3 +172,15 @@ let GRID_NEIGHBOR:[(IntC, IntC, Direction)] = [
 	(0,1,Direction.UP),
 	(-1,0,Direction.LEFT),
 	(0,-1,Direction.DOWN)]
+
+struct NodeUnit {
+	var _nodes: [NodeAbstract.Type : Int] = [
+		ShapeNode.self : 0
+	]
+	var _shapeNode: ShapeNode?
+	var _categoryBit: INTB = 0
+	var _collisionBit: INTB = 0
+	init(pathNode: PathNodeAbstract) {
+		_pathNode = pathNode
+	}
+}

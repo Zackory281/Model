@@ -41,32 +41,32 @@ class SerialPathNode : PathNodeAbstract {
 	}
 }
 
-protocol Node {
-	var _point: Point { get set }
-	var _type: NodeType { get }
-	var _color: NSColor? { get }
-}
+//protocol Node {
+//	var _point: Point { get set }
+//	var _type: NodeType { get }
+//	var _color: NSColor? { get }
+//}
 
 class NodeAbstract: NSObject {
 	var _point: Point = (0, 0)
 	var _type: NodeType { get { return .Shape} }
 	var _color: NSColor? { get { return nil} }
-	var _category: UInt { get { return 0}}
-	var _overlap: UInt { get { return 0}}
+	var _category: INTB { get { return NODE_TO_CATEGORY[_type]! } }
+	var _overlap: INTB { get { return NODE_TO_COLLISION[_type]! } }
 }
 
-protocol PathNode: Node {
-	var _nexts: [PathNodeAbstract] { get }
-	var _prevs: [PathNodeAbstract] { get }
-	var _directions: [Direction] { get }
-	var _shapeNode: ShapeNode? { get set }
-	var _color: NSColor? { get }
-	var _taken: Bool { get set }
-	func getNext(_ direction: Direction?) -> PathNodeAbstract?
-	func getPrev(_ direction: Direction?) -> PathNodeAbstract?
-	func getNowUntakeDerivation(ignore direction: Direction) -> LogicDerivation?
-	func update()
-}
+//protocol PathNode: Node {
+//	var _nexts: [PathNodeAbstract] { get }
+//	var _prevs: [PathNodeAbstract] { get }
+//	var _directions: [Direction] { get }
+//	var _shapeNode: ShapeNode? { get set }
+//	var _color: NSColor? { get }
+//	var _taken: Bool { get set }
+//	func getNext(_ direction: Direction?) -> PathNodeAbstract?
+//	func getPrev(_ direction: Direction?) -> PathNodeAbstract?
+//	func getNowUntakeDerivation(ignore direction: Direction) -> LogicDerivation?
+//	func update()
+//}
 
 class PathNodeAbstract: NodeAbstract {
 	init(point: Point, shapeNode: ShapeNode?){super.init();(self._point, _shapeNode)=(point, shapeNode)}
@@ -75,8 +75,6 @@ class PathNodeAbstract: NodeAbstract {
 	weak var _shapeNode: ShapeNode?
 	override var _type: NodeType { get { fatalError("No nodetype getter blowa!")}}
 	override var _color: NSColor? { return _shapeNode?._color }
-	override var _category: UInt { get { return 0b0001}}
-	override var _overlap: UInt { get { return 0b0011}}
 	var _nexts: [PathNodeAbstract]{get{fatalError("no _nexts in PathNodeAbstract")}}
 	var _prevs: [PathNodeAbstract]{get{fatalError("no _prevs in PathNodeAbstract")}}
 	var _directions: [Direction]{get{fatalError("no _directions in PathNodeAbstract")}}
@@ -111,3 +109,16 @@ enum Direction {
 		}
 	}
 }
+
+let NODE_TO_CATEGORY: [NodeType: INTB] = [
+	NodeType.Path     : 0b001,
+	NodeType.Shape    : 0b010,
+	NodeType.Geometry : 0b100,
+]
+
+let NODE_TO_COLLISION: [NodeType: INTB] = [
+	NodeType.Path     : 0b000,
+	NodeType.Shape    : 0b110,
+	NodeType.Geometry : 0b110,
+]
+
