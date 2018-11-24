@@ -16,7 +16,10 @@ class GeometryNodeController {
 	func add(geometry: GeometryNode) -> Bool {
 		for point in geometry._pointsOccupied {
 			let node = _nodeMap.getNodes(at: point)
-			let n = node.filter{$0 is PathNodeAbstract}
+			let n : [PathNodeAbstract] = node.filter{$0 is PathNodeAbstract}
+			if let b = n.first?._taken, b {
+				return false
+			}
 		}
 		_nodeMap.add(node: geometry)
 		_queue?.add(node: geometry)
