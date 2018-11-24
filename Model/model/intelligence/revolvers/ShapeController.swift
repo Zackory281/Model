@@ -28,12 +28,12 @@ class ShapeController : NSObject {
 		for node in _shapeNodeController._toStartAdvanceNodes {
 			let newPath = node._pathNode!.getNext(node._direction)!
 			var ns: [NodeAbstract] = [newPath]
-			if let oldPath = node._pathNode, oldPath._shapeNode == node {
+			if let oldPath = node._pathNode, oldPath._ocNode == node {
 				ns.append(oldPath)
-				oldPath._shapeNode = nil
+				oldPath._ocNode = nil
 				oldPath._taken = false
 			}
-			newPath._shapeNode = node
+			newPath._ocNode = node
 			newPath._taken = true
 			node._pathNode = newPath
 			_shapeNodeController.move(node)
@@ -45,7 +45,7 @@ class ShapeController : NSObject {
 	func finishAdvanceNodes() {
 		for node in _shapeNodeController._toFinishAdvanceNodes {
 			let oldPath = (node._pathNode! as! SerialPathNode)._prev!
-			if oldPath._shapeNode == node {
+			if oldPath._ocNode == node {
 				oldPath._taken = false
 			}
 			_nodesController._queue._nodesToUpdate.append(contentsOf: [node, oldPath])

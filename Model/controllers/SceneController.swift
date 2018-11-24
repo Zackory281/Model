@@ -14,6 +14,7 @@ class SceneController : NSObject, SKSceneDelegate, SceneInputDelegate {
 	private let _scene:NodeScene
 	var _guiDelegate: GUIController
 	
+	var _overlayController: UIOverlayController
 	private var px, py: Int!
 	private var psx, psy: Int!
 	private var withinSquare: Bool!
@@ -22,10 +23,16 @@ class SceneController : NSObject, SKSceneDelegate, SceneInputDelegate {
 	
 	func keyDown(_ c:String) {
 		_keysDown.insert(c)
+		if c == "g" {
+			_uiSetting[.AddGeometry] = true
+		}
 	}
 	
 	func keyUp(_ c:String) {
 		_keysDown.remove(c)
+		if c == "g" {
+			_uiSetting[.AddGeometry] = false
+		}
 	}
 	
 	func keyClicked(_ c: String) {
@@ -33,6 +40,9 @@ class SceneController : NSObject, SKSceneDelegate, SceneInputDelegate {
 		case "c":
 			_guiDelegate.clearAllNodes()
 			return
+		case "t":
+			_overlayController.display(.Tick(0))
+			break
 		case "a":
 			_uiSetting[.AutoTick] = !(_uiSetting[.AutoTick] as! Bool)
 			return
@@ -57,9 +67,11 @@ class SceneController : NSObject, SKSceneDelegate, SceneInputDelegate {
 	
 	func mouseUp(_ x: Int, _ y: Int) {
 		if withinSquare {
-			if _keysDown.contains("g") {
+			if _uiSetting[.AddGeometry] as! Bool {
+				_overlayController.display(.AddNode("GEO"))
 				_nodesModelController?.clickToggleNode(psx, psy, type: .Geometry)
 			} else {
+				_overlayController.display(.AddNode("SHA"))
 				_nodesModelController?.clickToggleNode(psx, psy, type: .Shape)
 			}
 			return
@@ -81,6 +93,9 @@ class SceneController : NSObject, SKSceneDelegate, SceneInputDelegate {
 		self._scene = scene
 		_uiSetting = UISetting()
 		_guiDelegate = GUIController(scene: scene, setting: _uiSetting)
+		_overlayController = UIOverlayController(scene: scene, setting: _uiSetting)
+		
+		_uiSetting.delegate = _overlayController
 	}
 	
 	func getScene() -> SKScene {
@@ -94,19 +109,25 @@ let KEY_CODES:Dictionary<String, (NodesModelController) -> () -> ()> = [
 ]
 
 class UISetting: NSObject {
-	var UI_SETTING:Dictionary<UI_SettingOption, Any> = [
-		.AutoTick : Bool(true)
+	var UI_SETTING:Dictionary<UISettingOption, Any> = [
+		.AutoTick : true,
+		.AddGeometry : false,
 	]
-	subscript(_ option: UI_SettingOption) -> Any {
+	weak var delegate: UISettingDelegate?
+	subscript(_ option: UISettingOption) -> Any {
 		get {
 			return UI_SETTING[option]!
 		}
 		set {
+			if let delegate = delegate {
+				delegate.update(option: option, content: newValue)
+			}
 			UI_SETTING[option] = newValue
 		}
 	}
 }
 
-enum UI_SettingOption {
+enum UISettingOption {
 	case AutoTick
+	case AddGeometry
 }

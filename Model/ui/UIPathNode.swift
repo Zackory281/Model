@@ -113,6 +113,7 @@ let STATE_TO_COLOR: [ShapeNodeState:NSColor] = [
 ]
 let SHAPENODE_Z: CGFloat = 10
 let PATHNODE_Z: CGFloat = 5
+let GEONODE_Z: CGFloat = 7
 
 let w = PATH_HALF_WIDTH_CGF * 0.8
 let ww = PATH_HALF_WIDTH_CGF * 0.6

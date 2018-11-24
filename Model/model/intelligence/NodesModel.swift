@@ -106,7 +106,7 @@ extension NodesModel {
 			, !nextPathNode._taken else {
 			return RES(false, 1)
 		}
-		if nextPathNode._shapeNode != nil {
+		if nextPathNode._ocNode != nil {
 			return RES(false, 2)
 		}
 		return PRE(.IsUntakenSquare(nextPathNode, shapeNode._direction!))

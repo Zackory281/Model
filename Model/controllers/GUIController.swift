@@ -13,6 +13,7 @@ class GUIController : NSObject, GUIDelegate {
 	private var _scene: NodeScene
 	private var _nodes = Dictionary<Int, UINode>()
 	private var _setting: UISetting
+	private var _overlayController: UIOverlayController
 	
 	// MARK: GUIDelegate stub
 	func addNode(_ nodeInterface: NodeIterface) {
@@ -53,6 +54,7 @@ class GUIController : NSObject, GUIDelegate {
 	init(scene: NodeScene, setting: UISetting) {
 		_scene = scene
 		_setting = setting
+		_overlayController = UIOverlayController(scene: scene, setting: setting)
 	}
 	
 	func clearAllNodes() {

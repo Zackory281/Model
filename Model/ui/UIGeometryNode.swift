@@ -19,6 +19,8 @@ class UIGeometryNode: UINode {
 		default:
 			break
 		}
+		zPosition = GEONODE_Z
+		alpha = 0.5
 		self.fillColor = nodeInterface.color!
 	}
 	

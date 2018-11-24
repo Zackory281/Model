@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		let scene = NodeScene.init(size: CGSize(width: 800, height: 600))
 		let model = NodesModel()
 		let sceneController = SceneController(scene: scene)
-		let nodesModelController = NodesModelController(nodesModel: model, guiDelegate: sceneController._guiDelegate)
+		let nodesModelController = NodesModelController(nodesModel: model, guiDelegate: sceneController._guiDelegate, overlayController: sceneController._overlayController)
 		
 		sceneController._nodesModelController = nodesModelController
 		scene._inputDelegate = sceneController

@@ -14,6 +14,7 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 	private let _nodesModel:NodesModel
 	private weak var _guiDelegate:GUIDelegate?
 	private weak var _queue: GUIQueue?
+	private weak var _overlayController: UIOverlayController?
 	
 	// Mark: NodesModelActionDelegate stubs
 	func uiAddQueue(_ queue: GUIQueue) {
@@ -104,9 +105,10 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 		_nodesModel.loadModel()
 	}
 	
-	init(nodesModel:NodesModel, guiDelegate:GUIDelegate) {
+	init(nodesModel:NodesModel, guiDelegate:GUIDelegate, overlayController: UIOverlayController) {
 		_nodesModel = nodesModel
 		_guiDelegate = guiDelegate
+		_overlayController = overlayController
 		super.init()
 		_nodesModel._modelActionDelegate = self
 	}

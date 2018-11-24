@@ -136,7 +136,7 @@ class PathNodeController {
 	
 	func addShapeNodeToTail(shapeNode:ShapeNode) {
 		shapeNode._pathNode = _tailNodes[0]
-		_tailNodes[0]._shapeNode = shapeNode
+		_tailNodes[0]._ocNode = shapeNode
 	}
 	
 	func getPathNodeAt(_ point: Point) -> PathNodeAbstract?{

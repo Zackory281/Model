@@ -24,9 +24,9 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 		case .Projectile:
 			fatalError("Can't add a node from point")
 		case .Shape:
-			if let pathNode = _pathNodeController.getPathNodeAt(point), pathNode._shapeNode == nil {
+			if let pathNode = _pathNodeController.getPathNodeAt(point), pathNode._ocNode == nil {
 				let shapeNode = ShapeNode.init(point, direction: pathNode._directions[safe: 0] ?? .UP, pathNode: pathNode, headNode: nil)
-				pathNode._shapeNode = shapeNode
+				pathNode._ocNode = shapeNode
 				pathNode._taken = true
 				_shapeNodeController.addShapeNode(shapeNode)
 			} else {

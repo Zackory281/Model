@@ -14,15 +14,29 @@ class GeometryNodeController {
 	private weak var _queue: GUIQueue?
 	
 	func add(geometry: GeometryNode) -> Bool {
+		var pathNodesInvolved = Set<PathNodeAbstract>()
 		for point in geometry._pointsOccupied {
 			let node = _nodeMap.getNodes(at: point)
-			let n : [PathNodeAbstract] = node.filter{$0 is PathNodeAbstract}
-			if let b = n.first?._taken, b {
+			for path in (node.filter({$0 is PathNodeAbstract}) as! [PathNodeAbstract]) {
+				pathNodesInvolved.insert(path)
+				if path._taken {
+					return false
+				}
+			}
+			if !node.filter({$0 is ShapeNode}).isEmpty {
+				return false
+			}
+			if !node.filter({$0 is GeometryNode}).isEmpty {
 				return false
 			}
 		}
+		for path in pathNodesInvolved {
+			path._taken = true
+			path._ocNode = geometry
+		}
 		_nodeMap.add(node: geometry)
 		_queue?.add(node: geometry)
+		
 		return true
 	}
 	
