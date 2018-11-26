@@ -34,14 +34,15 @@ class GeometryNode: NodeAbstract {
 			let p2 = points[1]
 			let p3 = points[2]
 			let dy = abs(p3.1 - p2.1)
-			for dx in 0...p2.0 {
-				
-				let s: StrideTo<IntC>!
-				if dy < 0 {
-					s = stride(from: <#T##Strideable#>, to: <#T##Strideable#>, by: <#T##Comparable & SignedNumeric#>)
-				}
-				for dy in
-			}
+//			for dx in 0...p2.0 {
+//
+//				let s: StrideTo<IntC>!
+//				if dy < 0 {
+//					s = stride(from: <#T##Strideable#>, to: <#T##Strideable#>, by: <#T##Comparable & SignedNumeric#>)
+//				}
+//				for dy in
+//			}
+			_pointsOccupied.append(contentsOf: points)
 		case let .Custom(points):
 			for (x, y) in points {
 				_pointsOccupied.append((anchor.0 + x, anchor.1 + y))

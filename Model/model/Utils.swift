@@ -54,6 +54,10 @@ func perPoint(points:Points, function:(_ x:IntC, _ y:IntC) -> ()) {
 	}
 }
 
+func toCGPoint(_ point: Point) -> CGPoint {
+	return CGPoint(x: Int(point.0), y: Int(point.1))
+}
+
 let DIR_TO_IND:[UInt8:Int] = [
 	12:0,
 	21:1,

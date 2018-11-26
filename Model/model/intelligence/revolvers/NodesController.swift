@@ -35,7 +35,7 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 		case .Path where type == .Path || type == .Geometry:
 			guard let _ = _pathNodeController.addPathNode(at: point) else { return }
 		case .Geometry://.Custom([(0,0),(0,1),(1,1),(1,0),(1,2),(2,1),(2,2)])
-			addGeometryNode(GeometryNode(anchor: point, geometry: .Square(width: 3, height: 3)))
+			addGeometryNode(GeometryNode(anchor: point, geometry: .Triangle([(0,0), (3, 0), (0, 3)])))//.Square(width: 3, height: 3)
 		default:
 			break
 		}
