@@ -18,8 +18,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 		let controller = NSApplication.shared.mainWindow!.contentViewController as! NodesFieldViewController
 		let scene = NodeScene.init(size: CGSize(width: 800, height: 600))
 		let model = NodesModel()
-		let sceneController = SceneController(scene: scene)
-		let nodesModelController = NodesModelController(nodesModel: model, guiDelegate: sceneController._guiDelegate, overlayController: sceneController._overlayController)
+		let setting = UISetting()
+		let overlayController = UIOverlayController(scene: scene, setting: setting)
+		let sceneController = SceneController(scene: scene, setting: setting, overlayController: overlayController)
+		let nodesModelController = NodesModelController(nodesModel: model, guiDelegate: sceneController._guiDelegate, overlayController: overlayController)
 		
 		sceneController._nodesModelController = nodesModelController
 		scene._inputDelegate = sceneController

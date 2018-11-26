@@ -12,7 +12,6 @@ import AppKit
 
 class PathNodeController {
 	
-	private var _tailNodes:[PathNodeAbstract]
 	private var _headNodes: Set<PathNodeAbstract>
 	private var _nodeMap: NodeMap
 	private var _queue: GUIQueue
@@ -109,10 +108,6 @@ class PathNodeController {
 		return node
 	}
 	
-	func addTailNodes(tailNode:PathNodeAbstract) {
-		_tailNodes.append(tailNode)
-	}
-	
 	/// - returns: the pathnodes successfully inserted
 	func addHeadNode(_ head: PathNodeAbstract){
 		guard addNodeIntoHeadSet(node: head) else { print("insertion into head set failed"); return}
@@ -134,9 +129,16 @@ class PathNodeController {
 		}
 	}
 	
-	func addShapeNodeToTail(shapeNode:ShapeNode) {
-		shapeNode._pathNode = _tailNodes[0]
-		_tailNodes[0]._ocNode = shapeNode
+	func remove(_ node: PathNodeAbstract) {
+		let _ = removeNodeFromTree(node)
+		for prev in node._prevs {
+			prev.rid(node)
+		}
+		for prev in node._nexts {
+			prev.rid(node)
+		}
+		_headNodes.remove(node)
+		_queue.remove(node)
 	}
 	
 	func getPathNodeAt(_ point: Point) -> PathNodeAbstract?{
@@ -146,13 +148,23 @@ class PathNodeController {
 	init(nodeMap: NodeMap, queue: GUIQueue) {
 		_queue = queue
 		_nodeMap = nodeMap
-		_tailNodes = []
 		_headNodes = Set<PathNodeAbstract>()
+	}
+	
+	private func removeNodeFromTree(_ node: PathNodeAbstract) -> Bool {
+		_nodeMap.remove(node: node)
+		return true
 	}
 	
 	private func addNodeIntoTree(node: PathNodeAbstract) -> Bool{
 		guard !_nodeMap.contains(of: PathNodeAbstract.self, at: node._point) else {
+			print("can't add node into tree ", node)
 			return false;}
+		if let gnode = _nodeMap.getNodes(of: GeometryNode.self, at: node._point).first {
+			node._taken = true
+			node._ocNode = gnode
+			gnode.addOccupiedPathNode(node: node)
+		}
 		_nodeMap.add(node: node)
 		return true
 	}

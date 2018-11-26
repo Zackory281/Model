@@ -13,10 +13,13 @@ class GeometryNode: NodeAbstract {
 	override var _color: NSColor? { get { return .systemRed }}
 	var _pointsOccupied: [Point]
 	var _geometry: GeometryType
+	var _pathNodes: WeakSet<PathNodeAbstract>
+	var _health: Float = 1
 	override var _type: NodeType { get { return .Geometry } }
 	init(anchor: Point, geometry: GeometryType) {
 		_pointsOccupied = []
 		_geometry = geometry
+		_pathNodes = WeakSet<PathNodeAbstract>()
 		super.init()
 		_point = anchor
 		switch geometry {
@@ -26,12 +29,21 @@ class GeometryNode: NodeAbstract {
 					_pointsOccupied.append((anchor.0 + x, anchor.1 + y))
 				}
 			}
-		default:
-			break
+		case let .Custom(points):
+			for (x, y) in points {
+				_pointsOccupied.append((anchor.0 + x, anchor.1 + y))
+			}
 		}
+	}
+	func addOccupiedPathNode(node: PathNodeAbstract) {
+		_pathNodes.insert(node)
+	}
+	deinit {
+		print("Geometry node... GONE!!!")
 	}
 }
 
 enum GeometryType {
 	case Square(width: IntC, height: IntC)
+	case Custom([Point])
 }

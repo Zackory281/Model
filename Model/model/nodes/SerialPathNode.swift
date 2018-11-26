@@ -33,6 +33,7 @@ class SerialPathNode : PathNodeAbstract {
 		return RES(true, 2)
 	}
 	override func update(){print("nothing to update for SerialPathNode")}
+	override func rid(_ node: PathNodeAbstract) {if _next === node {_next = nil};if _prev === node {_prev = nil}}
 	init(point: Point, next: PathNodeAbstract?, prev: PathNodeAbstract?, direction: Direction?, shapeNode: ShapeNode?) {
 		_value = 0
 		super.init(point: point, shapeNode: shapeNode)
@@ -42,6 +43,9 @@ class SerialPathNode : PathNodeAbstract {
 		_value = 0
 		super.init(point: point)
 	}
+	deinit {
+		print("Serial path node... GONE!!!")
+	}
 }
 
 //protocol Node {
@@ -49,14 +53,6 @@ class SerialPathNode : PathNodeAbstract {
 //	var _type: NodeType { get }
 //	var _color: NSColor? { get }
 //}
-
-class NodeAbstract: NSObject {
-	var _point: Point = (0, 0)
-	var _type: NodeType { get { return .Shape} }
-	var _color: NSColor? { get { return nil} }
-	var _category: INTB { get { return NODE_TO_CATEGORY[_type]! } }
-	var _overlap: INTB { get { return NODE_TO_COLLISION[_type]! } }
-}
 
 //protocol PathNode: Node {
 //	var _nexts: [PathNodeAbstract] { get }
@@ -84,6 +80,7 @@ class PathNodeAbstract: NodeAbstract {
 	func getNext(_ direction: Direction?) -> PathNodeAbstract? {fatalError("no getNext from direction")}
 	func getPrev(_ direction: Direction?) -> PathNodeAbstract? {fatalError("no getPrev from direction")}
 	func getNowUntakeDerivation(ignore direction: Direction) -> LogicDerivation? {fatalError("no")}
+	func rid(_ node: PathNodeAbstract) {fatalError("Rid not implemented!")}
 	func update() {fatalError("no update")}
 }
 

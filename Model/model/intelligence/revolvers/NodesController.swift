@@ -34,19 +34,27 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 			}
 		case .Path where type == .Path || type == .Geometry:
 			guard let _ = _pathNodeController.addPathNode(at: point) else { return }
-		case .Geometry:
+		case .Geometry://.Custom([(0,0),(0,1),(1,1),(1,0),(1,2),(2,1),(2,2)])
 			addGeometryNode(GeometryNode(anchor: point, geometry: .Square(width: 3, height: 3)))
 		default:
 			break
 		}
-//		if _pathNodeController.getPathNodeAt(point) == nil {
-//			guard let _ = _pathNodeController.addPathNode(at: point) else { return }
-//		} else if let pathNode = _pathNodeController.getPathNodeAt(point), pathNode._shapeNode == nil {
-//			let shapeNode = ShapeNode.init(point, direction: pathNode._directions[safe: 0] ?? .UP, pathNode: pathNode, headNode: nil)
-//			pathNode._shapeNode = shapeNode
-//			pathNode._taken = true
-//			_shapeNodeController.addShapeNode(shapeNode)
-//		}
+	}
+	
+	func removeNodeAt(_ point: Point) {
+		guard let node = _nodeMap.getNodes(at: point).first else {
+			print("nothing to remove"); return
+		}
+		switch node {
+		case let node as ShapeNode:
+			_shapeNodeController.remove(node)
+		case let node as PathNodeAbstract:
+			_pathNodeController.remove(node)
+		case let node as GeometryNode:
+			_geometryNodeController.remove(node)
+		default:
+			print("not a type we can remove")
+		}
 	}
 	
 	func addNodeAt(_ x: IntC, _ y: IntC, _ type: NodeType) { addNodeAt((x, y), type) }
@@ -88,6 +96,7 @@ class NodesController: NSObject, NodeControlDelegate, QueryNodeDelegate{
 	func tick(_ tick: TickU) {
 		_shapeNodeController.tick(tick)
 		_projectileNodeController.tick(tick)
+		_geometryNodeController.tick(tick)
 		_nodeActionDelegate?.uiAddQueue(_queue)
 	}
 	

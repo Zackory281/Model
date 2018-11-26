@@ -51,6 +51,7 @@ class ShapeNodeController {
 		_toStartAdvanceNodes.remove(node)
 		_toFinishAdvanceNodes.remove(node)
 		_idleShapeNodes.remove(node)
+		_queue?.remove(node)
 	}
 	
 	func move(_ node: ShapeNode) {

@@ -12,7 +12,7 @@ import SpriteKit
 class UIOverlayController : NSObject, UISettingDelegate {
 	private weak var _scene: NodeScene?
 	private weak var _uiSetting : UISetting?
-	private var _settingNode: [UISettingOption : SKNode] = [:]
+	private var _settingNode: [SettingName : SKNode] = [:]
 	private var _actionTop: BaseActionItemNode
 	
 	init(scene: NodeScene, setting: UISetting) {
@@ -44,6 +44,9 @@ class UIOverlayController : NSObject, UISettingDelegate {
 		_actionTop = anode
 		item.position.y = height - CGFloat(_actionTop._index) * (nodeHeight + nodeCrack)
 		_scene!.addChild(item)
+		item.xScale = 0
+		item.yScale = 0
+		item.run(SKAction.scale(to: 1, duration: 0.1))
 		item.run(SKAction.sequence([SKAction.wait(forDuration: time), SKAction.run({[unowned self] in self.removeDisplay(anode)})]))
 	}
 	
@@ -68,13 +71,20 @@ class UIOverlayController : NSObject, UISettingDelegate {
 	}
 	
 	func loadTags() {
-		_settingNode[UISettingOption.AutoTick] = getBooleanNode("Auto Tick", i: 0, b: true)
-		_settingNode[UISettingOption.AddGeometry] = getBooleanNode("Add Geo", i: 1, b: true)
-		for (s, a) in _uiSetting!.UI_SETTING {
-			update(option: s, content: a)
-		}
-		for (_, node) in _settingNode {
+		var i = 0
+		for (name, entry) in _uiSetting!.UI_SETTING {
+			var node: SKNode
+			switch entry.type {
+			case .Boolean:
+				node = getBooleanNode(name.rawValue, i: i, b: entry.set as! Bool)
+			default:
+				print("not configuered for ", entry.type)
+				continue
+			}
+			_settingNode[name] = node
+			update(entry: entry)
 			_scene!.addChild(node)
+			i += 1
 		}
 	}
 	
@@ -85,24 +95,24 @@ class UIOverlayController : NSObject, UISettingDelegate {
 		label.fontSize = nodeHeight / 1.5
 		node.position = CGPoint(x: _scene!.size.width, y: y)
 		label.position = CGPoint(x: nodeWidth/2, y: nodeHeight/2 - label.frame.height/2)
-		//label.fontName = "SF Mono"
+		label.fontName = "SF Mono Regular"
 		node.addChild(label)
-		node.fillColor = b ? NSColor.systemGreen : NSColor.systemRed
+		node.fillColor = NSColor.systemGreen//b ? NSColor.systemGreen : NSColor.systemRed
 		//node.alpha = 0.7
 		node.lineWidth = 0
 		return node
 	}
 	
-	func update(option: UISettingOption, content: Any) {
-		switch option {
-		case .AddGeometry, .AutoTick:
-			if content as! Bool {
-				makeAppear(_settingNode[option]!)
+	func update(entry: SettingEntry) {
+		switch entry.type {
+		case .Boolean:
+			if entry.set as! Bool {
+				makeAppear(_settingNode[entry.name]!)
 			} else {
-				makeDisappear(_settingNode[option]!)
+				makeDisappear(_settingNode[entry.name]!)
 			}
 		default:
-			print("UILay not configured for ", option)
+			print("UILay not configured for ", entry.name)
 		}
 	}
 	
@@ -167,5 +177,5 @@ enum OverlayAction {
 	case Display(String)
 }
 protocol UISettingDelegate: class {
-	func update(option: UISettingOption, content: Any)
+	func update(entry: SettingEntry)
 }

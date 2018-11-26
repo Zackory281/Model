@@ -23,15 +23,15 @@ class SceneController : NSObject, SKSceneDelegate, SceneInputDelegate {
 	
 	func keyDown(_ c:String) {
 		_keysDown.insert(c)
-		if c == "g" {
-			_uiSetting[.AddGeometry] = true
+		if let name = KEY_DIRECT_TOGGLES[c] {
+			_uiSetting.boolInvert(name)
 		}
 	}
 	
 	func keyUp(_ c:String) {
 		_keysDown.remove(c)
-		if c == "g" {
-			_uiSetting[.AddGeometry] = false
+		if let name = KEY_DIRECT_TOGGLES[c] {
+			_uiSetting.boolInvert(name)
 		}
 	}
 	
@@ -67,12 +67,16 @@ class SceneController : NSObject, SKSceneDelegate, SceneInputDelegate {
 	
 	func mouseUp(_ x: Int, _ y: Int) {
 		if withinSquare {
-			if _uiSetting[.AddGeometry] as! Bool {
-				_overlayController.display(.AddNode("GEO"))
-				_nodesModelController?.clickToggleNode(psx, psy, type: .Geometry)
+			if _uiSetting[.Remove] as! Bool {
+				_nodesModelController?.removeNodesAt(psx, psy)
 			} else {
-				_overlayController.display(.AddNode("SHA"))
-				_nodesModelController?.clickToggleNode(psx, psy, type: .Shape)
+				if _uiSetting[.AddGeometry] as! Bool {
+					_overlayController.display(.AddNode("GEO"))
+					_nodesModelController?.clickToggleNode(psx, psy, type: .Geometry)
+				} else {
+					_overlayController.display(.AddNode("SHA"))
+					_nodesModelController?.clickToggleNode(psx, psy, type: .Shape)
+				}
 			}
 			return
 		}
@@ -89,11 +93,11 @@ class SceneController : NSObject, SKSceneDelegate, SceneInputDelegate {
 	
 	weak var _nodesModelController:NodesModelController?
 	
-	init(scene:NodeScene) {
+	init(scene:NodeScene, setting: UISetting, overlayController: UIOverlayController) {
 		self._scene = scene
-		_uiSetting = UISetting()
-		_guiDelegate = GUIController(scene: scene, setting: _uiSetting)
-		_overlayController = UIOverlayController(scene: scene, setting: _uiSetting)
+		_uiSetting = setting
+		_guiDelegate = GUIController(scene: scene, setting: setting, overlayController: overlayController)
+		_overlayController = overlayController
 		
 		_uiSetting.delegate = _overlayController
 	}
@@ -103,32 +107,65 @@ class SceneController : NSObject, SKSceneDelegate, SceneInputDelegate {
 	}
 }
 
+let KEY_DIRECT_TOGGLES: Dictionary<String, SettingName> = [
+	"r" : SettingName.Remove,
+	"g" : SettingName.AddGeometry,
+]
 let KEY_CODES:Dictionary<String, (NodesModelController) -> () -> ()> = [
 	"t" : NodesModelController.tick,
 	"l" : NodesModelController.preloadModel,
 ]
 
 class UISetting: NSObject {
-	var UI_SETTING:Dictionary<UISettingOption, Any> = [
-		.AutoTick : true,
-		.AddGeometry : false,
+	var UI_SETTING:Dictionary<SettingName, SettingEntry> = [
+		.AutoTick : SettingEntry.init(name: .AutoTick, set: true, type: .Boolean),
+		.AddGeometry : SettingEntry.init(name: .AddGeometry, set: false, type: .Boolean),
+		.Remove : SettingEntry.init(name: .Remove, set: false, type: .Boolean),
 	]
 	weak var delegate: UISettingDelegate?
-	subscript(_ option: UISettingOption) -> Any {
+	subscript(_ name: SettingName) -> Any {
 		get {
-			return UI_SETTING[option]!
+			return UI_SETTING[name]!.set
 		}
 		set {
-			if let delegate = delegate {
-				delegate.update(option: option, content: newValue)
-			}
-			UI_SETTING[option] = newValue
+			UI_SETTING[name]!.set = newValue
+			updateDelegate(name)
 		}
+	}
+	
+	func updateDelegate(_ name: SettingName) {
+		if let delegate = delegate {
+			delegate.update(entry: UI_SETTING[name]!)
+		}
+	}
+	
+	func boolInvert(_ name: SettingName) {
+		guard let entry = UI_SETTING[name], entry.type == .Boolean else { print("Not a boolean entry", name); return }
+		entry.set = !(entry.set as! Bool)
+		updateDelegate(name)
 	}
 }
 
-enum UISettingOption: String {
+enum SettingName: String {
 	case AutoTick = "Auto Tick"
 	case AddGeometry = "Add Geo"
 	case Remove = "Remove"
+}
+
+class SettingEntry: NSObject {
+	let name: SettingName
+	var set: Any
+	let type: SettingType
+	init(name: SettingName, set: Any, type: SettingType = .Boolean) {
+		self.name = name
+		self.set = set
+		self.type = type
+	}
+}
+
+enum SettingType {
+	case Integer
+	case Float
+	case Boolean
+	case Other
 }

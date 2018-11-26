@@ -93,7 +93,7 @@ class ShapeController : NSObject {
 					node._lastStateTick = _tick
 				}
 			case .Attacking:
-				if node._lastStateTick + ATTACK_TIME < _tick, let next = (node._pathNode as! SerialPathNode)._next, !next._taken {
+				if node._lastStateTick + ATTACK_TIME < _tick, let next = (node._pathNode as? SerialPathNode)?._next, !next._taken {
 					node._state = .CanNowMoveWaiting
 					node._lastStateTick = _tick
 					queue.update(node: node)

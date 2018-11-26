@@ -44,6 +44,14 @@ class GUIController : NSObject, GUIDelegate {
 		node.update(interface: nodeUpdateInterface)
 	}
 	
+	func removeNode(_ hash: Int) {
+		guard let node = _nodes.removeValue(forKey: hash) else {
+			print("The node to remove doesn't exist.");
+			return
+		}
+		node.removeFromParent()
+	}
+	
 	func dislayTickNumber(_ tick: Int, _ success: Bool) {
 		if tick % 60 == 0 || !(_setting[.AutoTick] as! Bool) {
 			_scene.changeTick(tick, success)
@@ -51,10 +59,10 @@ class GUIController : NSObject, GUIDelegate {
 		//_scene.changeTick(tick, success)
 	}
 	
-	init(scene: NodeScene, setting: UISetting) {
+	init(scene: NodeScene, setting: UISetting, overlayController: UIOverlayController) {
 		_scene = scene
 		_setting = setting
-		_overlayController = UIOverlayController(scene: scene, setting: setting)
+		_overlayController = overlayController
 	}
 	
 	func display(_ string: String) {

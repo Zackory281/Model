@@ -116,8 +116,9 @@ extension Set {
 func toFloatPoint(_ point: Point) -> FPoint {
 	return (Float(point.0), Float(point.1))
 }
-//extension Tuple {
-//	func toFloatPoint() -> FPoint {
-//		return (self.0, self.1)
-//	}
-//}
+
+var hashD:Int = 0
+func getHash() -> Int {
+	hashD += 1
+	return hashD
+}

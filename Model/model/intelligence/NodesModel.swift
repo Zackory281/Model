@@ -46,9 +46,18 @@ class NodesModel : NSObject, AssertionDelegate {
 		}
 	}
 	
+	func removeNodeAt(_ x:IntC, _ y:IntC, _ type: NodeType) -> Bool {
+		//tick()
+		_queue.sync { ///Thread queuing so threads that use the same data doesn't cross modify/access them
+			_nodeManager.removeNodeAt((x, y))
+		}
+		return true
+	}
+	
 	func addNodeStride(_ points: Points) {
 		_queue.sync {
-			if _nodeManager.getNode(at: (points[0], points[1])) == nil {			_nodeManager.addPathNodesFromHead(generateNodesHead(points: points)!)
+			if _nodeManager.getNode(at: (points[0], points[1])) == nil {
+				_nodeManager.addPathNodesFromHead(generateNodesHead(points: points)!)
 			} else {
 				perPoint(points: points, function: { (x, y) in
 					_nodeManager.addNodeAt(x, y, .Shape)

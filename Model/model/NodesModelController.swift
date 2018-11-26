@@ -25,6 +25,10 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 		_nodesModel.addNodeAt(IntC(x), IntC(y), type)
 	}
 	
+	func removeNodesAt(_ x: Int, _ y: Int) -> Bool {
+		return _nodesModel.removeNodeAt(IntC(x), IntC(y), .Path)
+	}
+	
 	func addNodes(_ x1: Int, _ y1: Int, _ x2: Int, _ y2: Int)  -> Bool {
 		guard x2 - x1 == 0 || y2 - y1 == 0 else {
 			print("Stride bad.")
@@ -57,6 +61,7 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 		_guiDelegate?.dislayTickNumber(Int(_nodesModel.getTick()), success)
 		pushAddNodes()
 		pushUpdateNodes()
+		pushRemoveNodes()
 	}
 	
 	func pushAddNodes() {
@@ -76,7 +81,7 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 				s = NodeIterface(point: node._point, orientations: pathNode._directions, hash: node.hash, nodeType: node._type, color: pathNode._color ?? .white, radius: nil)
 			case .Geometry:
 				let node = (node as! GeometryNode)
-				s = NodeIterface(point: node._point, color: node._color!, hash: node.hash, geometry: node._geometry)
+				s = NodeIterface(point: node._point, color: node._color!, hash: node.hash, health: node._health, geometry: node._geometry)
 			}
 			_guiDelegate.addNode(s)
 		}
@@ -94,11 +99,22 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 				_guiDelegate.updatePosition(NodeUpdateIterface(point: node._point,color: node._color ?? .white, shapeState: node._state,hash: node.hash))
 			case let node as ProjectileNode:
 				_guiDelegate.updatePosition(NodeUpdateIterface(fpoint: node._fpoint, hash: node.hash))
+			case let node as GeometryNode:
+				_guiDelegate.updatePosition(NodeUpdateIterface(health: node._health, hash: node.hash))
 			default:
 				break
 			}
 		}
 		queue._nodesToUpdate.removeAll()
+	}
+	
+	func pushRemoveNodes() {
+		guard let _guiDelegate = _guiDelegate else { return }
+		guard let queue = _queue else { return }
+		for node in queue._nodesToRemove {
+			_guiDelegate.removeNode(node.hash)
+		}
+		queue._nodesToRemove.removeAll()
 	}
 	
 	func preloadModel() {
@@ -116,11 +132,16 @@ class NodesModelController :NSObject, NodesModelActionDelegate{
 
 class GUIQueue {
 	var _nodesToAdd = Set<NodeAbstract>()
+	var _nodesToRemove = Set<NodeAbstract>()
 	var _nodesToUpdate = Set<NodeAbstract>()
 //	func clearAll() {
 //		_nodesToAdd.removeAll()
 //		_nodesToUpdate.removeAll()
 //	}
+	func remove(_ node: NodeAbstract) {
+		_nodesToRemove.insert(node)
+	}
+	
 	func add(node: NodeAbstract) {
 		_nodesToAdd.insert(node)
 	}
@@ -132,6 +153,7 @@ protocol GUIDelegate: NSObjectProtocol {
 	
 	func addNode(_ nodeInterface: NodeIterface)
 	func updatePosition(_ nodeUpdateInterface: NodeUpdateIterface)
+	func removeNode(_ hash: Int)
 	func dislayTickNumber(_ tick: Int, _ success: Bool)
 	func display(_ string: String)
 }
@@ -144,6 +166,7 @@ struct NodeIterface {
 	var color: NSColor?
 	var radius: Int8?
 	var geometry: GeometryType?
+	var health: Float?
 	init(point: Point, orientations: [Direction]?, hash: Int, nodeType: NodeType, color: NSColor?, radius: Int8?) {
 		self.point = point
 		self.orientations = orientations
@@ -153,7 +176,8 @@ struct NodeIterface {
 		self.radius = radius
 	}
 	
-	init(point: Point, color: NSColor, hash: Int, geometry: GeometryType) {
+	init(point: Point, color: NSColor, hash: Int, health: Float, geometry: GeometryType) {
+		self.health = health
 		self.point = point
 		self.color = color
 		self.nodeType = .Geometry
@@ -170,9 +194,13 @@ struct NodeUpdateIterface {
 	var shapeState: ShapeNodeState?
 	var taken: Bool?
 	var hash: Int
+	var health: Float?
 	//NodeUpdateIterface(point: node._point,color: node._color ?? .white, orientation: nil, shapeState: node._state, taken: nil,hash: node.hash)
 	init(fpoint: FPoint, hash: Int) {
 		(self.fpoint, self.hash) = (fpoint, hash)
+	}
+	init(health: Float, hash: Int) {
+		(self.health, self.hash) = (health, hash)
 	}
 	init(point: Point, color: NSColor, shapeState: ShapeNodeState, hash: Int) {
 		(self.point, self.color, self.shapeState, self.hash) = (point, color, shapeState, hash)

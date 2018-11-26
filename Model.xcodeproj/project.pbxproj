@@ -11,6 +11,8 @@
 		F20015A4219A16B9004D4237 /* ShapeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20015A3219A16B9004D4237 /* ShapeController.swift */; };
 		F20E9D1E21896FE8002C36CC /* Node.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2D04B152183C5DD00305EB7 /* Node.swift */; };
 		F26C63FA21A90E8000C7B028 /* UIOverlayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F26C63F921A90E8000C7B028 /* UIOverlayController.swift */; };
+		F2A7538B21AA4C8F00227C97 /* WeakSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A7538A21AA4C8F00227C97 /* WeakSet.swift */; };
+		F2A7538E21AB6BA600227C97 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A7538D21AB6BA600227C97 /* Queue.swift */; };
 		F2CF805A2180EE69005194EB /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2CF80592180EE69005194EB /* GameScene.sks */; };
 		F2CF805C2180EE69005194EB /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F2CF805B2180EE69005194EB /* Actions.sks */; };
 		F2CF80622180EE6B005194EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F2CF80612180EE6B005194EB /* Assets.xcassets */; };
@@ -90,6 +92,8 @@
 		F263148A219185DE007CD683 /* TreeGraph.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TreeGraph.swift; sourceTree = "<group>"; };
 		F263148C219185EC007CD683 /* Vocab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vocab.swift; sourceTree = "<group>"; };
 		F26C63F921A90E8000C7B028 /* UIOverlayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIOverlayController.swift; sourceTree = "<group>"; };
+		F2A7538A21AA4C8F00227C97 /* WeakSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakSet.swift; sourceTree = "<group>"; };
+		F2A7538D21AB6BA600227C97 /* Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		F2CF80542180EE69005194EB /* Model.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Model.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2CF80572180EE69005194EB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F2CF80592180EE69005194EB /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -207,6 +211,16 @@
 			path = viewControllers;
 			sourceTree = "<group>";
 		};
+		F2A7538C21AB6B9100227C97 /* dateTypes */ = {
+			isa = PBXGroup;
+			children = (
+				F21CE5162187C4CE000D8CD5 /* NodeTree.swift */,
+				F2A7538A21AA4C8F00227C97 /* WeakSet.swift */,
+				F2A7538D21AB6BA600227C97 /* Queue.swift */,
+			);
+			path = dateTypes;
+			sourceTree = "<group>";
+		};
 		F2CF804B2180EE69005194EB = {
 			isa = PBXGroup;
 			children = (
@@ -257,12 +271,12 @@
 		F2CF807B2180EEC9005194EB /* model */ = {
 			isa = PBXGroup;
 			children = (
+				F2A7538C21AB6B9100227C97 /* dateTypes */,
 				F22D59EC2186BEB20004B078 /* NodesModelController.swift */,
 				F20E9D1D21896FCE002C36CC /* nodes */,
 				F20E9D1C21896FB7002C36CC /* intelligence */,
 				F20E9D1B21896FA8002C36CC /* controllers */,
 				F2CF808221812493005194EB /* Utils.swift */,
-				F21CE5162187C4CE000D8CD5 /* NodeTree.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -385,9 +399,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F2A7538B21AA4C8F00227C97 /* WeakSet.swift in Sources */,
 				F2E6FB702196555F00B8A253 /* QueryExpander.swift in Sources */,
 				F2E6FB712196555F00B8A253 /* NodesFieldViewController.swift in Sources */,
 				F2D446D1219AB55F002F262D /* ProjectileNodeController.swift in Sources */,
+				F2A7538E21AB6BA600227C97 /* Queue.swift in Sources */,
 				F2E6FB732196555F00B8A253 /* NodesModelController.swift in Sources */,
 				F2E6FB742196555F00B8A253 /* SceneController.swift in Sources */,
 				F2E6FB752196555F00B8A253 /* NodeScene.swift in Sources */,

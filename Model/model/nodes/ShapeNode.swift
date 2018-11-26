@@ -56,6 +56,9 @@ class ShapeNode : NodeAbstract {
 	func getDirection() -> Direction? { return _direction }
 	func getType() -> NodeType { return .Shape}
 	func getColorCode() -> NSColor? { return _color }
+	deinit {
+		print("SHape node... GONE!!")
+	}
 }
 
 let CAN_MOVE_WAIT_TIME: TickU = 2
