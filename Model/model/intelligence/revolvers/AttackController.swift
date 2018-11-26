@@ -32,32 +32,34 @@ class AttackController {
 	}
 	func tick(_ tick: TickU) {
 		_tick = tick
-		var toRemove = Set<ProjectileNode>()
 		for proj in _projectileController.projectileNodes {
 			if proj._hit {
 				//print("Projectile \(proj) hit \(proj._end)")
-				toRemove.insert(proj)
-				queueDamage(DamageEntry(from: proj._from, to: proj._to, damage: 0.1))
+				queueDamage(DamageEntry(from: proj._from, to: proj._to, bullet: proj, damage: 0.1))
 			}
 		}
 		while let entry = _damageEnteries.remove() {
 			guard let to = entry._to else { continue }
-			guard let from = entry._from else { continue }
 			guard let geo = to as? GeometryNode else { continue }
 			geo._health -= entry._damage
 			_queue.update(node: to)
-			_queue.remove(from)
+			if let bullet = entry._bullet {
+				 _projectileController.projectileNodes.remove(bullet as! ProjectileNode)
+				_queue.remove(bullet)
+			}
 		}
-		_projectileController.projectileNodes.subtract(toRemove)
+		//_projectileController.projectileNodes.subtract(toRemove)
 	}
 }
 
 class DamageEntry: NSObject {
 	weak var _from, _to: NodeAbstract?
+	weak var _bullet: NodeAbstract?
 	let _damage: Float
-	init(from: NodeAbstract?, to: NodeAbstract?, damage: Float) {
+	init(from: NodeAbstract?, to: NodeAbstract?, bullet: NodeAbstract?, damage: Float) {
 		_from = from
 		_to = to
 		_damage = damage
+		_bullet = bullet
 	}
 }

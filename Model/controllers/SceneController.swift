@@ -110,6 +110,9 @@ class SceneController : NSObject, SKSceneDelegate, SceneInputDelegate {
 let KEY_DIRECT_TOGGLES: Dictionary<String, SettingName> = [
 	"r" : SettingName.Remove,
 	"g" : SettingName.AddGeometry,
+	"1" : SettingName.Toggle1,
+	"2" : SettingName.Toggle2,
+	"3" : SettingName.Toggle3,
 ]
 let KEY_CODES:Dictionary<String, (NodesModelController) -> () -> ()> = [
 	"t" : NodesModelController.tick,
@@ -121,6 +124,9 @@ class UISetting: NSObject {
 		.AutoTick : SettingEntry.init(name: .AutoTick, set: true, type: .Boolean),
 		.AddGeometry : SettingEntry.init(name: .AddGeometry, set: false, type: .Boolean),
 		.Remove : SettingEntry.init(name: .Remove, set: false, type: .Boolean),
+		.Toggle1 : SettingEntry.init(name: .Toggle1, set: false, type: .Boolean),
+		.Toggle2 : SettingEntry.init(name: .Toggle2, set: false, type: .Boolean),
+		.Toggle3 : SettingEntry.init(name: .Toggle3, set: false, type: .Boolean),
 	]
 	weak var delegate: UISettingDelegate?
 	subscript(_ name: SettingName) -> Any {
@@ -150,6 +156,9 @@ enum SettingName: String {
 	case AutoTick = "Auto Tick"
 	case AddGeometry = "Add Geo"
 	case Remove = "Remove"
+	case Toggle1 = "Toggle1"
+	case Toggle2 = "Toggle2"
+	case Toggle3 = "Toggle3"
 }
 
 class SettingEntry: NSObject {
